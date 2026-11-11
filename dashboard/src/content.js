@@ -4,10 +4,14 @@ const raw = import.meta.glob(['../../**/*.md', '!../../dashboard/**'], { query: 
 const docs = Object.entries(raw).map(([path, text]) => {
   const rel = path.replace(/^\.\.\/\.\.\//, '')
   const parts = rel.split('/')
+  const file = parts[parts.length - 1].replace('.md', '')
+  const parent = parts.length > 1 ? parts[parts.length - 2] : ''
+  // Generic filenames (Notes.md etc.) display as their parent folder's name
+  const generic = ['notes', 'index', 'readme'].includes(file.toLowerCase())
   return {
     path: rel,
     folder: parts[0],
-    name: parts[parts.length - 1].replace(/_/g, ' ').replace('.md', ''),
+    name: (generic && parent ? parent : file).replace(/_/g, ' '),
     text,
   }
 })
