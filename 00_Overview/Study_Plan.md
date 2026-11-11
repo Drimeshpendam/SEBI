@@ -1,7 +1,10 @@
 # 49-Day Plan — Syllabus Complete by Dec 31, 2026
 
-Starts Nov 13, ends Dec 31. ~3 hrs/day. Everything you need is already written
+Starts Nov 13, ends Dec 31. ~3 hrs/day weekdays, **~5–6 hrs on Saturdays and Sundays**
+— weekends carry the heavy load (see below). Everything you need is already written
 in this folder — open the day's Notes.md file, study it, do the drills, done.
+Every ClickUp task card spells out the exact sequence, file paths, and DONE-WHEN
+criteria for that day — the card is the executable version of this plan.
 
 ## Daily non-negotiables (every single day)
 
@@ -12,6 +15,21 @@ in this folder — open the day's Notes.md file, study it, do the drills, done.
 | Paper 1 rotation | 45 min | Mon/Wed/Fri = Quant & Reasoning sets · Tue/Thu = English sets + 20 vocab words · Sat = `Financial_Awareness/SEBI_Markets_Notes.md` read-through — use `Quantitative_Aptitude/Formula_Sheet.md`, `Reasoning/Tricks.md`, `English_Language/Rules_And_Vocab.md`, `General_Awareness/GA_Checklist.md` (first 10 min = rewrite formulas/tricks from memory) |
 | GA drip | 20 min | Banking GA PDF (Adda247/GKToday) + SEBI press releases → log 3–5 bullets to `01_Phase1_Paper1/General_Awareness/Monthly_Logs/<Month_Year>.md` (Nov & Dec pre-created; copy `_TEMPLATE.md` for later months) |
 | Error log | 5 min | Every wrong/guessed Q → `06_Mocks_and_Practice/Error_Log.md` |
+
+## Weekend load (every Saturday & Sunday — non-negotiable)
+
+Saturdays and Sundays are **heavier than weekdays (~5–6 hrs)**, not lighter:
+
+- **Weekly test days land on Saturdays.** Days 7/14/21/28/35/42 are weekly-review
+  tasks but are *scheduled on the following Saturday* (Nov 21, Nov 28, Dec 5,
+  Dec 12, Dec 19, Dec 26). The Thursday they were originally dated is now a
+  buffer/catch-up day for any overflow from the week.
+- Every Sat/Sun adds a **WEEKEND LOAD block** on top of the normal day:
+  one timed sectional (Quant/Reasoning/English rotating), one extra puzzle or
+  RC set, weekly GA recall (15 facts from the week's log), a descriptive piece
+  (essay or precis, alternating), and a redo of the week's error-log entries.
+- Sunday = lighter of the two weekend days only in that its test block is a
+  sectional rather than a full mock — the total hours stay the same.
 
 ## The strict back-revision rule (what makes this plan work)
 
@@ -56,42 +74,42 @@ Reading a subject once = learning it. **Rewriting it weeks later = owning it.** 
 | 4 | §4 ACID, isolation levels, locks, 2PL | |
 | 5 | §5 indexing, ER→tables + 20 GATE DBMS PYQs | |
 | 6 | DBMS topic test (25 Qs) + redo wrongs | |
-| 7 | — | **Weekly**: mini IT mock + Reasoning sectional + Essay #1 + revise week |
+| 7 | — | **Weekly → Sat Nov 21**: mini IT mock + Reasoning sectional + Essay #1 + revise week |
 | 8 | Networks §1: OSI vs TCP/IP (write layers from memory) | |
 | 9 | §2 subnetting — 10 drills until /25–/30 is mental | |
 | 10 | §3 TCP vs UDP + port table memorization | |
 | 11 | §4 routing (RIP/OSPF/BGP) + §5 data link (CSMA, CRC, flow ctrl) | |
 | 12 | §6 devices/firewall/DMZ + 20 GATE CN PYQs | |
 | 13 | Networks topic test (25 Qs) + redo wrongs | |
-| 14 | — | **Weekly**: Paper 1 timed sectional + Precis #1 + revise week |
+| 14 | — | **Weekly → Sat Nov 28**: Paper 1 timed sectional + Precis #1 + revise week (Checkpoint #1: baseline) |
 | 15 | InfoSec §1–2: CIA, symmetric vs asymmetric, DES/AES/RSA/DH | |
 | 16 | §2 hashing, digital signatures, PKI, certificates | |
 | 17 | §3 attacks — write the full list from memory | |
 | 18 | §4 defenses: firewall types, IDS/IPS, VPN, TLS, Kerberos | |
 | 19 | §5 access control, biometrics + 20 PYQs | |
 | 20 | InfoSec topic test (25 Qs) + redo wrongs | |
-| 21 | — | **Weekly**: full Paper 1 timed + Essay #2 + revise week |
+| 21 | — | **Weekly → Sat Dec 5**: full Paper 1 timed + Essay #2 + revise week (Checkpoint #2: +10) |
 | 22 | OS §1–2: process states, threads, IPC, fork() counting | |
 | 23 | §2 scheduling numerics — 5 Gantt-chart problems | |
 | 24 | §3 semaphores, deadlock 4 conditions, Banker's algorithm | |
 | 25 | §4 paging, TLB, virtual memory, address translation | |
 | 26 | NEW: `Data_Analytics_Shell_DW/Notes.md` — Python/pandas, shell, data warehousing (20% of Paper 2!) + OS page-replacement quick redo | |
 | 27 | Combined topic test: OS + Data Analytics/Shell/DW (30 Qs) + redo wrongs | |
-| 28 | — | **Weekly**: Paper 1 sectional + Precis #2 + revise week |
+| 28 | — | **Weekly → Sat Dec 12**: Paper 1 sectional + IT sectional + Precis #2 (Checkpoint #3: 35–45) |
 | 29 | DSA §1–2: complexity + sorting table (write from memory) | |
 | 30 | §3 stack/queue/LL + 5 infix→postfix & evals | |
 | 31 | §4 trees — traversals, BST ops, heap trace, AVL rotations | |
 | 32 | §5 graphs (BFS/DFS/MST/Dijkstra) + hashing + §6 paradigms | |
 | 33 | Programming §1–3: OOP pillars + Java keyword table | |
 | 34 | §2 C pointer/output tracing — 15 programs + topic test | |
-| 35 | — | **Weekly**: FULL mock (both papers) + Essay #3 + revise week |
+| 35 | — | **Weekly → Sat Dec 19**: FULL mock both papers + Essay #3 (Checkpoint #4: +20, all sections above cutoff) |
 | 36 | SE §1: all SDLC models + agile/scrum/xp roles & ceremonies | |
 | 37 | §2 testing: unit→acceptance, black/white box, cyclomatic calc | |
 | 38 | §3 UML/metrics + Emerging §1 cloud (IaaS/PaaS/SaaS, virtualization) | |
 | 39 | Emerging §2 big data (HDFS/MapReduce/Spark) + §3 AI/ML types | |
 | 40 | Emerging §4 blockchain (PoW/PoS, smart contracts) + §5 payments | |
 | 41 | SE + Emerging combined topic test (30 Qs) + redo wrongs | |
-| 42 | — | **Weekly**: FULL Phase-1-simulation mock + Essay #4 + error-log review |
+| 42 | — | **Weekly → Sat Dec 26**: FULL Phase-1 sim + Essay #4 + error-log review (Checkpoint #5: P1 ≥60%, P2 ≥55–60%) |
 | 43 | PYQ set 1 — both papers, timed → log every error | **BLITZ** |
 | 44 | PYQ set 2 + redo ALL error-log entries 14+ days old | |
 | 45 | Deep-patch weakest 3 topics (error log decides) + GA intensive | |
@@ -134,7 +152,7 @@ Rule: **below target twice in a row → the plan bends, not breaks.** Trade the 
 ## Missed-day protocol (strict)
 
 1. **One rule:** a missed day's content folds into the NEXT day's back-revision slot — never carry a full day, never double days.
-2. **Weekly days and mock days NEVER move.** They are the spine — everything else bends around them.
+2. **Weekly mock days NEVER move.** They're pinned to Saturdays — that's why they're on weekends. Everything else bends around them; the Thursday slot is the week's overflow buffer.
 3. Miss 2+ days in a row → drop that week's lowest-weightage IT topic section (OS first, then Emerging), keep everything else.
 4. A missed day is data, not failure — note WHY in the tracker; if the same cause repeats, it's a schedule problem to fix, not a discipline problem.
 
@@ -142,5 +160,5 @@ Rule: **below target twice in a row → the plan bends, not breaks.** Trade the 
 
 - **Back-revision is non-negotiable.** It's the difference between having studied the syllabus and knowing it on exam day.
 - Reading notes is the minimum. If time allows, more questions > more re-reading.
-- Every Sunday (Day 7/14/21/28/35/42): update `Progress_Tracker.md` + record checkpoint scores.
+- Every weekly-test Saturday (the Day 7/14/21/28/35/42 tasks): update `Progress_Tracker.md` + record checkpoint scores.
 - Jan 2027 → exam: 2 mocks/week + GA drip + descriptive weekly + this folder's notes as revision base. That plan gets built on Day 49.
