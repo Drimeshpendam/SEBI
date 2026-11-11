@@ -10,7 +10,7 @@ in this folder — open the day's Notes.md file, study it, do the drills, done.
 | Main IT block | 90 min | The day's topic: read the Notes.md section → do the listed drills/questions |
 | **Back-revision** | **15 min** | **NON-NEGOTIABLE. Rewrite one section/table from memory of LAST WEEK's subject — see the rotation below. No re-reading first; write → then check → mark gaps.** |
 | Paper 1 rotation | 45 min | Mon/Wed/Fri = Quant & Reasoning sets · Tue/Thu = English sets + 20 vocab words · Sat = `Financial_Awareness/SEBI_Markets_Notes.md` read-through — use `Quantitative_Aptitude/Formula_Sheet.md`, `Reasoning/Tricks.md`, `English_Language/Rules_And_Vocab.md`, `General_Awareness/GA_Checklist.md` (first 10 min = rewrite formulas/tricks from memory) |
-| GA drip | 20 min | Banking GA PDF (Adda247/GKToday) → add 3–5 bullets to the Update log in SEBI_Markets_Notes.md |
+| GA drip | 20 min | Banking GA PDF (Adda247/GKToday) + SEBI press releases → log 3–5 bullets to `01_Phase1_Paper1/General_Awareness/Monthly_Logs/<Month_Year>.md` (Nov & Dec pre-created; copy `_TEMPLATE.md` for later months) |
 | Error log | 5 min | Every wrong/guessed Q → `06_Mocks_and_Practice/Error_Log.md` |
 
 ## The strict back-revision rule (what makes this plan work)

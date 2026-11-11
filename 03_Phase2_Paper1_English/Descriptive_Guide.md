@@ -42,3 +42,26 @@ Write one on each of the above during the plan — that's 10 ready frameworks.
 
 ## Typing drill
 - Target 35+ wpm with accuracy. 10-min daily free-typing (any topic) if below that.
+
+## Detailed deduction checklist — score each piece against THIS, not vibes
+
+**Essay (/10) — deduct one point each for:**
+- [ ] No clear thesis in paragraph 1 (examiner should know your stance in 30 sec)
+- [ ] Paragraph without a topic sentence
+- [ ] Any paragraph over 5–6 lines (wall of text)
+- [ ] Generic filler ("in today's fast-paced world") more than once
+- [ ] Spelling/grammar error ×2 (pool them — every 2nd error = −1)
+- [ ] Missing conclusion or conclusion introduces NEW arguments
+- [ ] Outside facts you're not sure of (a wrong fact costs more than no fact)
+- [ ] Over word limit by >10%
+
+**Precis (/10) — deduct one point each for:**
+- [ ] Copied phrase of 4+ words from the passage
+- [ ] Your opinion/example anywhere (precis = compression, not commentary)
+- [ ] Missing title or title >8 words
+- [ ] Beyond 1/3 of original length
+- [ ] Lost the passage's ONE central idea (the #1 killer)
+
+**Scored example:** An essay with clear thesis, 4 clean paragraphs, one grammar slip, 15 words over limit → −1 (length) −1 (grammar pair pending) = **8/10. Log it that way in Progress_Tracker.md.**
+
+**Feedback loop upgrade:** paste your essay into any LLM/chat with "score this SEBI descriptive essay /10 against: thesis clarity, structure, grammar, word limit" — second opinion beats self-grading alone.
