@@ -1,7 +1,8 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { marked } from 'marked'
 import { docTree, getDoc } from './content.js'
 import { days, subjectColors, notesForSubject, backRevision, checkpoints } from './plan.js'
+import { practiceLinks } from './links.js'
 
 marked.setOptions({ gfm: true, breaks: true })
 
@@ -35,6 +36,7 @@ export default function App() {
         <nav>
           <NavItem label="Dashboard" active={view.type === 'home'} onClick={() => setView({ type: 'home' })} />
           <NavItem label="49-Day Plan" active={view.type === 'plan'} onClick={() => setView({ type: 'plan' })} />
+          <NavItem label="Practice Links" active={view.type === 'links'} onClick={() => setView({ type: 'links' })} />
           <div className="nav-divider" />
           {docTree.map((g) => (
             <div key={g.folder} className="nav-group">
@@ -58,6 +60,7 @@ export default function App() {
         <button className="menu-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>☰</button>
         {view.type === 'home' && <Home done={done} go={setView} />}
         {view.type === 'plan' && <Plan done={done} toggleDone={toggleDone} go={setView} />}
+        {view.type === 'links' && <Links />}
         {view.type === 'doc' && <DocView path={view.path} go={setView} />}
       </main>
     </div>
@@ -255,16 +258,46 @@ function Plan({ done, toggleDone, go }) {
   )
 }
 
+function Links() {
+  return (
+    <div className="page">
+      <h1>Practice Links</h1>
+      <p className="muted">Free MCQ banks &amp; SEBI-specific sources for Phase 1 Paper 2 — click any card to open in a new tab. Full details: PYQs → Practice Links doc.</p>
+      {practiceLinks.map((g) => (
+        <div key={g.group}>
+          <div className="week-label" style={{ marginTop: '1.4rem' }}>{g.group}</div>
+          <div className="link-grid">
+            {g.links.map((l) => (
+              <a key={l.url} className="link-card" href={l.url} target="_blank" rel="noopener noreferrer">
+                <div className="link-name">{l.name}</div>
+                {l.note && <div className="link-note">{l.note}</div>}
+                <div className="link-arrow">open ↗</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function DocView({ path, go }) {
   const doc = getDoc(path)
   const html = useMemo(() => (doc ? marked.parse(doc.text) : '<p>Not found.</p>'), [path])
+  const artRef = useRef(null)
 
   useEffect(() => { window.scrollTo(0, 0) }, [path])
+  useEffect(() => {
+    artRef.current?.querySelectorAll('a[href^="http"]').forEach((a) => {
+      a.target = '_blank'
+      a.rel = 'noopener noreferrer'
+    })
+  }, [html])
 
   return (
     <div className="page doc">
       <div className="doc-path">{path}</div>
-      <article dangerouslySetInnerHTML={{ __html: html }} />
+      <article ref={artRef} dangerouslySetInnerHTML={{ __html: html }} />
       <button className="btn" style={{ marginTop: '2rem' }} onClick={() => go({ type: 'plan' })}>← Back to plan</button>
     </div>
   )
