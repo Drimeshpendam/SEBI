@@ -235,6 +235,75 @@ Closer = conclusion words (thus, finally, overall).
 
 ---
 
+# PART 2B — WORKED EXAMPLES (every question type, solved the way you'd solve it in the exam)
+
+## Type 1 — Error Spotting (solve in 25–35 sec each)
+
+**Ex 1.** *"One of my friend (A)/ has gone (B)/ to Delhi (C)/ for a conference. (D)/ No error (E)"*
+→ **(A) — "friends."** Rule 2: one of + PLURAL noun + singular verb. *Trap: "has gone" looks fine, so people hunt B.*
+
+**Ex 2.** *"He as well as his brothers (A)/ were present (B)/ at the meeting. (C)/ No error (D)"*
+→ **(B) — "was present."** Rule 4: tagalong doesn't count — verb follows "He" only.
+
+**Ex 3.** *"I have been (A)/ working here (B)/ since five years. (C)/ No error (D)"*
+→ **(C) — "for five years."** Rule 9: since = point, for = length. Five years is a stretch.
+
+**Ex 4.** *"The teacher asked the students (A)/ that why they (B)/ were late. (C)/ No error (D)"*
+→ **(B) — drop "that."** Indirect questions take no extra conjunction: "asked them why they were late." *SEBI's favourite double-connector trap.*
+
+**Ex 5.** *"Scarcely he had (A)/ reached the station (B)/ when the train left. (C)/ No error (D)"*
+→ **(A) — "Scarcely had he."** Negative openers (scarcely/hardly/no sooner/never) flip subject-verb — inversion, like a question.
+
+## Type 2 — Double Fillers (30–40 sec each)
+
+**Ex 1.** *"The company decided to ____ its workforce after the merger led to ____ losses."*
+(a) expand/minimal (b) **trim/heavy** (c) hire/expected (d) retain/negligible
+→ **(b).** Meaning first: merger + losses → cutting, not growing → kills (a)(c)(d) on direction alone.
+
+**Ex 2.** *"____ the evidence was strong, the court acquitted him as guilt was not proved ____ reasonable doubt."*
+(a) Since/within (b) **Although/beyond** (c) Because/above (d) Unless/in
+→ **(b).** Contrast opener → "although"; "beyond reasonable doubt" is a legal COLLOCATION — the vocab bank just earned a mark.
+
+**Ex 3.** *"The RBI's move is expected to ____ inflation and ____ investor confidence."*
+(a) raise/dent (b) fuel/erode (c) **curb/boost** (d) worsen/raise
+→ **(c).** Both verbs are collocation pairs from the bank (curb inflation, boost confidence). (a) and (d) make one blank right each — the classic one-perfect-one-iffy trap.
+
+**Ex 4.** *"He is so ____ that even his closest friends ____ him."*
+(a) generous/admire (b) **arrogant/avoid** (c) kind/respect (d) humble/praise
+→ **(b).** "so…that even" sets a negative extreme — only (b) has both blanks going the same negative direction.
+
+## Type 3 — Sentence Improvement (25–35 sec each)
+
+**Ex 1.** *"He denied <u>to help</u> me."* → (a) for helping (b) **helping** (c) to be helping (d) no improvement
+→ **(b) "denied helping."** Deny takes the -ing form; refuse takes "to". Know which verb owns which costume.
+
+**Ex 2.** *"I am living in Mumbai <u>since</u> 2019."* → (a) from (b) **have been living** (c) lived (d) no improvement
+→ The swap must fix the VERB too, not just the preposition → **(b) "I have been living in Mumbai since 2019."** *Trap: changing only "since→for" is still wrong — the tense is the real error.*
+
+**Ex 3.** *"No sooner did the bell ring than the students rushed out."* → (a) when (b) then (c) before (d) **no improvement**
+→ **(d).** Already correct — "no sooner…than" is the legal pair. "No improvement" is right ~1 in 5 — checking it saves you from forcing fake fixes.
+
+## Type 4 — Para Jumbles (one full walkthrough)
+
+*"Arrange: (A) Such trust is what keeps money flowing into markets. (B) SEBI was set up in 1988 to protect investors' interests. (C) Since then, its role has expanded to cover intermediaries and new products. (D) Without such oversight, investors would hesitate to part with their savings. (E) It received statutory powers in 1992."*
+
+**Solve with OPC:**
+- **O:** Only B introduces SEBI by name — E's "It", C's "its", D's "such oversight", A's "Such trust" all need something before → **B first**.
+- **P:** B(1988) → E("It" = SEBI, and 1992 continues the date chain) → C("Since then" = since 1992) → D("such oversight" = C's expanded role) → A("Such trust" = the confidence D's investors gain).
+- **C:** B→E→C→D→A reads clean — intro, legal status, growth, why it matters, payoff.
+→ **Order: B-E-C-D-A.** *The marks are in the links (It→SEBI, Since then→1992, such oversight→expanded role, Such trust→confidence) — never order by "feel".*
+
+## Type 5 — RC (mini-passage + the 4 question species)
+
+*"Algorithmic trading now executes most orders on Indian exchanges in microseconds. It has narrowed spreads and deepened liquidity. Yet regulators worry the same speed can amplify crashes when machines sell simultaneously. SEBI's response has been measured — kill-switch norms and circuit filters rather than outright bans."*
+
+1. **Vocab-in-context:** "amplify" here means → **magnify/intensify** (not "cause" — the crash exists, algo makes it bigger). *Slot each option into the sentence and keep the one that survives.*
+2. **Tone:** → **analytical/cautionary** — lists benefits AND concerns, ends with a balanced regulator. (SEBI passages are almost always this tone, never "hysterical".)
+3. **Inference:** → **SEBI prefers safeguards over prohibition** — one step beyond "measured response", not two. ("SEBI wants to ban algos" = two steps too far.)
+4. **Detail kill-option:** *"Algo trading has been banned in India"* → false — passage says the opposite. *Options that flip or exceed the text are the trap design.*
+
+---
+
 # PART 3 — VOCAB BANK (fillers + RC vocab questions live here)
 
 ## Collocations examiners love (English pairs words certain ways — this IS what fillers test)

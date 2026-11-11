@@ -113,11 +113,11 @@ Word questions: "EXAMINE alphabetically" → E A E I M N X → answer position Q
 Judge CAN the data solve it — don't solve it. Test stmt-1 alone → stmt-2 alone → combined. SEBI trap: each statement gives partial seating — only combined resolves. You're grading sufficiency, not finding the answer.
 
 ## Rotation topics (0 Qs lately — keep alive at low cost, they return unannounced)
-- **Syllogism:** draw minimum circles — All A⊂B · Some A∩B · No A (separate). A conclusion holds only if true in EVERY valid drawing. Complementary pair ("All X are Y" vs "Some X are not Y") → either-or answer when neither alone holds.
-- **Inequality:** chain `>` `≥` `=` — a conclusion follows only if symbols link end-to-end pointing the same way.
-- **Coding:** shifts (+2/−3), reverse, position swap; word-codes = find shared word ↔ shared code.
-- **Direction:** draw N-up; turns are relative to CURRENT facing; final displacement by net movement.
-- **Input-output:** identify the step-rule (sort by length? alternate?) then apply mechanically.
+- **Syllogism:** draw minimum circles — All A⊂B · Some A∩B · No A (separate). A conclusion holds only if true in EVERY valid drawing. **Patterns asked:** definite (all/some/no) · possibility ("is a possibility" — passes if ANY drawing allows it) · either-or complementary pairs. See Ex 6, 15, 16.
+- **Inequality:** chain `>` `≥` `=` — a conclusion follows only if symbols link end-to-end pointing the same way. **Patterns asked:** direct-chain compare · coded symbols (@,#,$ decode first — Ex 17).
+- **Coding:** shifts (+2/−3), reverse, position swap; word-codes = find shared word ↔ shared code (Ex 18).
+- **Direction:** draw N-up; turns are relative to CURRENT facing; final displacement by net movement. **Patterns asked:** net displacement (Ex 10) · shortest-path (√) · shadow/facing tricks.
+- **Input-output:** identify the step-rule (sort by length? alternate?) then apply mechanically (Ex 19).
 
 ---
 
@@ -169,3 +169,35 @@ Judge CAN the data solve it — don't solve it. Test stmt-1 alone → stmt-2 alo
 
 **Ex 11 — alphanumeric series.** "Find next: Z1A, Y2B, X3C, ?"
 **Solve:** letters step back Z→Y→X→**W**; digits step up 1→2→3→**4**; trailing letters step forward A→B→C→**D** → **W4D.** Split into parallel sub-series — never try to see one rule across the whole string.
+
+**Ex 12 — month + variable puzzle (full table solve, two live cases).** "Five people P,Q,R,S,T have birthdays in Jan–May, one per month. P is in March. Exactly one month lies between P and Q. R is immediately before T. S is not in January."
+**Solve:** P→Mar. "One month between" → |diff| = 2 → Q ∈ {Jan, May} → **two cases:**
+- **Case A (Q=Jan):** R,T need an adjacent pair in remaining {Feb,Apr,May} → R=Apr, T=May → S=Feb ✓
+- **Case B (Q=May):** remaining {Jan,Feb,Apr} → R=Jan, T=Feb → S=Apr ✓
+Both valid — so answer only what's fixed in BOTH: *"Who was born in April?"* → S in both → **S**. *"Who in Feb?"* → S (A) vs T (B) → can't determine.
+**Rules:** "one month between" = difference of 2, not 1 · branch cases side by side · only answer what's identical across all surviving cases.
+
+**Ex 13 — box stack.** "5 boxes A–E stacked 1(bottom)–5(top). A is immediately above B. C is at the bottom. D is somewhere above E."
+**Solve:** pos1=C. Block `BA` (B under A) is movable → sits at {2,3},{3,4} or {4,5}. "D above E" = order only. Try block at {2,3}: B2,A3 → remaining pos 4,5 → E4,D5 fits (D above E ✓). **Stack: C,B,A,E,D.** If a second valid arrangement existed, the question would ask only fixed cells — same rule as Ex 12.
+**Rule:** glued block `BA` first, "somewhere above" is order-only — test the block's positions against remaining slots.
+
+**Ex 14 — two-case branching (the discipline that saves sets).** "4 people in a row. X is left of Y. Z is at an end."
+**Solve:** two live cases — Z at pos1 (X,Y fill 2–4 keeping X left of Y) or Z at pos4. **Draw both skeletons side by side; don't pick.** Next clue "Z is left of X" kills pos4 case → Z1, then X2/3, Y after. *Rule: never guess a case — branch it and let a clue kill the loser.*
+
+**Ex 15 — syllogism: possibility conclusion.** "All pens are books. Some books are desks. Conclusion: Some pens being desks is a possibility."
+**Solve:** the definite conclusion failed (Ex 6) — but could desks' overlap with books TOUCH the pens circle? Yes, a valid drawing exists where they overlap → **possibility follows.** *Rule: "possibility" conclusions pass if ANY valid drawing allows them — almost everything not explicitly impossible is possible.*
+
+**Ex 16 — syllogism: either-or (complementary pair).** "All cats are dogs. No dog is a fish. Conclusions: (1) Some cats are fish (2) No cat is a fish."
+**Solve:** cats ⊂ dogs, fish separate from dogs → cats can't touch fish → (1) false, (2) TRUE → simple "only 2 follows." *The either-or variant:* "Some cats are fish" vs "Some cats are not fish" when NEITHER is definite — the pair is complementary (exactly one must hold) → answer "either 1 or 2." *Rule: complementary pairs = 'All X are Y' vs 'Some X are not Y', or 'Some X are Y' vs 'No X is Y' — if neither alone follows, either-or is the answer.*
+
+**Ex 17 — coded inequality.** "A @ B means A > B · A # B means A ≥ B · A $ B means A = B · A & B means A < B. Given P @ Q, Q # R, R $ S → compare P and S."
+**Solve:** decode the chain → P > Q ≥ R = S → **P > S**, definite. *Rule: translate codes into one plain chain FIRST — never compare inside the symbols.*
+
+**Ex 18 — word-coding decode.** "In a code, 'market rises today' = 'pa qa ra', 'today market falls' = 'qa sa pa'. Code for 'market'?"
+**Solve:** both sentences share 'market today' → shared codes {pa, qa}. 'today' appears in both → but which code? First has unique word 'rises'↔ unique code 'ra'; second unique 'falls'↔'sa'. So {pa,qa} = {market,today} — can't fully separate with two lines; a third sentence would. If options force one, test each. *Rule: shared word ↔ shared code; unique word ↔ unique code.*
+
+**Ex 19 — input-output.** "Input: 84 cat 23 dog 51 ant  Step I: 84 cat 51 dog 23 ant (sorted descending by number within pairs)."
+**Solve:** identify the rule from Step I→II (usually ascending/descending sort, or alternate word/number shifts), then apply mechanically to each next step. *Rule: don't predict all steps — find the ONE transformation and repeat.*
+
+**Ex 20 — uncertain number of persons.** "Some people in a row. 3 sit between A and B; 2 between B and C; C sits at an end."
+**Solve:** derive the range — A,B need ≥5 people; C at end + 2 between B,C pins C and B → count resolves to 6–8 depending on A's side. If it stays ambiguous after 2 clues → **take only the certain answers, skip the rest — this type is a deliberate time-sink.**
