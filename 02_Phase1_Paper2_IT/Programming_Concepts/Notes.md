@@ -6,13 +6,15 @@
 >
 > **30% of the paper = ~15 of 50 questions. This file is your single highest-ROI study material in Paper 2.**
 
+**How to read:** programming questions are dry-runs — you're asked what code prints. You learn that by tracing variables line-by-line, never by guessing. Every concept below: the plain-English idea → a code example you can trace → the exam trap.
+
 ---
 
 ## 1. Program Control: loops, recursion, functions
 
 ### Loops — the dry-run skill (SEBI's #1 format)
-A dry-run question gives you code and asks the output. Method:
-1. Trace variables in a table — one column per variable, one row per iteration.
+A dry-run question hands you code and asks the output. The winning method is boring and foolproof:
+1. **Trace variables in a table** — one column per variable, one row per iteration. Never hold values in your head.
 2. Watch **loop boundaries**: `i < n` runs n times (0..n−1); `i <= n` runs n+1.
 3. Watch **post/pre increment**: `i++` uses-then-adds; `++i` adds-then-uses.
 
@@ -24,77 +26,83 @@ for (int i = 1; i <= 5; i++) s += i;
 ```
 
 ### Recursion — always trace with a call-stack drawing
-- Every recursion needs: **base case** (stops) + **recursive case** (smaller input).
-- Missing base case → stack overflow (infinite recursion).
-- Trace: write each call on a stack, resolve top-down on return.
+**Plain words:** recursion = a function calling itself with a smaller input until it hits a **base case** that stops it. Like standing between two mirrors — each image smaller, and without a smallest one it goes forever (stack overflow).
 
-**Worked (classic SEBI style):**
+- Every recursion needs: **base case** (stops) + **recursive case** (smaller input).
+- **Trace method:** stack each call as a frame, resolve on the way back up.
+
 ```c
 int f(int n) { return n <= 1 ? 1 : n * f(n-1); }
-// f(4): 4*f(3) → 4*3*f(2) → 4*3*2*f(1)=1 → returns 24 (factorial)
+// f(4): 4×f(3) → 4×3×f(2) → 4×3×2×f(1)=1 → unwinds to 24 (factorial)
 ```
-- Tail recursion: recursive call is the LAST statement → compilers can optimize to a loop.
-- Fibonacci naive recursion = O(2ⁿ) — a favorite complexity MCQ.
+- Tail recursion: the recursive call is the LAST thing the function does → compilers can flatten it to a loop.
+- Naive recursive Fibonacci = O(2ⁿ) — every call spawns two more (a favourite complexity MCQ).
 - **Real SEBI-style MCQ:** "Recursion uses which data structure internally?" → **Stack** (the call stack — memorise this one-liner).
 
 ### Functions
-- `return` exits immediately — code after it in the branch never runs.
-- C: no function overloading. C++/Java: overloading allowed (same name, different params — resolved at COMPILE time = static polymorphism).
+- `return` exits immediately — code after it never runs.
+- C has **no function overloading**. C++/Java do (same name, different parameters — resolved at COMPILE time = static polymorphism).
 
 ---
 
 ## 2. Scope, Binding, Parameter Passing (directly in the syllabus — expect 3–4 Qs)
 
 ### Scope of variables
-- **Local:** alive inside its block/function only. **Global:** whole file, visible everywhere (dangerous name-shadowing).
-- **Static local (C):** initialized ONCE, keeps value between calls — SEBI's favorite trick.
-```c
-int next_even(void) {
-    static int n = 0;   // runs once only
-    n += 2; return n;
-}
-// call 1 → 2, call 2 → 4, call 3 → 6   ← real recalled SEBI question pattern
-```
-- **Shadowing:** inner-scope variable hides outer one with same name.
-- **Block scope (Java/C++):** variable dies at its closing `}`.
+**Plain words:** scope = where a variable is *alive*. Local variables die when their function ends; globals live for the whole file.
 
-### Binding
-- **Static (early) binding:** decided at compile time — overloaded functions, `static`/`private`/`final` methods in Java, non-virtual functions in C++.
-- **Dynamic (late) binding:** decided at runtime — virtual functions (C++), overridden instance methods (Java).
+- **Local:** exists inside its block/function only. **Global:** visible everywhere (and therefore dangerous — anyone can touch it).
+- **Static local (C)** — the hybrid that SEBI loves: declared inside a function but initialized ONCE and keeps its value between calls:
+  ```c
+  int next_even(void) {
+      static int n = 0;   // runs ONCE only — not reset per call
+      n += 2; return n;
+  }
+  // call 1 → 2, call 2 → 4, call 3 → 6   ← real recalled SEBI pattern
+  ```
+- **Shadowing:** an inner variable with the same name hides the outer one inside its scope.
+- **Block scope (Java/C++):** the variable dies at its closing `}`.
+
+### Binding — when the "which function runs?" decision is made
+- **Static (early) binding:** decided at COMPILE time — overloaded functions, `static`/`private`/`final` methods in Java, non-virtual functions in C++.
+- **Dynamic (late) binding:** decided at RUNTIME by the actual object — virtual functions (C++), overridden instance methods (Java).
 - **REMEMBER:** *"Compile-time binding = overload, runtime binding = override."*
 
 ### Parameter passing — the #1 dry-run trap
-- **Pass by value (C, Java primitives):** callee gets a COPY — original never changes.
-- **Pass by reference (C++ `&`, C pointers):** callee modifies the ORIGINAL.
-- **Java is ALWAYS pass-by-value** — but for objects, the *reference* is copied: you can modify the object's fields but can't reseat the caller's reference. Classic exam trap.
+
+**Plain words — the photocopy vs the house key:**
+- **Pass by value** (C default, Java always): the function gets a PHOTOCOPY of your variable. Whatever it scribbles on the copy never touches the original.
+- **Pass by reference** (C++ `&`, C pointers): you hand over the actual memory address — the house key. The function writes into YOUR variable.
+
+- **Java is ALWAYS pass-by-value** — the subtlety: for objects, the *reference* is what's copied. So a function can modify the object's fields (it has a copy of the key — same house!) but can't reseat which object the caller's variable points to. Classic exam trap.
 
 **Real recalled SEBI question (Phase-1 style):**
 ```c
 void update(int a, int *b) { int t = a; a = *b; *b = t; }
 int main() { int x = 3, y = 7; update(x, &y); printf("%d %d", x, y); }
-// x passed by VALUE → stays 3.  b points to y → *b = 3 sets y = 3.
+// x passed by VALUE → the copy swaps, x stays 3.
+// b holds y's ADDRESS → *b = 3 writes into y itself.
 // Output: 3 3
 ```
-WHY: swapping needs the address; value-params only swap copies.
+WHY: swapping needs the address; value-params only swap photocopies.
 
 ---
 
 ## 3. C Output-Tracing — the drills that win 30%
 
 **Pointer facts (memorise):**
-- `*p` dereferences; `&x` takes address; `int *p = &x`.
-- `p++` on an `int*` moves by `sizeof(int)` (usually 4) — pointer arithmetic is in ELEMENTS not bytes.
-- Array name ≈ pointer to first element; `a[i]` ≡ `*(a+i)` — so `i[a]` also compiles (exam trick!).
-- 1D arrays are stored **contiguously** (real recalled Q).
-- `a[3][4]` — third element of first row = `a[0][2]` (real recalled Q — indexing starts at 0).
+- A pointer = a variable that stores a memory ADDRESS. `int *p = &x` (p holds x's address); `*p` dereferences — "go to that address" — so `*p = 20` writes INTO x.
+- `p++` on an `int*` advances by `sizeof(int)` (usually 4 bytes) — pointer arithmetic counts in ELEMENTS, not bytes.
+- An array name ≈ a pointer to its first element; `a[i]` ≡ `*(a+i)` — which is why `i[a]` also compiles (exam trick!).
+- 1D arrays are stored **contiguously** — every element shoulder-to-shoulder (real recalled Q).
+- `a[3][4]` — third element of first row = `a[0][2]` (real Q — indexes start at 0).
 
 **String functions table (recalled directly):**
 | Function | Lang | Returns |
 |---|---|---|
-| `strlen(s)` | C | length (no null) |
+| `strlen(s)` | C | length (excludes '\0') |
 | `strchr(s,c)` | C | first occurrence of char |
 | `strcpy/strncpy` | C | copy string |
-| `strcmp` | C | 0 if equal, <0/>,0 else |
+| `strcmp` | C | 0 if equal, <0/>0 else |
 | `substr(pos,len)` | C++ | substring |
 | `length()` / `size()` | C++ | string length |
 | `indexOf()` | Java | index of substring |
@@ -102,72 +110,78 @@ WHY: swapping needs the address; value-params only swap copies.
 | `substring(a,b)` | Java | chars a..b−1 (b EXCLUSIVE — trap) |
 
 **Common C dry-run traps:**
-- `printf` returns number of chars printed — `printf("%d", printf("hi"))` prints `hi2`.
-- `=` vs `==` inside `if` — `if(x=5)` assigns and is always true.
-- `sizeof` is compile-time; `sizeof('a')` in C = 4 (char literal is int), in C++ = 1.
-- Integer division: `7/2 = 3` (truncates); `7.0/2 = 3.5`.
-- `static` inside function persists (above); `register` suggests CPU storage.
+- `printf` RETURNS the number of chars printed — `printf("%d", printf("hi"))` prints `hi2`.
+- `=` vs `==` inside `if` — `if(x=5)` ASSIGNS 5 (truthy) → always true.
+- `sizeof` is compile-time; `sizeof('a')` = 4 in C (char literals are ints) but 1 in C++.
+- Integer division truncates: `7/2 = 3`, `7.0/2 = 3.5`.
+- `register` suggests CPU-register storage (hint only, can't take its address).
 
 ---
 
 ## 4. OOP — The Four Pillars (2/3 of Phase-2 questions touch these)
 
-| Pillar | Plain meaning | Keyword/mechanism | SEBI trap |
+**Plain words — the analogies that make the names stick:**
+- **Encapsulation** = a capsule — data + the methods that touch it sealed together inside one class, outsiders go through the controlled interface (private fields + getters/setters).
+- **Abstraction** = a car's steering wheel — you know WHAT turning it does, you don't see HOW the steering rack works (abstract classes & interfaces show the "what", hide the "how").
+- **Inheritance** = family — a child class inherits the parent's members and adds its own (`extends` in Java, `:` in C++).
+- **Polymorphism** = same name, different behaviour — "drive()" means something different on a Car vs a Plane. Compile-time = overloading; runtime = overriding.
+
+| Pillar | Plain meaning | Mechanism | SEBI trap |
 |---|---|---|---|
-| **Encapsulation** | bundle data + the methods operating on it | private fields + getters/setters | real Q: "Encapsulation = binding data and methods together" |
+| **Encapsulation** | bundle data + methods | private + getters/setters | real Q: "Encapsulation = binding data and methods together" |
 | **Abstraction** | show WHAT, hide HOW | abstract class, interface | abstract class can't be instantiated |
-| **Inheritance** | child reuses parent's members | `extends` (Java), `:` (C++) | Java: NO multiple class inheritance — only via interfaces (real Q) |
+| **Inheritance** | child reuses parent | `extends` / `:` | Java: NO multiple CLASS inheritance — only via interfaces (real Q) |
 | **Polymorphism** | same name, different behavior | overload (compile) / override (runtime) | virtual functions = runtime polymorphism (real Q) |
 
 ### Inheritance types (real Q: hierarchical = one base → many derived)
-- Single: A→B · Multilevel: A→B→C · Hierarchical: A→{B,C} · Multiple (C++ only): {A,B}→C · Hybrid: mix.
-- Java forbids multiple CLASS inheritance (diamond ambiguity) — interfaces solve it.
-- Java 8 `default` keyword → interfaces CAN have concrete methods (real recalled Q — memorise).
-- Constructor call order: **parent constructor runs FIRST, then child** — top-down chain.
-- Destructor order (C++): child first, then parent — reverse.
+- Single: A→B · Multilevel: A→B→C · **Hierarchical: A→{B,C}** (one parent, many children — the asked one) · Multiple {A,B}→C (C++ only — Java forbids it because of diamond ambiguity) · Hybrid: a mix.
+- Java 8's `default` keyword → interfaces CAN carry concrete methods (real recalled Q — memorise).
+- **Constructor order: parent runs FIRST, then child** (the child ctor's hidden first line is `super()`). Destructor order in C++ = child first, then parent — the reverse.
 
 ### Overriding vs overloading vs hiding (the dry-run goldmine)
-- **Overload:** same name, different SIGNATURE, same class → compile-time.
-- **Override:** same signature, parent↔child, instance method → runtime (Java dynamic dispatch via vtable).
-- **Hiding:** `static` method in both — called via BASE reference → **base's version runs** (statics are NOT overridden). **Real recalled SEBI Q.**
-- Fields (variables) are also hidden, not overridden — `base.name` gives base's field even when object is child. Real Q pattern:
+
+**The story:** `Parent p = new Child()` creates a Child object but references it through a Parent variable. What runs depends on WHAT you're calling:
+
+- **Overload:** same name, different SIGNATURE, resolved at COMPILE time — like two different functions sharing a name.
+- **Override:** same signature in parent & child, INSTANCE method → at runtime the OBJECT's version wins — the Child's `show()` runs. This is dynamic dispatch (Java/C++ vtable).
+- **Hiding:** a `static` method or a FIELD in both classes → follows the REFERENCE type (the left side) — **the parent's version runs** (real recalled SEBI Q — statics aren't overridden, they're hidden).
 ```java
 Base b = new Child();
-b.name  → "base"      // field: reference type wins
-b.who() → "Child.who" // method: object type wins (overridden)
+b.name  → "base"      // field: reference type (left) wins
+b.who() → "Child.who" // instance method: object type (right) wins
 Base.tag() → "Base.tag" // static: always compile-time class
 ```
 REMEMBER: *"Methods follow the OBJECT, fields & statics follow the REFERENCE."*
 
 ### C++ specifics
-- `virtual` → enables runtime dispatch (vtable). **Real Q: virtual function = runtime polymorphism.**
-- **Pure virtual:** `virtual void f() = 0;` → makes class **abstract** — can't instantiate; derived MUST override (real Q).
-- Friend function: non-member accessing privates — breaks encapsulation (viva/MCQ fact).
-- `this` pointer; `new`/`delete` vs `malloc`/`free` (new calls constructor — MCQ fact).
+- `virtual` = opt-in for runtime dispatch (the vtable). **Real Q: virtual function = runtime polymorphism.**
+- **Pure virtual** `virtual void f() = 0;` → makes the class **abstract** — can't instantiate, derived classes MUST override it (real Q).
+- Friend function: a non-member allowed into the private section — breaks encapsulation (MCQ fact).
+- `this` = pointer to the calling object; `new`/`delete` vs `malloc`/`free` — `new` calls the constructor too (MCQ fact).
 
 ### Java specifics
-- **Anonymous inner class** = unnamed one-time implementation of interface/subclass (real Q).
-- `final` on class → can't extend; on method → can't override; on variable → constant.
-- Abstract class vs interface: abstract can have state+ctors, interface is pure contract (pre-Java8 all methods abstract; Java8+ `default`/`static`; Java9+ `private`).
-- `super()` calls parent ctor (must be first line); `super.x` accesses parent member.
-- String is IMMUTABLE in Java — every concat creates new object (use StringBuilder for loops).
+- **Anonymous inner class** = an unnamed one-off implementation written inline (real Q — "implement it once, throw it away").
+- `final` = "stop": on a class → can't extend; on a method → can't override; on a variable → constant.
+- Abstract class vs interface: abstract can hold state + constructors; interface is a pure contract (pre-Java8 all-abstract; Java8+ `default`/`static`; Java9+ `private` methods allowed).
+- `super()` calls the parent ctor (must be the first line); `super.x` reaches the parent's member.
+- **String is IMMUTABLE** — every concat creates a NEW object; without assignment the change evaporates (use `StringBuilder` in loops).
 - `LinkedList` implements `Queue` (real recalled Q).
-- **Exception handling:** `try-catch-finally` — finally ALWAYS runs (except System.exit). Checked exceptions (IOException) must be declared/caught; unchecked (NullPointer, ArithmeticException /0) are runtime. `throw` raises, `throws` declares. Multiple catch = specific BEFORE general (unreachable code error otherwise — classic MCQ).
+- **Exceptions:** `try-catch-finally` — finally ALWAYS runs (except System.exit). Checked (IOException) must be caught/declared; unchecked (NullPointer, `/0`) are runtime. `throw` raises an exception; `throws` declares it. Multiple catches: specific BEFORE general — a parent-class catch above a child catch makes the child catch **unreachable** (compile error — classic MCQ).
 
 ### Python OOP (for DA + mains)
-- Constructor = `__init__()` (real Q). Child overrides parent method → child version called (real Q). `self` is explicit first param. Slicing `s[1:4]` excludes index 4 (real Q).
+- Constructor = `__init__()` (real Q — double underscores). Child overrides parent method → child's version runs (real Q). `self` = explicit first parameter.
 
 ### Functional & logic programming (syllabus line — 1 Q possible)
-- Functional programming: pure functions, no side effects, first-class functions, immutability (Haskell/Lisp; Java lambdas, Python `map/filter/lambda`).
-- Logic programming: facts + rules + queries — Prolog. Resolution/unification. One-line facts are enough.
+- **Functional:** pure functions (same input → same output, no side effects), functions as values, immutability — Haskell/Lisp style; Java lambdas, Python `map/filter/lambda` are the flavour in your languages.
+- **Logic:** declare facts + rules, ask queries — Prolog; resolution & unification are the mechanism words. Name-level is enough.
 
 ---
 
 ## 5. Exception Handling — quick rules
-- try→catch→finally; `finally` runs regardless (classic "what prints" trap: catch returns, finally still runs).
-- Java: `throw` (raise one exception object) vs `throws` (declare in signature).
-- C++: `try/catch(...)` ellipsis catches all; `throw` any type.
-- Order catches child→parent, else compile error.
+- try→catch→finally; `finally` runs no matter what (the classic trap: even when catch returns, finally still executes).
+- Java: `throw` (raise one exception object) vs `throws` (declare it in the signature).
+- C++: `catch(...)` — the ellipsis catches anything; `throw` can throw any type.
+- Catch order: child→parent — reverse it and the child catch is unreachable code → compile error.
 
 ---
 
@@ -199,7 +213,7 @@ REMEMBER: *"Methods follow the OBJECT, fields & statics follow the REFERENCE."*
 5. **Pick-correct-syntax** (pure virtual decl, default method, __init__).
 
 ## Drills
-- Hand-trace 15 C pointer/static programs + 10 Java override programs per week (Testbook chapter tests — Programming).
+- Hand-trace 15 C pointer/static programs + 10 Java override programs per week (Testbook chapter tests — Programming; Sanfoundry C/Java/Python tests for overflow — see Practice Links).
 - Write the 4 pillars + real-Q table from memory every Programming day.
 - GATE CS C-programming PYQs (GateOverflow) — same depth.
 
