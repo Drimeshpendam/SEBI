@@ -4,9 +4,16 @@
 >
 > **How SEBI tests it:** name-the-attack MCQs, CIA-triad scenario matching, crypto type (symmetric/asymmetric/hash), authentication factors, security definitions. Mostly recall + scenario matching — high marks-per-hour.
 
+**How to read:** security is a vocabulary-heavy topic — the trick is that every attack/defense is just a story. Each entry below gives the story, then the one-line exam rule. When two things look alike (virus/worm/trojan, SQLi/XSS/CSRF), the "who gets hurt" question separates them.
+
 ---
 
 ## 1. CIA Triad — the foundation everything hangs on
+
+**Plain words:** security has exactly three goals. Picture your bank account:
+- **Confidentiality** — only YOU can see your balance (a hacker reading it = C broken)
+- **Integrity** — the balance is CORRECT (someone editing ₹500→₹50,000 = I broken)
+- **Availability** — the ATM actually works when you need it (DDoS knocking the bank offline = A broken)
 
 | | Means | Broken by | Protected by |
 |---|---|---|---|
@@ -15,116 +22,132 @@
 | **A**vailability | service is up when needed | DDoS, ransomware, hardware failure | redundancy, backups, anti-DDoS |
 
 - **Scenario MCQ method:** ask "what got hurt?" — stolen data = C, altered data = I, service down = A. Real exam phrasing: "attacker floods the server so users can't access" → **Availability**.
-- Extended triad sometimes adds **Authenticity + Non-repudiation** (know the terms — non-repudiation = can't deny you did it → digital signatures give this).
+- The extended triad adds **Authenticity + Non-repudiation** (non-repudiation = you can't later deny doing it → digital signatures provide it).
 
 ---
 
 ## 2. Cyber Attacks — name every one (the highest-yield block)
 
+**How to learn this list:** don't memorise 30 definitions — learn the *axes* they differ on: how it spreads (virus needs a host file, worm doesn't), what it pretends to be (trojan = fake legit app), what channel it uses (email vs SMS vs voice), who's the target (everyone vs one person vs the CEO), and who it attacks (the DB vs users vs your session).
+
 ### The must-know attack list
-| Attack | One-line definition | Key sign |
+
+| Attack | The story | Key sign |
 |---|---|---|
-| **Phishing** | fake emails/sites stealing credentials | look-alike login page |
-| **Spear phishing** | phishing TARGETED at a specific person/org | personalized bait |
-| **Whaling** | spear phishing aimed at CEOs/exec | big fish only |
-| **Vishing/Smishing** | phishing via voice/SMS | phone/SMS channel |
-| **Malware** | umbrella term for malicious software | — |
-| **Virus** | attaches to a host file, needs human action to spread | file-infecting |
-| **Worm** | self-replicates across network, NO host needed, no human action | spreads on its own |
-| **Trojan** | disguised as legit software, doesn't self-replicate | fake helpful app |
-| **Ransomware** | encrypts your files, demands payment | WannaCry is the famous example |
-| **Spyware** | secretly monitors/steals user activity | keyloggers inside |
-| **Adware** | unwanted ads, often bundled | pop-up floods |
-| **Rootkit** | hides deep (kernel/boot), gives persistent admin access | invisible to AV |
-| **Botnet/Zombie** | army of infected machines controlled remotely | used to launch DDoS |
-| **DoS / DDoS** | flood target to deny service; DDoS uses botnet | availability attack |
-| **MITM** | attacker secretly relays/alters messages between two parties | fake Wi-Fi hotspot |
-| **SQL Injection** | malicious SQL via input fields (`' OR 1=1 --`) | login bypass |
-| **XSS** | injects malicious scripts into web pages others view | stolen cookies/sessions |
-| **CSRF** | tricks a logged-in user's browser into unwanted actions | forged request |
-| **Zero-day** | exploit of a vulnerability before any patch exists | no defense yet |
-| **Brute force** | tries every password combo | slow, sure |
-| **Dictionary attack** | tries common words/list | faster than brute |
-| **Password spraying** | one common password against MANY accounts (evades lockouts) | few tries per account |
-| **Social engineering** | hacking the HUMAN (pretexting, baiting, tailgating) | weakest link = people |
-| **Shoulder surfing** | watching your screen/keyboard | physical |
-| **Watering hole** | infect a site your targets visit | group-specific |
-| **Cryptojacking** | secretly uses your CPU to mine crypto | device slows, hot |
-| **APT** | advanced persistent threat — long stealthy nation-grade campaign | months inside |
-| **Spoofing** | faking identity (IP spoof, email spoof, ARP spoof) | forged source |
-| **ARP poisoning** | fake ARP replies → reroute LAN traffic (enables MITM) | gateway MAC hijack |
-| **DNS poisoning** | corrupt DNS cache → send users to fake sites | wrong IP served |
-| **Session hijacking** | steal session token/cookie → become you | bypasses login |
+| **Phishing** | mass fake emails/sites stealing credentials — "verify your SBI password" | look-alike login page |
+| **Spear phishing** | same trick but crafted for ONE target — uses your real name/role | personalized bait |
+| **Whaling** | spear phishing aimed at the CEO/CFO — the "big fish" | executive target |
+| **Vishing/Smishing** | phishing via voice call / SMS | phone channel |
+| **Virus** | malicious code that RIDES a host file — needs you to run it to spread | file-infecting, needs human |
+| **Worm** | self-replicates across the network ALONE — no host file, no human | spreads by itself |
+| **Trojan** | pretends to be legit software (a "free PDF tool") but carries a payload; doesn't self-replicate | disguise |
+| **Ransomware** | encrypts your files, demands payment — WannaCry is the famous one | locked files + ransom note |
+| **Spyware** | silently watches — keyloggers steal every keystroke | invisible monitoring |
+| **Adware** | floods you with ads, usually bundled with free apps | pop-ups |
+| **Rootkit** | hides deep in the OS (kernel/boot) for persistent admin access | invisible even to antivirus |
+| **Botnet/Zombie** | an army of infected machines remotely controlled — the workforce behind DDoS | thousands of devices acting together |
+| **DoS / DDoS** | flood a target until real users can't get in; DDoS uses a botnet so blocking one source fails | pure availability attack |
+| **MITM** | attacker secretly sits BETWEEN two parties relaying (and editing) messages — the postman who opens your letters | rogue Wi-Fi hotspot, ARP poison |
+| **SQL Injection** | typing SQL into an input field — `' OR 1=1 --` makes a login check always-true | attacks the DATABASE |
+| **XSS** | injecting a malicious script into a page OTHER USERS view — it runs in their browser, steals cookies | attacks USERS via the site |
+| **CSRF** | your logged-in browser gets tricked into firing a request you never meant (a hidden "transfer money" link on another site) | abuses YOUR logged-in session |
+| **Zero-day** | exploit of a bug nobody knew about — no patch exists yet | no defense available |
+| **Brute force** | try EVERY combination — slow but guaranteed | aaaa, aaab… |
+| **Dictionary attack** | try a list of common words/passwords | faster, might miss |
+| **Password spraying** | one common password ("Winter2026!") tried across MANY accounts — stays under lockout limits | few tries per account |
+| **Social engineering** | hacking the HUMAN — pretexting (fake story), baiting (infected USB left in parking lot), tailgating (following staff through a door) | weakest link = people |
+| **Shoulder surfing** | literally watching your screen/keyboard | physical |
+| **Watering hole** | infect a site your TARGETS visit, wait for them to come | ambush, not chase |
+| **Cryptojacking** | secretly mines crypto on your CPU | device slow, hot, fans loud |
+| **APT** | advanced persistent threat — patient, well-funded (often nation-state) intruders inside for months | long stealth campaign |
+| **Spoofing** | faking a source identity — fake sender IP, fake "From:" email, fake MAC | forged identity |
+| **ARP poisoning** | fake ARP replies telling the LAN "the gateway is at MY MAC" → traffic reroutes through attacker → enables MITM | gateway MAC hijack |
+| **DNS poisoning** | corrupting a DNS cache so the real domain resolves to a fake IP — you type the right URL, land on the wrong site | wrong IP served |
+| **Session hijacking** | stealing a session cookie/token = becoming you without needing your password | skips the login entirely |
 
 - REMEMBER virus vs worm vs trojan: *"Virus rides a file, Worm walks alone, Trojan wears a disguise."*
-- **SQLi vs XSS (they're paired in exams):** SQLi attacks the DATABASE through inputs; XSS attacks other USERS through the page. Defenses: SQLi → parameterized queries/prepared statements; XSS → input sanitization + output encoding + CSP.
-- **CSRF vs XSS:** XSS injects script INTO the site; CSRF abuses your logged-in session FROM another site. Defense CSRF → anti-CSRF tokens, SameSite cookies.
+- **SQLi vs XSS vs CSRF — the exam trio:** ask "who's the victim?" SQLi attacks the **database** (through inputs — defend with parameterized queries/prepared statements). XSS attacks **other users** (through the page — defend with input sanitization + output encoding + CSP). CSRF attacks **your logged-in session** (from another site — defend with anti-CSRF tokens + SameSite cookies).
+- REMEMBER password attacks: *"Brute tries everything, dictionary tries words, spraying tries one password everywhere."*
 
 ---
 
 ## 3. Cryptography — the second pillar
 
 ### Symmetric vs Asymmetric — THE comparison question
+
+**Plain words — two kinds of locks:**
+- **Symmetric** = one shared key, like the single house key both roommates carry. Fast and great for bulk data — but there's a chicken-and-egg problem: how do you *give* your partner the key without a stranger intercepting the copy?
+- **Asymmetric** = a key PAIR. Think of a mailbox: the **public key** is the mail slot — anyone can drop a letter in (encrypt). The **private key** is the only key that opens the box (decrypt). The key-distribution problem vanishes — the public key can be posted on a billboard.
+
 | | **Symmetric** | **Asymmetric** |
 |---|---|---|
 | Keys | ONE shared key | key PAIR (public + private) |
 | Speed | fast, bulk data | slow, small data |
 | Examples | **AES**, DES, 3DES, Blowfish, RC4 | **RSA**, ECC, DSA, Diffie-Hellman |
-| Problem | key distribution — how do you share the secret key securely? | solved — public key can be public |
+| Problem | key distribution — sharing the secret safely | solved — public key is meant to be public |
 
-- **DES:** 56-bit key (broken, insecure now). **3DES:** DES ×3 (legacy). **AES:** 128/192/256-bit keys, the current standard (MCQ answer for "standard symmetric cipher").
-- **RSA:** security rests on factoring large primes. **ECC:** same strength with smaller keys → mobile/TLS.
-- **Diffie-Hellman:** key-EXCHANGE protocol — lets two parties build a shared secret over an open channel (not encryption itself).
+- **DES** = 56-bit key, broken, insecure. **3DES** = DES run three times, legacy. **AES** = 128/192/256-bit — THE current standard (the MCQ answer for "standard symmetric cipher").
+- **RSA** = security rests on factoring huge primes being hard. **ECC** = same strength with much smaller keys → mobile and TLS.
+- **Diffie-Hellman** = a key-EXCHANGE protocol — two strangers build a shared secret over a channel everyone's watching (it's not encryption itself — it makes the key for it).
 
 ### Hashing — one-way, no key
-- Hash = fixed-length fingerprint; one-way (can't reverse); any input change → avalanche of output change.
-- **MD5** (128-bit, BROKEN — collision-prone), **SHA-1** (160-bit, deprecated), **SHA-256/SHA-3** (current standard). "Which hash is still secure?" → SHA-256+.
-- Uses: integrity checks, password storage (always + **salt** — random value that kills rainbow-table lookups — classic MCQ), digital signatures.
-- Hashing ≠ encryption: encryption is reversible with a key; hashing never is.
+
+**Plain words:** a hash is a fingerprint of data — feed anything in, get a fixed-length code out. It's a meat grinder: easy to grind the cow into mince, impossible to rebuild the cow. Any tiny input change → avalanche of output change.
+
+- **MD5** (128-bit) = BROKEN (collisions found). **SHA-1** = deprecated. **SHA-256/SHA-3** = current standards. "Which hash is still safe?" → SHA-256+.
+- Uses: file-integrity checks, password storage (always **+ salt** — a random value stirred in so precomputed "rainbow tables" of hashes become useless — classic MCQ), digital signatures.
+- **Hashing ≠ encryption:** encryption is reversible with the right key; hashing never reverses.
 
 ### Digital signature vs digital certificate
-- **Digital signature:** sender signs with their PRIVATE key → anyone verifies with the PUBLIC key → gives **integrity + authenticity + non-repudiation** (all three — a favourite multi-answer).
-- **Digital certificate:** binds a public key to an identity, issued by a **CA (Certificate Authority)** → this is **PKI** (Public Key Infrastructure). X.509 is the cert standard.
-- **How HTTPS/TLS works (one-para version they ask):** asymmetric crypto only for the handshake (verify cert + exchange a session key) → then fast SYMMETRIC encryption for the actual data. *"Asymmetric knocks on the door, symmetric carries the boxes."*
-- SSL is dead, **TLS** is the live protocol (TLS 1.2/1.3). HTTPS = HTTP + TLS, port 443.
+
+- **Digital signature:** you sign with YOUR PRIVATE key → anyone verifies with your PUBLIC key. Since only you hold the private key, a verified signature proves it came from you and wasn't altered → gives **integrity + authenticity + non-repudiation** (all three — favourite multi-answer). *Direction trap: signing = sender's private; encrypting a secret for someone = receiver's public.*
+- **Digital certificate:** a CA (Certificate Authority) vouches "this public key really belongs to sebi.gov.in" — binding an identity to a key. The system of CAs + certificates = **PKI**. X.509 is the certificate format standard.
+- **How HTTPS/TLS actually works (the one-para version):** asymmetric crypto is used ONLY for the handshake — verify the certificate + exchange a fresh session key — then fast SYMMETRIC (AES) encryption carries the real data. *"Asymmetric knocks on the door, symmetric carries the boxes."*
+- SSL is dead — **TLS** is the live protocol (1.2/1.3). HTTPS = HTTP + TLS on port 443.
 
 ---
 
 ## 4. Authentication — factors & systems
 
-- **The three factors (memorise — scenario MCQs):**
-  - **Something you KNOW** — password, PIN, security question.
-  - **Something you HAVE** — OTP token, smart card, phone.
-  - **Something you ARE** — biometrics (fingerprint, iris, face).
-- **2FA/MFA = combining ≥2 DIFFERENT factors.** Password + security question = still ONE factor (both "know") — the classic trap answer.
-- Biometric metrics: **FAR** (false acceptance — lets impostor in, worse) vs **FRR** (false rejection — locks out legit user). **CER/EER** = the crossover point where FAR=FRR → lower = better system (asked!).
-- Kerberos — ticket-based network auth (KDC issues tickets, no password over wire). SSO = one login, many services. OAuth = authorization delegation (not authentication!). SAML = enterprise SSO assertions.
-- Password storage best practice: salted + hashed (bcrypt/Argon2), never plaintext, never reversible.
+**Plain words:** authentication = proving you are who you claim. There are only THREE kinds of proof:
+- **Something you KNOW** — password, PIN, security question.
+- **Something you HAVE** — phone (receiving OTP), hardware token, smart card.
+- **Something you ARE** — biometrics: fingerprint, iris, face.
+
+- **2FA/MFA = combining ≥2 DIFFERENT factors.** ATM card + PIN = genuine 2FA (have + know). Password + security question = still ONE factor — both are "know" — the classic trap answer.
+- **Biometric accuracy metrics:** **FAR** = false acceptance rate — lets an impostor IN (the dangerous direction); **FRR** = false rejection rate — locks a legit user OUT (the annoying direction). **CER/EER** = the error rate where the two curves cross → lower = better system (asked!).
+- **Kerberos** — ticket-based network authentication: a KDC issues time-stamped tickets so passwords never cross the wire. **SSO** = one login, many services. **OAuth** = delegated AUTHORIZATION (letting an app act for you — not authentication). **SAML** = enterprise SSO assertions.
+- Password storage rule: **salted + hashed** (bcrypt/Argon2), never plaintext, never reversible encryption.
 
 ---
 
 ## 5. Network & Systems Security
-- **Firewall types:** packet-filter (stateless, L3/4) → stateful inspection (tracks connections) → application proxy/NGFW (L7, inspects content). WAF = web-application firewall (blocks SQLi/XSS at L7).
-- **DMZ** — screened subnet hosting public-facing servers between internet and LAN.
-- **IDS vs IPS** — IDS detects & alerts (passive); IPS blocks inline (active). Signature-based (known patterns) vs anomaly-based (behavior deviations → catches zero-days but false-positives).
-- **Honeypot** — decoy system to lure/study attackers.
-- **VPN** — encrypted tunnel over public network. **IPSec** (L3 VPN) vs SSL/TLS VPN.
-- **NAC**, MAC filtering, 802.1X port auth — network admission ideas.
-- Security models (occasional): Bell-LaPadula = confidentiality (no read up, no write down — "no read-up, no write-down"); Biba = integrity (mirror rules); least privilege; defense in depth; zero trust ("never trust, always verify").
+
+- **Firewall generations (dumb → smart):** packet-filtering (reads only IP/port headers, stateless) → stateful inspection (knows which packets belong to conversations a user started) → application proxy/NGFW (L7, understands content — can block a malicious URL). **WAF** = web-application firewall, the L7 kind that catches SQLi/XSS.
+- **DMZ** = the screened buffer subnet between the internet and your LAN — where public-facing servers (web, mail) live so a breach there doesn't expose the inside.
+- **IDS vs IPS:** IDS = CCTV + alarm — watches and alerts but can't stop (passive, off to the side). IPS = a guard standing IN the doorway — blocks inline (active). Detection styles: **signature-based** (matches known attack patterns — reliable but blind to new attacks) vs **anomaly-based** (flags behaviour deviations — catches zero-days but cries wolf).
+- **Honeypot** = a deliberately juicy decoy server to lure attackers and study their methods.
+- **VPN** = an encrypted tunnel through the public internet — outsiders see scrambled traffic. **IPSec** = L3 VPN; SSL/TLS VPN works through the browser.
+- **802.1X / NAC / MAC filtering** = "prove you belong here before the port opens" — network admission control ideas.
+- **Security models (name-level but asked):** **Bell-LaPadula** = confidentiality model for classified systems — "no read UP, no write DOWN" (a corporal can't read top-secret files; a general can't write secrets into unclassified ones — prevents leaking downward). **Biba** = the integrity mirror — "no read down, no write up". Plus: least privilege, defense in depth, **zero trust** = "never trust, always verify" — even inside the network.
 
 ### Software development security (syllabus line)
-- Secure SDLC — security baked into each phase (shift left).
-- OWASP Top 10 awareness: injection, broken auth, XSS, insecure design — know the top few names.
-- Code review, static analysis (SAST — scans source), dynamic analysis (DAST — attacks running app), fuzzing.
+- **Secure SDLC** — security built into every phase, not bolted on at the end ("shift left").
+- **OWASP Top 10** — the famous web-risk list: injection, broken authentication, XSS, insecure design — know the top few names.
+- **SAST** = static analysis — scans source code without running it. **DAST** = dynamic — attacks the RUNNING app. **Fuzzing** = throwing malformed/random input to find crashes.
 
 ---
 
 ## 6. Network & Systems Audit (in the syllabus — 1–2 easy Qs)
-- **Audit** = independent check that controls work. Types: internal, external, compliance.
-- **Network audit** — reviews firewall rules, access controls, configs, vulnerabilities (vulnerability assessment → finds holes; **penetration testing** → actively exploits them, authorized — VA vs pentest is an MCQ pair).
-- **Systems audit** — checks OS/app controls: patching, user rights, logging, change management.
-- Audit trail/logs = evidence of who did what when (non-repudiation support).
-- COBIT/ISO 27001 = governance/security-management frameworks (name-level).
+
+**Plain words:** an audit = an independent check that your controls actually work — not whether they exist on paper.
+
+- Types: internal, external, compliance.
+- **Network audit** — reviews firewall rules, access controls, configs, open vulnerabilities.
+- **VA vs pentest (the MCQ pair):** vulnerability assessment = scanning to FIND holes ("your lock looks weak"); penetration testing = authorized experts actively EXPLOITING them ("we picked the lock to prove it").
+- **Systems audit** — OS/app controls: patching levels, user rights, logging, change management.
+- **Audit trail/logs** = the who-did-what-when evidence — supports non-repudiation.
+- **COBIT / ISO 27001** = governance & security-management frameworks (name-level only).
 
 ---
 
@@ -142,7 +165,7 @@
 - Day 16: hashing, signatures, PKI/TLS — draw the handshake flow once.
 - Day 17: write the FULL attack list from memory (names + one line each) — that's the real drill.
 - Day 18: defenses + authentication factors.
-- Day 19: audit + software-security + 20 MCQs mixed.
+- Day 19: audit + software-security + 20 MCQs mixed (Sanfoundry cyber-security tests — see Practice Links).
 - Day 20: Testbook "Cyber Security" chapter test — log every misnamed attack.
 
 ---
