@@ -2,137 +2,156 @@
 
 > **Official syllabus (Paper 2):** tree & graph traversals · connected components · spanning trees · shortest paths · hashing · sorting · searching · design techniques (greedy, DP, divide-and-conquer).
 >
-> **Why this file is huge:** it's only 10% of Phase-1 Paper 2, but memory-based Mains PYQs show **~55% of Phase-2 IT questions come from here** (sorting, trees, graphs, hashing, OOP aside). Every hour spent here pays twice — once in Phase 1, again in Phase 2 where it's 2/3 of your final score.
+> **Why this file is huge:** it's only 10% of Phase-1 Paper 2, but memory-based Mains PYQs show **~55% of Phase-2 IT questions come from here** (sorting, trees, graphs, hashing). Every hour spent here pays twice — once in Phase 1, again in Phase 2 where it's 2/3 of your final score.
+
+**How to read:** every structure is a physical thing — array = a row of numbered boxes, linked list = a treasure hunt, stack = a pile of plates, queue = a ticket line, hash table = a locker wall. Learn the picture first, then the table of facts.
 
 ---
 
 ## PART 1 — COMPLEXITY & BIG-O
 
-- Big-O = worst-case growth rate. Drop constants and small terms: O(2n+100) = O(n).
-- **Ladder (memorise cold):** O(1) < O(log n) < O(√n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!).
-- Nested loops N × N/2 → still **O(N²)** (real recalled Q — constants die).
-- Loop halving each time (`i /= 2`) → O(log n). Loop doubling → O(log n).
-- **Recurrences:** T(n) = 2T(n/2) + O(n) → **merge sort = O(n log n)** (real recalled Q — know this recurrence by sight). Master theorem intuition: splitting in half + linear merge = n log n.
-- Binary search halves → O(log n). Naive recursion Fibonacci → O(2ⁿ).
-- Ω = best case, Θ = tight bound. Exam asks all three interchangeably.
+**Plain words:** Big-O answers "if my input doubles, how much slower does the code get?" — the worst-case growth curve. You drop constants and small terms because for big n they don't matter: O(2n+100) = O(n) — at n=1,000,000, doubling is doubling.
+
+- **The ladder (memorise cold):** O(1) < O(log n) < O(√n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!).
+- **See the loop rules:**
+  ```python
+  for i in range(n):          # n steps → O(n)
+  for i in range(n):
+      for j in range(n//2):   # n × n/2 steps → still O(n²) — constants die (real Q)
+  i = n
+  while i > 1: i //= 2        # halves each time → O(log n)
+  i = 1
+  while i < n: i *= 2         # doubles each time → O(log n)
+  ```
+- **Recurrences:** T(n) = 2T(n/2) + O(n) → **merge sort = O(n log n)** — splitting in half + linear merge work = n log n (real recalled Q — know this recurrence by sight).
+- Binary search halves the space each step → O(log n). Naive recursive Fibonacci recomputes → O(2ⁿ).
+- Ω = best case, Θ = tight bound (both asked interchangeably).
 
 ---
 
 ## PART 2 — LINEAR STRUCTURES
 
-### Arrays
-- Contiguous memory (real recalled Q), O(1) index access, O(n) insert/delete middle.
-- `a[i]` ≡ `*(a+i)`; `a[3][4]` third element of first row = `a[0][2]` (real Q).
+### Arrays — a row of numbered boxes
+**Plain words:** contiguous memory — every element sits shoulder-to-shoulder, so jumping to `a[i]` is instant math (`base + i×size`) → **O(1) access** (real Q). The price: inserting in the middle means shoving everyone down → O(n).
+- `a[i]` ≡ `*(a+i)`; `a[3][4]` third element of first row = `a[0][2]` — zero-indexed (real Q).
 
-### Linked List
-- Nodes = data + pointer(s). Insert/delete at head = **O(1)** (real Q); search = O(n) (no random access).
-- Singly (next) / doubly (next+prev — enables backward traversal, more memory) / circular.
-- Slow-fast pointer tricks: find middle (fast 2×, slow lands mid), detect cycle (Floyd's — if they meet, cycle exists).
+### Linked List — a treasure hunt
+**Plain words:** nodes scattered in memory, each holding data + a pointer to the next. To find node 50 you follow the chain → O(n) search (no random access). But inserting at the head means just rewiring one pointer → **O(1)** (real Q).
+- Singly (next) / doubly (next + prev — backward traversal, more memory) / circular.
+- Slow-fast pointer tricks: fast moves 2×, slow lands on the middle; if they ever meet, there's a cycle (Floyd's).
 
 ### Stack (LIFO) & Queue (FIFO)
-- Stack ops: **push, pop, peek** (real Q). Applications: **DFS** (real Q), function calls/recursion, infix→postfix, balanced-parenthesis check, undo.
-- Queue ops: **enqueue, dequeue, front** (real Q). Applications: **BFS**, scheduling, buffers. Java's `LinkedList` implements Queue (real Q).
-- **Infix→postfix (real Q):** scan left→right; operands → output; on an operator → **pop while stack-top has ≥ precedence** (then push); `(` pushes, `)` pops until `(`. Real recalled wording: "on a lower-precedence operator, pop higher-precedence ops until stack top is lower or '(' found."
-- Priority queue = heap underneath.
-- Deque = insert/delete both ends.
+- **Stack = a pile of plates:** last one placed comes off first — `push, pop, peek` (real Q). Wherever "undo" or "go back" logic exists → stack: function calls/recursion, infix→postfix conversion, bracket matching, **DFS** (real Q).
+- **Queue = a ticket line:** first in, first served — `enqueue, dequeue, front` (real Q). Wherever "serve in arrival order" exists → queue: **BFS**, CPU scheduling, buffers. Java's `LinkedList` implements Queue (real Q).
+- **Infix→postfix (real Q):** scan left→right; operands go straight to output; on an operator → **pop while stack-top has ≥ precedence**, then push; `(` pushes, `)` pops until `(`.
+- Priority queue = a heap underneath. Deque = insert/delete at both ends.
 
 ---
 
 ## PART 3 — HASHING (recalled heavily)
 
-- Hash function maps key → index. Goal: O(1) average insert/search (real Q: best-case search = **O(1)**).
-- **Collision resolution:**
-  - **Separate chaining** — each slot holds a **linked list** (real Q). Load factor α = n/m, **can exceed 1** (real Q — chains just grow).
-  - **Open addressing** — probe for next empty slot: linear probing (i+1, i+2… → primary clustering), quadratic (i² jumps → secondary clustering), double hashing (best). Load factor must stay < 1.
-- **Why range queries are slow in hash tables:** order isn't maintained → O(n) (real Q — that's why DBs use B+ trees for ranges).
-- Good hash = uniform distribution; `h(k) = k mod m` with prime m is the classic.
+**Plain words:** a hash table is a wall of numbered lockers. A hash function maps each key → a locker number → average **O(1) insert/search** (real Q: best-case search = O(1)). The problem: two keys can map to the SAME locker — a **collision** — and how you handle it is the exam question.
+
+- **Separate chaining** — each locker holds a **linked list** of whatever landed there (real Q). Load factor α = n/m (items ÷ slots) — **can exceed 1** (real Q — chains just grow).
+- **Open addressing** — keep everything in the table; if your slot's taken, probe for the next free one: linear probing (i+1, i+2… creates primary clustering — long runs of taken slots), quadratic (i² jumps → secondary clustering), double hashing (best spread). Load factor must stay < 1 or there's no free slot to find.
+- **Why hash tables are bad at range queries:** they maintain no order — "all keys between 100 and 200" means scanning everything → O(n) (real Q — that's why databases use B+ trees).
+- Good hash = uniform spread; `h(k) = k mod m` with prime m is the classic choice.
 
 ---
 
 ## PART 4 — TREES (the recalled-PYQ goldmine)
 
-### Terminology & formulas (memorise — 4+ real Qs from here)
-- Binary tree with N nodes → **N−1 edges** (real Q).
-- Max nodes in binary tree of height h = **2^(h+1) − 1** (real Q — exactly this phrasing).
-- Min height with n nodes = ⌊log₂ n⌋; complete tree packs left-to-right.
-- **Strict/full binary tree** (every node 0 or 2 children): leaves L → total nodes = **2L − 1**. Real Q: 8 leaves → **15 nodes**.
-- Traversals:
-  - **Preorder:** Root → Left → Right (used to COPY trees).
-  - **Inorder:** Left → Root → Right (**gives sorted order in a BST** — key fact).
-  - **Postorder:** Left → Right → Root (real Q — used to DELETE trees).
-  - Level-order = BFS using queue.
-- **BST rebuild drill (real Q):** given preorder of BST `16, 11, 13, 12, 17, 20, 21` → postorder `12, 13, 11, 21, 20, 17, 16`. Method: reconstruct BST (first = root, split rest into <root left-subtree, >root right-subtree, recurse), then read postorder. **Practice this — it's a verbatim SEBI pattern.**
+**Plain words:** a tree = a hierarchy — one root, children below, no cycles. A binary tree caps every node at 2 children.
 
-### BST
-- Left < node < right. Search/insert/delete O(h) — O(log n) balanced, O(n) skewed (sorted input degenerates to a list — why balancing exists).
+### Terminology & formulas (memorise — 4+ real Qs from here)
+- Binary tree with N nodes → **N−1 edges** (every node except root has exactly one parent — real Q).
+- Max nodes in a binary tree of height h = **2^(h+1) − 1** (a perfect tree — real Q, exact phrasing).
+- Min height with n nodes = ⌊log₂ n⌋; a complete tree packs nodes left-to-right.
+- **Strict/full binary tree** (every node has 0 or 2 children): leaves L → total nodes = **2L − 1**. Real Q: 8 leaves → **15 nodes**.
+- **Traversals — learn on one tree:**
+  ```
+        A              preorder  A B D E C   (Root→L→R — used to COPY trees)
+       / \             inorder   D B E A C   (L→Root→R — SORTED order in a BST!)
+      B   C            postorder D E B C A   (L→R→Root — used to DELETE trees: real Q)
+     / \               level     A B C D E   (BFS with a queue)
+    D   E
+  ```
+- **BST rebuild drill (real Q — verbatim SEBI pattern):** given preorder of a BST `16, 11, 13, 12, 17, 20, 21`, find postorder. Method: first element = root (16); everything < 16 goes left `{11,13,12}`, everything > 16 goes right `{17,20,21}`; recurse inside each; then read postorder → `12, 13, 11, 21, 20, 17, 16`. **Practice this — it's a verbatim pattern.**
+
+### BST — binary search tree
+Left < node < right at every node → an inorder walk always yields sorted order. Search/insert/delete O(h): O(log n) when balanced, O(n) when skewed — sorted input `1,2,3,4,5` degenerates into a leaning list (why self-balancing trees exist).
 
 ### AVL (self-balancing BST)
-- Balance factor = height(left) − height(right) ∈ {−1, 0, +1} at EVERY node (real Q: "balance factor −1/0/1" → **AVL**).
-- Fix violations with rotations: LL → right rotate; RR → left rotate; LR → left+right; RL → right+left.
+**Plain words:** a BST that rotates itself back into balance whenever any node gets too lopsided.
+- **Balance factor** = height(left) − height(right) ∈ **{−1, 0, +1}** at EVERY node (real Q: "balance factor −1/0/1" → AVL).
+- Fix violations by rotation: LL → right rotate; RR → left rotate; LR → left+right; RL → right+left.
 - Height stays ~1.44·log₂(n+2) → real Q: **max height with 12 nodes = 4**.
-- Insert/delete still O(log n) thanks to rebalancing.
 
 ### Heap
-- Complete binary tree in an array: parent at ⌊i/2⌋, children 2i, 2i+1.
-- Min-heap → root is smallest (priority queues, heapsort). Build-heap O(n); insert/extract O(log n).
+- Complete binary tree stored in an array: parent at ⌊i/2⌋, children at 2i, 2i+1.
+- Min-heap → smallest always at root (priority queues, heapsort). Build-heap O(n); insert/extract O(log n).
 
 ### B-Tree / B+ Tree
-- M-way search tree, all leaves same level, keeps DB indexes shallow → **real Q: B-Tree = database indexing**. B+ stores data only in leaves, linked leaves for ranges (see DBMS notes §6).
+- M-way search tree, all leaves at the same level → keeps DB indexes shallow → **real Q: B-Tree = the data structure for database indexing**. B+ stores data only in leaves + links them for range scans (full story in DBMS notes §6).
 
 ---
 
 ## PART 5 — GRAPHS (heavily recalled)
 
-### Representation
-- **Adjacency matrix** — V² space, O(1) edge check → **best for DENSE graphs** (real Q).
-- **Adjacency list** — V+E space → best for sparse graphs.
+**Plain words:** a graph = dots (vertices) and lines (edges) — cities and roads, people and friendships. Two questions dominate: how to walk it (BFS/DFS) and how to represent it.
 
-### Traversals
-- **BFS** — queue, level by level → shortest path in UNWEIGHTED graphs. Unique for a binary tree (real Q: "traversal unique for binary tree" → BFS/level-order).
-- **DFS** — stack (or recursion), depth first → cycle detection, topological sort, connected components.
-- **Connected components** = number of DFS/BFS restarts needed to cover all vertices (syllabus line — count components by restarting traversal on unvisited nodes).
+### Representation
+- **Adjacency matrix** — V×V grid marking edges — O(1) "is there an edge?" but V² space → **best for DENSE graphs** (real Q).
+- **Adjacency list** — each vertex lists its neighbours — V+E space → best for sparse graphs.
+
+### Traversals — two ways to walk the same map
+- **BFS** — a queue; visit the start, then ALL its neighbours, then THEIR neighbours — ripple outward level by level → finds shortest path in UNWEIGHTED graphs. (Real Q: "traversal unique for binary tree" → BFS/level-order.)
+- **DFS** — a stack/recursion; dive as deep as possible down one path, backtrack → cycle detection, topological sort, connected components.
+- **Connected components** (syllabus line) = how many separate "islands" exist — count restarts of DFS/BFS on unvisited vertices.
 
 ### Graph formulas (3 real Qs!)
 - **Euler's formula for planar graphs: V − E + F = 2.** Real Q: E=30, F=20 → V = 2+E−F = **12**.
-- **k-regular graph** (every vertex degree k): edges = n·k/2. Real Q: 5-regular, 6 vertices → 5×6/2 = **15 edges**.
-- **Indegree zero for all vertices** → edgeless/null graph (real Q).
-- Regular graph = every vertex same degree (real Q — definition).
-- Handshaking: Σdegrees = 2E. Complete graph Kₙ: n(n−1)/2 edges.
+- **k-regular graph** (every vertex has degree k): edges = n·k/2. Real Q: 5-regular, 6 vertices → 5×6/2 = **15 edges** — handshaking lemma in disguise.
+- Handshaking: Σdegrees = 2E (every edge touches two vertices). Complete graph Kₙ = n(n−1)/2 edges.
+- Indegree zero for ALL vertices → edgeless/null graph (real Q). Regular = every vertex same degree (real Q — definition).
 
 ### Spanning trees & shortest paths
-- **MST:** V−1 edges, min total weight.
-  - **Prim's** — grows one tree by repeatedly adding the cheapest edge leaving the tree. **Greedy** (real Q: "Prim's works on which principle" → greedy).
-  - **Kruskal's** — sort all edges, add cheapest that doesn't form a cycle (union-find). Greedy too.
-- **Dijkstra** — shortest paths from one source, NO negative weights (greedy). O((V+E) log V) with heap.
-- **Bellman-Ford** — handles negative edges, detects negative cycles. DP-flavored.
-- **Floyd-Warshall** — all-pairs shortest paths, O(V³), triple loop.
-- Topological sort — ordering of DAG vertices (dependency resolution); via DFS finish times or Kahn's (indegree-0 queue).
+- **MST** = the cheapest way to connect all cities — V−1 edges, minimum total weight.
+  - **Prim's** — grow one tree: repeatedly add the cheapest edge leaving the tree. **Greedy** (real Q: "Prim's works on which principle?").
+  - **Kruskal's** — sort ALL edges, add cheapest that doesn't close a cycle (union-find). Greedy too.
+- **Dijkstra** — shortest path from ONE source, greedy — **no negative weights allowed** (greedy can't revisit decisions). O((V+E) log V) with a heap.
+- **Bellman-Ford** — the fix for negative edges — relaxes every edge V−1 times; also detects negative cycles. DP-flavoured.
+- **Floyd-Warshall** — shortest paths between ALL pairs — triple loop, O(V³).
+- **Topological sort** — linear ordering of a DAG (finish prerequisites before dependents); DFS finish-times or Kahn's indegree-0 queue.
 
 ---
 
 ## PART 6 — SORTING & SEARCHING (the #1 recalled block)
 
 ### The master sorting table (memorise entirely — multiple real Qs from it)
+
+**How each works in one line:** Bubble = swap wrong-order neighbours, biggest bubbles to the end. Selection = repeatedly pick the minimum, place it at front. Insertion = take each card, slip it into its place in the sorted hand. Merge = split in halves, sort each, zip together. Quick = pick a pivot, smaller left / bigger right, recurse. Heap = build a heap, keep extracting the root.
+
 | Algorithm | Best | Avg | Worst | Space | Stable? | Key idea |
 |---|---|---|---|---|---|---|
 | Bubble | O(n) | O(n²) | O(n²) | O(1) | Yes | swap adjacent if wrong order; biggest bubbles to end |
-| Selection | O(n²) | O(n²) | O(n²) | O(1) | No | pick min of unsorted, swap to front (real Q — definition) |
+| Selection | O(n²) | O(n²) | O(n²) | O(1) | No | pick min of unsorted, swap to front (real Q) |
 | Insertion | O(n) | O(n²) | O(n²) | O(1) | Yes | insert each element into sorted left part (real Q) |
 | Merge | O(n log n) | O(n log n) | O(n log n) | O(n) | **Yes** (real Q) | divide, sort halves, merge; T(n)=2T(n/2)+O(n) |
 | Quick | O(n log n) | O(n log n) | **O(n²)** | O(log n) | No | partition around pivot |
 | Heap | O(n log n) | O(n log n) | O(n log n) | O(1) | No | extract-min/max repeatedly |
 
-- **Real recalled answers:** QuickSort worst case = O(n²) — happens when pivot is always smallest/largest (sorted array + bad pivot). "Why merge over quick?" → **stability + guaranteed O(n log n)** (both real Qs).
-- **Bucket sort / radix sort:** near-linear O(n+k) **only when elements uniformly distributed** (real recalled Q — "works efficiently only when uniformly distributed" → bucket sort).
-- Counting sort: O(n+k), needs small integer range.
+- **Stable** = equal elements keep their original order. Stable trio: Bubble, Insertion, Merge — "BIM keeps twins in line."
+- **Real recalled answers:** QuickSort worst case = O(n²) — when the pivot is always smallest/largest (sorted array + bad pivot). "Why merge over quick?" → **stability + guaranteed O(n log n)**.
+- **Bucket sort / radix sort** — near-linear O(n+k) **only when elements are uniformly distributed** (real recalled Q). Counting sort: O(n+k), needs a small integer range.
 
 ### Searching
-- Linear: O(n) any array. Binary: O(log n), sorted only (real Q: best for large sorted random-access array → binary).
-- **Interpolation search** — best for **uniformly distributed** data (real Q — same fact twice in PYQs!).
-- Jump search O(√n). Exponential search = find range then binary.
+- Linear: O(n), works anywhere. Binary: O(log n), SORTED arrays only (real Q: large sorted random-access array → binary).
+- **Interpolation search** — guesses position by value (like opening a dictionary near "S") — best for **uniformly distributed** data (real Q — this exact fact appeared twice!).
+- Jump search O(√n); exponential search = find the range, then binary inside.
 
 ### String matching (in mains PYQs)
-- Naive O(nm). **KMP uses the LPS array** (longest prefix-suffix) → O(n+m) (real Q). **Rabin-Karp** = rolling hash → **used in plagiarism detection** (real Q).
+- Naive O(nm). **KMP** precomputes the **LPS array** (longest proper prefix that's also a suffix) → skips re-matching → O(n+m) (real Q). **Rabin-Karp** = rolling hash → **used in plagiarism detection** (real Q).
 
 ---
 
@@ -140,13 +159,13 @@
 
 | Technique | Idea | Examples | SEBI fact |
 |---|---|---|---|
-| **Divide & Conquer** | split → solve → combine | merge/quick sort, binary search, Strassen | Strassen matrix mult = **O(n^log₂7) ≈ O(n^2.81)** (real Q) |
-| **Greedy** | locally best choice each step | Prim, Kruskal, Dijkstra, Huffman, fractional knapsack, activity selection | works only when greedy-choice property holds |
-| **Dynamic Programming** | overlapping subproblems → memoize/tabulate | 0/1 knapsack, LCS, coin change, Fibonacci-memo | key property = **optimal substructure** (real Q — exact wording) |
-| **Backtracking** | try → undo on dead end | N-queens, Sudoku, graph coloring | N-queens rule: no shared row/col/diagonal (real Q) |
+| **Divide & Conquer** | split → solve each → combine | merge/quick sort, binary search, Strassen | Strassen matrix mult = **O(n^log₂7) ≈ O(n^2.81)** (real Q) |
+| **Greedy** | take the locally best choice every step | Prim, Kruskal, Dijkstra, Huffman, fractional knapsack, activity selection | works only when the greedy-choice property holds |
+| **Dynamic Programming** | overlapping subproblems → cache answers (memo/table) | 0/1 knapsack, LCS, coin change, Fibonacci-memo | key property = **optimal substructure** (real Q — exact wording) |
+| **Backtracking** | try → hit dead end → undo & try next | N-queens, Sudoku, graph coloring | N-queens rule: no shared row/col/diagonal (real Q) |
 
 - REMEMBER DP vs D&C: *"D&C subproblems are independent; DP's overlap — that's why it caches."*
-- Greedy vs DP: greedy never revisits; DP explores & combines sub-solutions — pick DP when choices interact (0/1 knapsack can't be greedy).
+- Greedy vs DP: greedy never revisits choices; DP explores & combines sub-solutions — when choices interact (0/1 knapsack: taking item A changes whether B is worth it), greedy fails and you need DP.
 
 ---
 
