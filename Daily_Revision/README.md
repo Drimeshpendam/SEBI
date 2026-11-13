@@ -8,8 +8,9 @@ One short revision PDF per study day, for quick revision.
    `YYYY-MM-DD.md` in this folder (see the `sebi-daily-revision` skill for the format).
 2. **Every day at 11:00 PM**, Windows Task Scheduler task `SEBI-Daily-Revision-PDF`
    runs `.tools\build_daily_revision.py`, which renders that day's `.md` into
-   `YYYY-MM-DD_Revision.pdf` next to it.
-3. No notes file for a day → no PDF (the job skips quietly).
+   `YYYY-MM-DD_Revision.pdf` next to it, then commits + pushes to GitHub Pages.
+3. Read online: **https://drimeshpendam.github.io/SEBI/Daily_Revision/** (index lists all PDFs, newest first).
+4. No notes file for a day → no PDF (the job skips quietly).
 
 ## Manual run
 
