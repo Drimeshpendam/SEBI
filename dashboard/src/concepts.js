@@ -681,26 +681,47 @@ const genQuadratic = (n, t) => {
 const genDI = (n, t) => {
   const out = new Map()
   const ents = ['A', 'B', 'C', 'D']
+  const mk = (q, ans, x, d = 'med') => {
+    const pool = shuffle([ans - 5, ans + 5, ans - 10, ans + 10, ans + 3, ans - 3, ans + 8].filter((v) => v !== ans && v > 0)).slice(0, 4).map(String)
+    out.set(q, mkq(q, String(ans), pool, x, d, t))
+  }
   let guard = 0
   while (out.size < n && guard++ < n * 30) {
     const vals = ents.map(() => rand(4, 9) * 10)
-    const mode = rand(0, 2)
-    let q, ans
+    const tot = vals.reduce((a, b) => a + b, 0)
+    const tbl = `Sales (₹'000): A=${vals[0]}, B=${vals[1]}, C=${vals[2]}, D=${vals[3]}.`
+    const mode = rand(0, 7)
     if (mode === 0) {
-      let i = rand(0, 2)
-      if (vals[i + 1] <= vals[i]) { const tmp = vals[i]; vals[i] = vals[i + 1]; vals[i + 1] = tmp }
-      ans = Math.round((vals[i + 1] - vals[i]) / vals[i] * 100)
-      q = `Sales: A=${vals[0]}, B=${vals[1]}, C=${vals[2]}, D=${vals[3]} (thousand). Rise % from ${ents[i]} to ${ents[i + 1]}?`
+      const i = rand(0, 2); if (vals[i + 1] <= vals[i]) continue
+      mk(`${tbl} By what percent did sales rise from ${ents[i]} to ${ents[i + 1]}?`, Math.round((vals[i + 1] - vals[i]) / vals[i] * 100), 'Rise % divides by the OLD (base) value.', 'easy')
     } else if (mode === 1) {
-      ans = vals.reduce((a, b) => a + b, 0)
-      q = `Sales: A=${vals[0]}, B=${vals[1]}, C=${vals[2]}, D=${vals[3]} (thousand). Total sales?`
+      const [i, j] = shuffle([0, 1, 2, 3]).slice(0, 2)
+      const d = vals[i] - vals[j]; if (d <= 0) continue
+      mk(`${tbl} ${ents[i]}'s sales are what percent MORE than ${ents[j]}'s?`, Math.round(d / vals[j] * 100), '"% more than" → difference ÷ the compared-to value (denominator = after "than").', 'med')
+    } else if (mode === 2) {
+      const [i, j] = shuffle([0, 1, 2, 3]).slice(0, 2)
+      const d = vals[j] - vals[i]; if (d <= 0) continue
+      mk(`${tbl} ${ents[i]}'s sales are what percent LESS than ${ents[j]}'s?`, Math.round(d / vals[j] * 100), '"% less than" → difference ÷ the LARGER value.', 'med')
+    } else if (mode === 3) {
+      const s = shuffle([0, 1, 2, 3])
+      const p = (vals[s[0]] + vals[s[1]]) / 2, qq = (vals[s[2]] + vals[s[3]]) / 2
+      if (Math.abs(p - qq) < 1) continue
+      mk(`${tbl} Difference between average sales of (${ents[s[0]]} + ${ents[s[1]]}) and (${ents[s[2]]} + ${ents[s[3]]})?`, Math.round(Math.abs(p - qq)), 'Average pairs first, then subtract — a real DI staple.', 'med')
+    } else if (mode === 4) {
+      const s = shuffle([0, 1, 2, 3])
+      const num = vals[s[0]] + vals[s[1]], den = vals[s[2]] + vals[s[3]]
+      const g = gcd(num, den)
+      mk(`${tbl} Ratio of combined sales of ${ents[s[0]]}+${ents[s[1]]} to ${ents[s[2]]}+${ents[s[3]]}?`, `${num / g}:${den / g}`, 'Combine, then reduce by GCD.', 'med')
+    } else if (mode === 5) {
+      const i = rand(0, 3), r = pick([10, 20, 40, 50])
+      mk(`${tbl} If ${ents[i]}'s sales grow ${r}% next quarter, what is the new figure (₹'000)?`, vals[i] * (1 + r / 100), 'Projection = base × (1 + r/100).', 'med')
+    } else if (mode === 6) {
+      const s = shuffle([0, 1, 2, 3])
+      mk(`${tbl} What percent of total sales do ${ents[s[0]]} and ${ents[s[1]]} together account for?`, Math.round((vals[s[0]] + vals[s[1]]) / tot * 100), 'Pair sum ÷ total.', 'med')
     } else {
-      const i = rand(0, 3)
-      ans = Math.round(vals[i] / vals.reduce((a, b) => a + b, 0) * 100)
-      q = `Sales: A=${vals[0]}, B=${vals[1]}, C=${vals[2]}, D=${vals[3]} (thousand). ${ents[i]}'s share % of total?`
+      const i = vals.indexOf(Math.max(...vals))
+      mk(`${tbl} The highest seller's sales exceed the overall average by what percent?`, Math.round((vals[i] - tot / 4) / (tot / 4) * 100), 'Highest vs mean of all four.', 'hard')
     }
-    const pool = [ans - 5, ans + 5, ans - 10, ans + 10, ans + 3].filter((v) => v !== ans && v > 0)
-    out.set(q, mkq(q, String(ans), shuffle(pool).slice(0, 4).map(String), 'DI: units first → read the question → only the named numbers matter. "Rise %" divides by the OLD value.', 'med', t))
   }
   return [...out.values()]
 }
