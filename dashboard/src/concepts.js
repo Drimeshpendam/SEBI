@@ -1635,6 +1635,36 @@ const bankPara = (t) => [
   B('Arrange: (a) Surveillance alerts spiked. (b) A coordinated promotion ran on social media. (c) The stock surged on no news. (d) SEBI opened a probe.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Promotion (b) → surge on no news (c) → alerts spiked (a) → probe opened (d).', 'med', t),
   B('Arrange: (a) The framework was phased in over two years. (b) Regulators aligned on principles. (c) Cross-border issues demanded coordination. (d) A joint working group was formed.', ['c-d-b-a', 'a-b-c-d', 'c-b-d-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Cross-border need (c) → group formed (d) → principles aligned (b) → phased in (a).', 'med', t),
   B('Arrange: (a) Recovery was uneven across sectors. (b) The economy reopened gradually. (c) Lockdowns had halted activity. (d) Pent-up demand released in spurts.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Lockdowns (c) → reopening (b) → pent-up demand (d) → uneven recovery (a).', 'med', t),
+  // ── Real 2025 format: arrange labeled phrases into one meaningful sentence ──
+  B('Which arrangement forms a meaningful sentence? (A) the way people consume information today (B) the rapid expansion of social media platforms (C) has fundamentally transformed communication habits (D) over the past decade (E) owing to', ['C-D-A-B-E', 'E-B-C-D-A', 'E-B-A-C-D', 'C-E-D-A-B', 'C-D-E-A-B'], 2, 'E-B-A-C-D: "Owing to the rapid expansion of social media platforms the way people consume information today has fundamentally transformed communication habits over the past decade." — actual 2025 paper item.', 'hard', t),
+  B('Which arrangement forms a meaningful sentence? (A) by prioritising immediate profits over long-term stability (B) many organisations weaken their own sustainability (C) although the long-term consequences are often foreseeable (D) eventually damaging stakeholder trust (E) for short-term gains', ['B-A-E-D-C', 'E-B-A-C-D', 'B-A-D-E-C', 'E-A-B-D-C', 'A-B-C-D-E'], 0, 'B-A-E-D-C: "Many organisations weaken their own sustainability by prioritising immediate profits over long-term stability for short-term gains, eventually damaging stakeholder trust, although the long-term consequences are often foreseeable." — actual 2025 pattern.', 'hard', t),
+  B('Arrange into a coherent sentence: (A) in emerging markets (B) regulatory oversight (C) has struggled to keep pace (D) with the speed of financial innovation', ['B-C-D-A', 'A-B-C-D', 'B-A-C-D', 'C-D-B-A', 'D-B-A-C'], 0, 'B-C-D-A: "Regulatory oversight has struggled to keep pace with the speed of financial innovation in emerging markets."', 'med', t),
+  B('Arrange into a coherent sentence: (A) to protect retail participants (B) stricter disclosure norms (C) were introduced by the regulator (D) amid rising derivative losses', ['C-B-D-A', 'B-C-D-A', 'C-D-B-A', 'D-C-B-A', 'B-D-C-A'], 0, 'C-B-D-A: "Stricter disclosure norms were introduced by the regulator amid rising derivative losses to protect retail participants."', 'med', t),
+  B('Arrange into a coherent sentence: (A) across rural districts (B) financial literacy programmes (C) have expanded steadily (D) over the last five years', ['B-C-D-A', 'A-B-C-D', 'B-D-C-A', 'C-B-D-A', 'D-C-B-A'], 0, 'B-C-D-A: "Financial literacy programmes have expanded steadily over the last five years across rural districts."', 'med', t),
+]
+
+const bankSwap = (t) => [
+  // Real-2025-format: which labeled word pair(s) must swap for the sentence to make sense.
+  B('The scientist (A) endorsed the hypothesis as (B) untenable, but later (C) dismissed it after fresh evidence proved it (D) plausible.', ['A-C', 'A-B', 'B-D', 'C-D', 'sentence is correct'], 2, 'B<->D: endorsed...as plausible, dismissed after evidence proved it untenable. (Real 2025 pattern.)', 'hard', t),
+  B('The manager (A) reprimanded the employees for their (B) exemplary performance and (C) appreciated those who displayed (D) negligence during the audit.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 1, 'B<->D: reprimanded for negligence + appreciated exemplary work. (Real 2025 pattern.)', 'hard', t),
+  B('The exchange (A) halted trading amid (B) orderly conditions and (C) resumed once markets turned (D) chaotic.', ['A-C', 'B-D', 'A-B', 'B-C', 'sentence is correct'], 1, 'B<->D: halted amid chaos, resumed once orderly.', 'hard', t),
+  B('Investors (A) welcomed the fund\'s (B) erratic track record and (C) avoided schemes showing (D) consistent returns.', ['A-C', 'B-D', 'A-D', 'B-C', 'sentence is correct'], 1, 'B<->D: welcomed consistent returns, avoided erratic funds.', 'hard', t),
+  B('Traders (A) ignored the (B) explicit warning and (C) acted on the (D) ambiguous rumour.', ['B-D', 'A-C', 'A-B', 'C-D', 'sentence is correct'], 0, 'B<->D: ignored the ambiguous rumour, acted on the explicit warning.', 'hard', t),
+  B('The pilot (A) landed the aircraft in (B) zero visibility and (C) diverted it once the skies turned (D) clear.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 1, 'B<->D: landed in clear skies, diverted at zero visibility.', 'hard', t),
+  B('The jury (A) convicted the defendant on (B) forged evidence and (C) acquitted the suspect despite (D) solid proof.', ['A-C', 'B-D', 'A-B', 'B-C', 'sentence is correct'], 1, 'B<->D: convicted on solid proof, acquitted despite forged evidence.', 'hard', t),
+  B('The policy (A) accelerated inflation while (B) curbing growth and (C) stabilising the (D) volatile rupee.', ['A-B', 'B-D', 'A-C', 'C-D', 'sentence is correct'], 0, 'A<->B: curbing inflation while accelerating growth + stabilising the rupee.', 'hard', t),
+  B('The tribunal (A) upheld the appeal and (B) dismissed the (C) merits while (D) noting procedural flaws.', ['A-B', 'B-D', 'A-C', 'C-D', 'sentence is correct'], 0, 'A<->B: dismissed the appeal while noting flaws.', 'hard', t),
+  B('The reform (A) deepened market (B) fragility and (C) weakened overall (D) resilience.', ['B-D', 'A-C', 'A-B', 'C-D', 'sentence is correct'], 0, 'B<->D: deepened resilience + weakened fragility.', 'hard', t),
+  B('The audit (A) cleared the (B) irregular entries and (C) questioned the (D) clean ledgers.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 0, 'A<->C: questioned the irregular entries + cleared the clean ledgers.', 'hard', t),
+  B('The draft (A) mandated audits for (B) exempt entities and (C) exempted the (D) obligated ones.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 0, 'A<->C: exempted the exempt, mandated the obligated.', 'hard', t),
+  B('The analyst (A) overestimated the (B) downside risks and (C) underestimated the (D) upside potential.', ['A-C', 'B-D', 'A-B', 'B-C', 'sentence is correct'], 4, 'Coherent - overestimated downside + underestimated upside is consistent caution.', 'med', t),
+  B('The circular (A) relaxed compliance for (B) large issuers and (C) tightened it for (D) small firms.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 4, 'Consistent - asymmetric rules are plausible; no swap.', 'med', t),
+  B('The fund (A) outperformed the index during (B) calm markets and (C) underperformed it in (D) volatile phases.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 4, 'Plausible as written - strong calm-market fund, weak in volatility.', 'med', t),
+  B('The mentor (A) discouraged questions and (B) rewarded silence, (C) punishing those who (D) spoke up.', ['A-B', 'B-D', 'A-C', 'C-D', 'sentence is correct'], 4, 'Consistent - a punitive mentor; nothing contradicts.', 'med', t),
+  B('The regulator (A) tightened norms to (B) curb speculation while (C) easing rules that (D) hampered liquidity.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 4, 'Coherent - tighten to curb + ease what hampered liquidity.', 'med', t),
+  B('The clerk (A) filed the report under (B) urgent and (C) archived the memo marked (D) routine.', ['A-C', 'B-D', 'A-B', 'B-C', 'sentence is correct'], 4, 'Sensible as written - urgent filed, routine archived.', 'easy', t),
+  B('The coach (A) benched the striker for (B) repeated errors and (C) fielded the defender despite (D) poor form.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 4, 'Internally consistent - benched for errors + fielded despite poor form.', 'med', t),
+  B('The report (A) flagged the risk as (B) severe and (C) rated the exposure (D) negligible.', ['A-C', 'B-D', 'A-B', 'C-D', 'sentence is correct'], 4, 'Coherent — severe risk flagged, negligible exposure rated low.', 'med', t),
 ]
 
 const bankCloze = (t) => [
@@ -1916,6 +1946,32 @@ const bankReg = (t) => [
   B('Payment systems/UPI come under:', ['RBI', 'SEBI', 'NPCI itself', 'MeitY', 'TRAI'], 0, 'RBI under the Payment and Settlement Systems Act 2007.', 'med', t),
   B('Government securities market is managed by:', ['SEBI', 'RBI', 'NSE', 'Finance Ministry', 'NSDL'], 1, 'RBI manages G-secs and public debt.', 'med', t),
   B('Foreign exchange regulation falls under:', ['RBI (FEMA)', 'SEBI', 'DGFT', 'CBDT', 'ED'], 0, 'FEMA 1999 administered by RBI.', 'med', t),
+  // ── Real PYQ-derived (2024 paper, answers independently verified) ──
+  B('Microfinance institutions in India are regulated by:', ['Ministry of Finance', 'RBI', 'NHB', 'NABARD', 'SEBI'], 1, 'RBI regulates NBFC-MFIs and the microfinance framework.', 'med', t),
+  B('IOSCO\'s primary objective:', ['monitor global financial stability', 'regulate international trade', 'financial aid to developing economies', 'set global standards for securities regulation', 'enforce tax compliance'], 3, 'IOSCO = the global standards body for securities regulators — SEBI is a member.', 'med', t),
+  B('Securities are issued in dematerialised form under which Act?', ['SCRA 1956', 'Depositories Act 1996', 'Companies Act 2013', 'RBI Act 1934', 'FEMA 1999'], 1, 'Depositories Act 1996 governs demat — NSDL/CDSL operate under it.', 'med', t),
+  B('The day-count convention for Indian government bonds:', ['Actual/360', 'Actual/365', '30/360', 'Actual/Actual', '30/365'], 3, 'Indian G-secs use Actual/Actual — actual days elapsed over actual days in year.', 'hard', t),
+  B('A Forward Rate Agreement (FRA) is:', ['an agreement to buy financial assets', 'an obligation to purchase a security', 'a contract locking an interest rate for a future period', 'an exchange of fixed for floating payments', 'a share-purchase contract'], 2, 'FRA locks a forward interest rate between two parties — hedges rate risk.', 'hard', t),
+  B('Minimum tangible net worth to issue Commercial Paper:', ['₹10 crore', '₹5 crore', '₹4 crore', '₹2 crore', '₹6 crore'], 2, 'RBI CP Directions: ₹4 crore minimum tangible net worth.', 'hard', t),
+  B('The generally regarded risk-free instrument:', ['Fixed Deposits', 'Corporate Bonds', 'Gilt Securities', 'REITs', 'Mutual Funds'], 2, 'Gilts carry sovereign backing — the benchmark risk-free asset.', 'easy', t),
+  B('A Rights Issue must stay open for subscription for:', ['20–40 days', '5–15 days', '15–30 days', '30–45 days', '10–20 days'], 2, 'SEBI ICDR: rights issue subscription window is 15–30 days.', 'hard', t),
+  B('Unpaid dividend must move to the Unpaid Dividend Account within ___ of the 30-day window expiring:', ['15 days', '7 days', '5 days', '10 days', '12 days'], 1, 'Companies Act s.124 — 7 days after the 30-day payment window lapses.', 'hard', t),
+  B('Appeal from NCLT to NCLAT must be filed within:', ['60 days', '45 days', '30 days', '90 days', '120 days'], 1, 'Companies Act s.421 — 45-day appeal window.', 'hard', t),
+  B('Lock-in on Sweat Equity Shares under Companies Act s.54:', ['1 year', '2 years', '3 years', '5 years', 'no lock-in'], 2, 'Sweat equity locks in for 3 years from allotment.', 'hard', t),
+  B('Removing an auditor before term-end requires:', ['board resolution only', 'special resolution + Central Government approval', 'simple majority', 'ROC notice only', 'shareholder petition'], 1, 'Companies Act s.140 — special resolution plus Central Govt (RD) approval.', 'hard', t),
+  B('Minimum notice for a Board Meeting under the Companies Act:', ['7 days', '3 days', '14 days', '21 days', '5 days'], 0, 's.173 — at least 7 days\' notice to every director.', 'med', t),
+  B('Maximum age for the NCLAT Chairperson:', ['65 years', '68 years', '70 years', '62 years', '72 years'], 2, 'NCLAT chairperson retires at 70; members at 67.', 'hard', t),
+  B('An NBFC accepting public deposits can take them for a minimum period of:', ['6 months', '12 months', '18 months', '24 months', '36 months'], 1, 'NBFC public deposits: 12–60 month window.', 'hard', t),
+  B('Money multiplier with CRR = 12%:', ['12', '8.33', '10', '6.25', '7.5'], 1, 'Multiplier = 1/CRR = 1/0.12 ≈ 8.33.', 'med', t),
+  B('Depositories Act 1996 process converting physical certificates to electronic:', ['dematerialisation', 'rematerialisation', 'immobilisation', 'tokenisation', 'digitisation'], 0, 'Dematerialisation = physical → electronic; reverse is rematerialisation.', 'med', t),
+  B('RBI raising loans on behalf of State Governments consults the Finance Ministry and:', ['SEBI', 'CAG', 'FIFMDA', 'DIPAM', 'NITI Aayog'], 1, 'Consults MoF + CAG on state borrowing programmes.', 'hard', t),
+  B('Under a Cash Flow Statement, an investing activity is:', ['dividends paid', 'interest paid on borrowings', 'purchase of equipment', 'sale proceeds of goods', 'admin expenses'], 2, 'Capex flows sit in investing; dividends/interest in financing.', 'med', t),
+  B('A Fund Flow Statement\'s key limitation:', ['focuses on non-monetary items', 'cannot show the exact cash position at a date', 'too much cash detail', 'overstates financial strength always', 'all of these'], 1, 'Fund flow ≠ cash position — that\'s its structural blind spot.', 'hard', t),
+  B('Royalty paid to State Government per unit of production is a:', ['variable expense', 'capital expense', 'direct expense', 'indirect expense', 'fixed expense'], 0, 'Scales with output quantity → variable.', 'med', t),
+  B('If P/V ratio is 30% of sales, the remaining 70% represents:', ['fixed cost', 'profit', 'variable cost', 'margin of safety', 'break-even'], 2, 'P/V = contribution margin; the complement is variable cost.', 'med', t),
+  B('In Activity-Based Costing, costs are assigned primarily by:', ['departments', 'activities', 'headcount', 'revenue share', 'output volume'], 1, 'ABC traces overhead through activities, not blanket rates.', 'med', t),
+  B('NSE was incorporated in:', ['1994', '1992', '1991', '1990', '1993'], 1, 'NSE incorporated 1992; trading began 1994.', 'med', t),
+  B('A 10% debenture (face ₹100) trading at ₹80 has current yield of:', ['10%', '20%', '12.5%', '15%', '8%'], 2, 'Current yield = coupon/price = 10/80 = 12.5%.', 'med', t),
 ]
 
 const GA_FACTS = [
@@ -2447,6 +2503,11 @@ ER→tables: weak entity borrows owner\'s key · M:N→own relation · 1:N→FK 
         id: 'e-fill', name: 'Fillers', target: 100,
         lesson: `Polarity first (+/− slot?) → collocation (which word lives with the neighbours) → grammar fit. Tense markers beat vocab.`,
         gen: (n) => genFillers(n, 'English: fillers'), bank: bankFillers('English: fillers'),
+      },
+      {
+        id: 'e-swap', name: 'Word swap (2025 pattern)', target: 100,
+        lesson: `New 2025 format — a sentence with labeled (A)(B)(C)(D) words; find which pair must exchange places to make it meaningful. Method: read each clause, name its contradiction, test each pair mentally. Both verb and adjective contradictions exist — pick the swap that fixes BOTH halves.`,
+        gen: null, bank: bankSwap('English: word swap'),
       },
       {
         id: 'e-jumble', name: 'Para jumble', target: 100,
