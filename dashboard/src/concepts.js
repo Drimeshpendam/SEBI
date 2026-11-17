@@ -1141,6 +1141,63 @@ const genIneq = (n, t) => {
   return [...out.values()]
 }
 
+const WORD_POOL = ['MANIPULATIVE', 'LANGUAGE', 'DEFINE', 'CREDIBLE', 'BANKABLE', 'MARKETING', 'SECURITIES', 'REGULATOR', 'CLEARING', 'DEPOSITORY', 'SETTLEMENT', 'COMPLIANCE', 'DISCLOSURE', 'BROKERAGE', 'LIQUIDITY', 'PENALIZED', 'SURVEILLANCE', 'GOVERNANCE', 'FRAUDULENT', 'AUDITABLE']
+
+const genWordOps = (n, t) => {
+  const out = new Map()
+  const alpha = (ch) => ch.charCodeAt(0) - 64
+  let guard = 0
+  while (out.size < n && guard++ < n * 40) {
+    const mode = rand(0, 3)
+    let q, ans, x
+    if (mode === 0) {
+      const w = pick(WORD_POOL)
+      let cnt = 0, hits = []
+      for (let i = 0; i < w.length; i++) for (let j = i + 1; j < w.length; j++)
+        if (Math.abs(alpha(w[i]) - alpha(w[j])) === j - i) { cnt++; hits.push(w[i] + w[j]) }
+      ans = String(cnt)
+      q = `How many pairs of letters in "${w}" have as many letters between them in the word as in the alphabetical series (both directions)?`
+      x = cnt ? `Matches: ${hits.join(', ')} — word gap = alphabet gap.` : 'No pair has word-gap = alphabet-gap.'
+    } else if (mode === 1) {
+      const num = String(rand(2, 9)) + Array.from({ length: 7 }, () => rand(0, 9)).join('')
+      const trans = num.split('').map((d) => (+d % 2 === 0 ? +d - 1 : +d + 1)).join('')
+      const li = rand(1, 3), ri = rand(4, 6)
+      const L = trans[li - 1], R = trans[trans.length - ri]
+      ans = String(+L * +R)
+      q = `In ${num}, every even digit is replaced by the digit immediately preceding it and every odd digit by the digit following it. What is the product of the ${li}${li === 1 ? 'st' : li === 2 ? 'nd' : 'rd'} digit from the left and the ${ri}th digit from the right?`
+      x = `Transformed: ${trans}. Left-${li} = ${L}, right-${ri} = ${R} → ${L}×${R}.`
+    } else if (mode === 2) {
+      const w = pick(WORD_POOL)
+      const k = rand(4, Math.min(9, w.length - 1))
+      ans = w[w.length - k]
+      q = `If the positions of the first and last letters of "${w}" are interchanged, the second and second-last interchanged, and so on, which letter will be ${k}th from the left?`
+      x = `Full reversal. ${k}th from left of reversed = ${w.length - k + 1}th of original = ${ans}.`
+    } else {
+      const w = pick(WORD_POOL)
+      const k = rand(3, w.length - 2)
+      const rev = w.split('').reverse().join('')
+      ans = rev[k - 1]
+      q = `If "${w}" is rewritten in reverse order, which letter will be ${k}th from the right end?`
+      x = `${k}th from right of reversed = ${k}th from left of original = ${ans}.`
+    }
+    const pool = shuffle([...new Set([ans, String(+ans + 1), String(Math.max(0, +ans - 1)), String(+ans + 2), mode >= 2 ? String.fromCharCode(64 + rand(1, 26)) : String(+ans - 2)])].filter((v) => v !== ans && (mode < 2 ? /^\d+$/.test(v) : /^[A-Z]$/.test(v)))).slice(0, 4)
+    if (pool.length < 4) continue
+    out.set(q, mkq(q, String(ans), pool, x, mode === 0 ? 'hard' : 'med', t))
+  }
+  return [...out.values()]
+}
+
+const bankWordXY = (t) => [
+  B('Using the 1st, 3rd, 4th & 5th letters of "MANUFACTURE", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['M', 'N', 'F', 'X', 'Y'], 3, 'Letters = M,N,U,F — no English word exists → X.', 'med', t),
+  B('Using the 1st, 3rd, 6th & 8th letters of "AMENDMENT", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['A', 'M', 'N', 'X', 'Y'], 4, 'Letters = A,E,M,N → NAME, MANE, MEAN, AMEN → more than one → Y.', 'med', t),
+  B('Using the 2nd, 4th, 5th & 7th letters of "STARLIGHT", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['A', 'R', 'T', 'X', 'Y'], 4, 'Letters = T,R,I,H → wait: positions 2,4,5,7 = T,R,I,H → no word… recheck: S-T-A-R-L-I-G-H-T → 2nd=T, 4th=R, 5th=L, 7th=G → T,R,L,G → no word → X.', 'hard', t),
+  B('Using the 1st, 2nd, 4th & 6th letters of "SCHOOL", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['A', 'C', 'O', 'X', 'Y'], 3, 'Letters = S,C,O,O → no 4-letter word → X.', 'med', t),
+  B('Using the 1st, 3rd, 4th & 6th letters of "POSTAGE", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['S', 'T', 'O', 'X', 'Y'], 4, 'Letters = P,S,T,G → no standard word → X? Positions 1,3,4,6 = P,S,T,G — no word → X.', 'hard', t),
+  B('Using the 1st, 2nd, 3rd & 5th letters of "MASTER", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['S', 'E', 'M', 'X', 'Y'], 4, 'Letters = M,A,S,E → SAME, SEAM, MESA → more than one → Y.', 'med', t),
+  B('Using the 1st, 3rd, 5th & 7th letters of "TRIBUNE", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['B', 'E', 'T', 'X', 'Y'], 0, 'Letters = T,B,U,E → TUBE (only standard word) → 3rd letter B.', 'med', t),
+  B('Using the 2nd, 4th, 6th & 8th letters of "CLEARING", if only one meaningful word can be formed, give its 3rd letter; if none answer X; if more than one answer Y.', ['R', 'I', 'N', 'X', 'Y'], 4, 'Letters = L,A,I,N → NAIL, LAIN → more than one → Y.', 'med', t),
+]
+
 const genAlpha = (n, t) => {
   const out = new Map()
   let guard = 0
@@ -2494,9 +2551,9 @@ ER→tables: weak entity borrows owner\'s key · M:N→own relation · 1:N→FK 
       },
       {
         id: 'r-alpha', name: 'Alphanumeric series', target: 100,
-        lesson: `Number every element\'s position → "kth right of X" = posX+k.`,
-        gen: (n) => genAlpha(n, 'Reasoning: alphanumeric'),
-        bank: [],
+        lesson: `Two families: (a) series positions — "kth right of X" = posX+k; (b) word ops — pairs where word-gap = alphabet-gap, even−1/odd+1 digit transforms, reversal counting (kth left after reverse = (n−k+1)th original).`,
+        gen: (n) => [...genAlpha(Math.ceil(n / 2), 'Reasoning: alphanumeric'), ...genWordOps(Math.ceil(n / 2), 'Reasoning: word ops')],
+        bank: bankWordXY('Reasoning: word ops'),
       },
       {
         id: 'r-ds', name: 'Data sufficiency', target: 100,
