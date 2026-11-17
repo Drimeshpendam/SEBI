@@ -69,7 +69,7 @@ export default function App() {
           <NavItem label="Exam Strategy" active={view.type === 'strategy'} onClick={() => nav({ type: 'strategy' })} />
           <NavItem label="Practice Sites" active={view.type === 'links'} onClick={() => nav({ type: 'links' })} />
           <NavItem label="Take a Test" active={view.type === 'quiz'} onClick={() => nav({ type: 'quiz' })} />
-          <NavItem label="Practice 100" active={view.type === 'practice'} onClick={() => nav({ type: 'practice' })} />
+          <NavItem label="W1 · Practice 100" active={view.type === 'practice'} onClick={() => nav({ type: 'practice' })} />
           <a className="nav-item nav-pdf" href={`/api/daily-pdf?date=${new Date().toISOString().slice(0, 10)}`} target="_blank" rel="noreferrer">Revision PDF ↗</a>
           <a className="nav-item nav-pdf" href="/api/daily-pdf?date=cram" target="_blank" rel="noreferrer">Cram Sheet PDF ↗</a>
           <input
@@ -114,7 +114,7 @@ export default function App() {
         {view.type === 'strategy' && <Strategy go={setView} />}
         {view.type === 'doc' && <DocView path={view.path} go={setView} />}
         {view.type === 'quiz' && <QuizView />}
-        {view.type === 'practice' && <Practice100 />}
+        {view.type === 'practice' && <Practice100 week={1} />}
       </main>
     </div>
   )
@@ -990,14 +990,20 @@ function QuizView() {
   )
 }
 
-const P100_KEY = 'sebi-p100'
-const loadP100 = () => { try { return JSON.parse(localStorage.getItem(P100_KEY) || '{}') } catch { return {} } }
-const saveP100 = (m) => { localStorage.setItem(P100_KEY, JSON.stringify(m)); return m }
+const p100Key = (w) => 'sebi-p100-w' + w
+const loadP100 = (w) => {
+  try {
+    const cur = JSON.parse(localStorage.getItem(p100Key(w)) || '{}')
+    if (Object.keys(cur).length || w !== 1) return cur
+    return JSON.parse(localStorage.getItem('sebi-p100') || '{}')
+  } catch { return {} }
+}
+const saveP100 = (w, m) => { localStorage.setItem(p100Key(w), JSON.stringify(m)); return m }
 
-function Practice100() {
+function Practice100({ week = 1 }) {
   const [cid, setCid] = useState(null)
   const [picked, setPicked] = useState({})
-  const [progress, setProgress] = useState(loadP100)
+  const [progress, setProgress] = useState(loadP100(week))
   const [saved, setSaved] = useState(false)
 
   const concept = cid ? conceptSections.flatMap((s) => s.concepts).find((c) => c.id === cid) : null
@@ -1011,18 +1017,19 @@ function Practice100() {
     const right = qs[qi].a === j ? 1 : 0
     setPicked({ ...picked, [qi]: j })
     const next = { ...progress, [cid]: { ...my, [qs[qi].q]: right } }
-    setProgress(saveP100(next))
+    setProgress(saveP100(week, next))
   }
 
   const resetConcept = () => {
     const next = { ...progress, [cid]: {} }
-    setProgress(saveP100(next)); setPicked({}); setSaved(false)
+    setProgress(saveP100(week, next)); setPicked({}); setSaved(false)
   }
 
   return (
     <div className="page">
+      <div className="week-label">Week {week}</div>
       <h1>Practice 100</h1>
-      <p className="muted">100 questions per concept — teach-card on top, questions easy→hard, click an option to check. Progress saves locally.</p>
+      <p className="muted">Week {week} syllabus — 100 questions per concept, teach-card on top, easy→hard, click an option to check. Progress saves locally.</p>
 
       {!concept && conceptSections.map((s) => (
         <div key={s.name}>
