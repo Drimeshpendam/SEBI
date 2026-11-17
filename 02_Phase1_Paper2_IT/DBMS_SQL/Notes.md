@@ -4,6 +4,19 @@
 >
 > **How SEBI tests it (real style):** SQL output questions, "which normal form?" given FDs, candidate keys via closure, ACID/isolation scenario MCQs, B-Tree used for DB indexing (real recalled Q), difference MCQs (DELETE/TRUNCATE/DROP, WHERE/HAVING, clustered/non-clustered).
 
+## 📅 DAY MAP — which sections match your plan day
+
+| Plan day | Target | Read these sections | Then do |
+|---|---|---|---|
+| **D1** | keys, closure, 1NF–BCNF | ⭐ Day-1 Walkthrough → §2 Keys → §3 FDs & Closure → §4 Normalization | closure drills ×5, NF decision ×5 |
+| **D2** | SQL: SELECT, joins | Part 2 — execution order → SELECT & filtering → Joins | hand-write 8 queries (joins ×4) |
+| **D3** | SQL: GROUP BY/HAVING, subqueries | Aggregates & GROUP BY → Nested queries & set ops → DML/DDL/DCL/TCL | hand-write 7 queries (nth-highest, duplicates, self-join) |
+| **D4** | ACID, isolation, locks, 2PL | §7 Transactions & Concurrency | scenario MCQs — "which isolation level?" |
+| **D5** | indexing, ER→tables + PYQs | §1 ER Model → §6 File Org & Indexing | ER→table drills + B-Tree Qs + 20 GATE PYQs |
+| **D6** | topic test | whole file skim → error-log rules | 25-Q test + redo wrongs |
+
+---
+
 **How to read these notes:** every concept follows the same loop — *what it is in plain words → a tiny example you can see → the exam rule/trap*. Read the example tables slowly; the rules make sense only after the example clicks.
 
 ---
@@ -40,6 +53,88 @@
 
 **Plain words:** a *relation* = a table. **Tuple** = row, **attribute** = column. Two vocabulary traps SEBI loves: **degree** = number of COLUMNS, **cardinality** = number of ROWS (backwards from intuition — a table with 5 columns and 100 rows has degree 5, cardinality 100).
 
+**The naming matrix — every word SEBI renames, in one grid:**
+
+| Kind of word | Formal | Everyday | Example on `ENROLL(sid, sname, course, grade)` |
+|---|---|---|---|
+| object | relation | table | ENROLL itself |
+| object | tuple | row / record | `(S1, Asha, DBMS, A)` — real VALUES |
+| object | attribute | column / field | `sid` — a header NAME |
+| counter | degree | # columns | 4 |
+| counter | cardinality | # rows | however many rows exist now |
+| design | schema | logical design (names + types) | the line `ENROLL(sid, sname, course, grade)` — rarely changes |
+| data | instance | snapshot of rows right now | today's actual rows — changes constantly |
+| rule | domain | permitted values for one attribute | `grade → {A,B,C,D,F}` |
+| rule | atomic domain | elements are indivisible units | `A` ok; `A,B` in one cell breaks 1NF |
+
+*Traps:* schema vs instance — match the order in the sentence (design → snapshot = Schema, Instance). `Name(x,y,z)` in parens = attribute NAMES → attributes; `(v1,v2,v3)` of values = a tuple. A row "represents a relationship among a set of values" (it binds them together); a key only *identifies*. Tables relate to each other through shared (common) attributes — that's the foreign-key idea.
+
+**Drawn — every label pinned to a picture:**
+
+```
+                        RELATION name: ENROLL
+   ┌────────────────────────────────────────────────────────────┐
+   │         attr         attr         attr          attr       │
+   │          │            │            │             │         │
+   │          ▼            ▼            ▼             ▼         │
+   │      ┌────────┬──────────┬──────────┬─────────┐            │
+   │      │  sid   │  sname   │  course  │  grade  │ ◄── ATTRIBUTES
+   │      ╞════════╪══════════╪══════════╪═════════╡    (headers/names)
+   │      │  S1    │  Asha    │  DBMS    │    A    │ ◄─┐
+   │      ├────────┼──────────┼──────────┼─────────┤   │
+   │      │  S2    │  Bala    │   OS     │    B    │ ◄─┼── TUPLES
+   │      ├────────┼──────────┼──────────┼─────────┤   │   (rows of
+   │      │  S3    │  Charu   │  DBMS    │    A    │ ◄─┘    real values)
+   │      └────────┴──────────┴──────────┴─────────┘            │
+   │           ▲                                               │
+   │           └─ DOMAIN of sid = {S + digits}                 │
+   │              (the column's permitted-value set)           │
+   └────────────────────────────────────────────────────────────┘
+
+        ◄───────────── DEGREE = 4 ─────────────►   count across = columns
+        CARDINALITY = 3  ↓                          count down = rows
+```
+
+```
+   SCHEMA (fixed design, changes only via ALTER):
+              ENROLL ( sid , sname , course , grade )
+                              │
+        ┌─────────────────────┼──────────────────────┐
+        ▼                     ▼                      ▼
+   INSTANCE Mon          INSTANCE Tue           INSTANCE Wed
+   ┌──────────────┐      ┌──────────────┐       ┌──────────────┐
+   │ 3 rows       │      │ 4 rows       │       │ 2 rows       │
+   │              │      │ (+S4 joined) │       │ (S2 left)    │
+   └──────────────┘      └──────────────┘       └──────────────┘
+   — instance changes every insert/delete; schema stays the same —
+```
+
+```
+   Course ( course_id , sec_id , semester )
+     ▲              ▲
+     │              └── NAMES in parens → ATTRIBUTES
+     └── name outside   → RELATION
+
+   ( CS-101 , 1 , Fall )
+            ▲
+            └── VALUES in parens → TUPLE (one row)
+```
+
+```
+   EMPLOYEE                            DEPARTMENT
+   ┌────────┬───────┬───────────┬───────┐   ┌───────────┬──────────┬────────┐
+   │ emp_id │ name  │ dept_name │salary │   │ dept_name │ building │ budget │
+   ├────────┼───────┼───────────┼───────┤   ├───────────┼──────────┼────────┤
+   │  E1    │ Asha  │   CSE ────┼───────┼──►│   CSE     │ Block-A  │  50L   │
+   ├────────┼───────┼───────────┼───────┤   ├───────────┼──────────┼────────┤
+   │  E2    │ Bala  │   ECE ────┼───────┼──►│   ECE     │ Block-B  │  40L   │
+   └────────┴───────┴───────────┴───────┘   └───────────┴──────────┴────────┘
+                     ▲                            ▲
+                FOREIGN KEY                  PRIMARY KEY
+           (common attribute bridging       (must be unique —
+            two distinct relations)        the bridge lands safely)
+```
+
 **Keys — learn them on one example.** Table EMP:
 
 | emp_id | email | dept | name |
@@ -54,11 +149,91 @@
 - **Foreign key** = a column that points at another table's PK (dept → DEPT table). CAN be NULL; the column it points to MUST be unique.
 - REMEMBER: *"Super is the family, candidates are the minimal members, primary is the chosen one, alternate are the leftovers."*
 
+```
+   SUPER KEYS — anything that uniquely picks a row
+   ┌─────────────────────────────────────────────────┐
+   │  {emp_id}  {emp_id,name}  {email,dept}          │
+   │  {emp_id,email}  {email,name}  ...many more     │
+   │                                                 │
+   │   ┌─────── CANDIDATE KEYS (minimal) ────────┐   │
+   │   │   ┌────────────┐    ┌────────────┐      │   │
+   │   │   │  emp_id    │    │   email    │      │   │
+   │   │   │  PRIMARY   │    │ ALTERNATE  │      │   │
+   │   │   │ (the pick) │    │ (leftover) │      │   │
+   │   │   │ never NULL │    │            │      │   │
+   │   │   └────────────┘    └────────────┘      │   │
+   │   │    remove ONE attribute → it breaks     │   │
+   │   └─────────────────────────────────────────┘   │
+   │   {emp_id,name} lives OUT HERE — works, but     │
+   │   'name' is dead weight → super, not candidate  │
+   └─────────────────────────────────────────────────┘
+```
+
 **Integrity constraints = rules the DB enforces automatically:**
 - Entity integrity — PK can never be NULL (a row with no identity isn't a row)
 - Referential integrity — an FK must point at a real PK or be NULL (can't put an employee in a department that doesn't exist)
 - Domain constraint — values inside the column's allowed set (age can't be -5)
 - `ON DELETE CASCADE` (delete the parent → children die too) vs `SET NULL` vs `RESTRICT` — MCQ territory.
+
+### ⭐ Day-1 Walkthrough — one real table, taken apart end-to-end
+
+*This is all of Day 1 (keys → FDs → closure → normal forms) done ONCE on one realistic table. If this clicks, Day 1 is done — the sections after it are the same ideas in formal words.*
+
+**A college builds this fat table first:**
+
+ENROLL_RAW
+
+| sid | sname | course | instructor | inst_dept | grade |
+|---|---|---|---|---|---|
+| S1 | Asha | DBMS | Rao | CSE | A |
+| S1 | Asha | OS | Iyer | CSE | B |
+| S2 | Bala | DBMS | Rao | CSE | A |
+| S3 | Charu | OS | Iyer | CSE | B |
+| S4 | Dev | DBMS | Rao | CSE | B |
+
+**Step 0 — read the FDs off the data, in plain English:**
+- one student → one name → `sid → sname`
+- each course → one teacher → `course → instructor`
+- each teacher → one dept → `instructor → inst_dept`
+- one student in one course → one grade → `{sid,course} → grade`
+
+**Step 1 — find the candidate key (closure, traced line by line):**
+- Try `sid` alone: gives only `sname` — can't reach `course`. ✗
+- Try `course` alone: gives `instructor`, `inst_dept` — can't reach `sid`. ✗
+- Try `{sid,course}`:
+  - start: `{sid, course}`
+  - `sid→sname` → add sname
+  - `course→instructor` → add instructor
+  - `instructor→inst_dept` → add inst_dept
+  - `{sid,course}→grade` → add grade
+  - **= all 6 columns ✓ → candidate key = `{sid, course}`** (prime attributes: sid, course)
+
+*Recipe to remember:* nothing smaller worked, so the composite is minimal. Any attribute no FD can produce must be inside every key.
+
+**Step 2 — see WHY this table is sick (the repetition is the disease):**
+- "Rao belongs to CSE" is stored **4 times** → update it once, miss 3 rows = **update anomaly**
+- Delete all DBMS rows → the fact "Rao teaches DBMS" vanishes too = **deletion anomaly**
+- New teacher Mehta joins but no course yet → **nowhere to put him** = **insertion anomaly**
+
+**Step 3 — apply each normal form, watch the fix:**
+
+- **1NF ✓ passes** — every cell holds one value (no "DBMS, OS" in one cell).
+- **2NF ✗ fails** — key is composite `{sid,course}`, but `sname` needs only `sid` (a *part* of the key = partial dependency). → split off `STUDENT(sid, sname)`.
+- **3NF ✗ fails** — in what remains, `inst_dept` depends on `instructor` (non-key column) which depends on `course` — a chain = transitive dependency. → split off `INSTRUCTOR(instructor, inst_dept)`.
+- **BCNF ✗ fails** — remaining `ENROLL(sid,course,instructor,grade)` has FD `course→instructor`, but `course` is NOT a superkey of this table (course repeats: S1,S2,S4 all have DBMS). → split off `COURSE_TEACHER(course, instructor)`.
+
+**The final clean design — every split removed exactly one anomaly:**
+
+```
+STUDENT(sid, sname)
+COURSE_TEACHER(course, instructor)      ← course is key here
+INSTRUCTOR(instructor, inst_dept)       ← instructor is key
+ENROLL(sid, course, grade)              ← {sid,course} is key
+```
+
+Now every FD's left side IS the key of its own table → all four tables are BCNF, nothing is repeated, and all anomalies die. **That's the whole point of normalization — it's not theory, it's killing duplicated facts.**
+
+REMEMBER: *"Check 1NF on the cells, 2NF on the key's parts, 3NF on non-key chains, BCNF on every left side."*
 
 ### 3. Functional Dependencies & Closure
 
@@ -288,3 +463,65 @@ HAVING COUNT(*) > 5;          -- group filter SECOND
 
 **Ex 10 — concurrency problem.** "T1 reads a value, T2 updates it, T1 re-reads and gets a different value."
 **Ans: non-repeatable read.** (Dirty read = read uncommitted data; phantom = re-query returns new ROWS.) Isolation fix: repeatable-read level or higher.
+
+---
+
+## SQL PATTERN BANK — the queries asked in every banking/SEBI cycle
+
+Each pattern below is a recurring question shape. Learn the shape, not just the answer — the exam changes names and numbers, never the shape.
+
+**Pat 1 — Nth highest value (THE classic, 3 ways to write it).**
+```sql
+-- (a) LIMIT/OFFSET (cleanest):
+SELECT DISTINCT sal FROM emp ORDER BY sal DESC LIMIT 1 OFFSET n-1;
+-- (b) correlated count (works everywhere, MCQ favourite):
+SELECT sal FROM emp e WHERE n-1 = (
+  SELECT COUNT(DISTINCT sal) FROM emp WHERE sal > e.sal);
+-- reads: "exactly n-1 salaries are bigger than mine" => mine is the nth
+-- (c) subquery max-chain: MAX of (sals that are not the MAX)
+SELECT MAX(sal) FROM emp WHERE sal < (SELECT MAX(sal) FROM emp);
+```
+Trap: `OFFSET` counts from 0 — 2nd highest = `OFFSET 1`. And `DISTINCT` matters: two people sharing the top salary would otherwise count twice.
+
+**Pat 2 — Find duplicates.**
+```sql
+SELECT email, COUNT(*) FROM emp GROUP BY email HAVING COUNT(*) > 1;
+```
+Twin question — DELETE duplicates keeping one row:
+```sql
+DELETE FROM emp WHERE id NOT IN (SELECT MIN(id) FROM emp GROUP BY email);
+```
+
+**Pat 3 — Rows in A but not in B ("employees with no department").**
+```sql
+SELECT e.name FROM emp e LEFT JOIN dept d ON e.dept_id = d.id
+WHERE d.id IS NULL;            -- LEFT JOIN + IS NULL = "unmatched"
+-- same answer via NOT IN / EXCEPT / NOT EXISTS (4 ways to say it)
+```
+Trap: `NOT IN` breaks if the subquery can return NULL — prefer `NOT EXISTS` or the LEFT-JOIN form.
+
+**Pat 4 — GROUP BY + HAVING output question.** Given emp(10 rows: IT×4, HR×3, FIN×3):
+```sql
+SELECT dept, COUNT(*) FROM emp GROUP BY dept HAVING COUNT(*) > 3;
+-- answer: only the IT row (HR and FIN have 3 — ">3" excludes them)
+```
+Trap drill: swap `>3` for `>=3` → all three rows. The boundary IS the question.
+
+**Pat 5 — Self-join ("employees earning more than their manager").**
+```sql
+SELECT e.name FROM emp e JOIN emp m ON e.mgr_id = m.id
+WHERE e.sal > m.sal;
+```
+Rule: a self-join needs two ALIASES (`e` and `m`) of the same table — the alias split is the whole trick.
+
+**Pat 6 — UNION vs UNION ALL row count.** Query1 returns 4 rows, Query2 returns 4 rows, 2 rows identical:
+`UNION` → 6 rows (dedup) · `UNION ALL` → 8 rows (keeps both copies). Asked every cycle.
+
+**Pat 7 — EXISTS vs IN.** "Employees who HAVE department records":
+`EXISTS` checks "did the subquery return ≥1 row for THIS outer row" — correlated, runs per row. `IN` materializes the whole list first. On MCQs: both give the same answer unless NULLs lurk — `EXISTS` is NULL-safe, `NOT IN` is not.
+
+**Pat 8 — UPDATE/DELETE without WHERE.** `UPDATE emp SET sal = sal*1.1;` — updates EVERY row (the famous "I forgot the WHERE" disaster). Same for `DELETE FROM emp;` = empties the table (rows only, structure stays — that's the DELETE-vs-TRUNCATE boundary).
+
+**Pat 9 — Window-function lite (newer pattern, name-level).** `ROW_NUMBER() OVER (ORDER BY sal DESC)` ranks without collapsing rows (unlike GROUP BY); `RANK()` ties share a number and skip the next; `DENSE_RANK()` ties share a number, no skip. Know which one skips ranks — it's the asked difference.
+
+**Pat 10 — LIKE / string functions.** `'A%'` starts with A · `'%a'` ends with a · `'%an%'` contains · `'_n%'` second char is n. Case sensitivity varies by DB — on MCQs assume case-insensitive unless stated.

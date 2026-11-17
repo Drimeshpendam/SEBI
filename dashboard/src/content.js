@@ -1,6 +1,9 @@
 // Loads every .md in the SEBI folder (outside dashboard root — allowed via vite fs.allow)
 const raw = import.meta.glob(['../../**/*.md', '!../../dashboard/**'], { query: '?raw', import: 'default', eager: true })
 
+// Internal files that should exist on disk but not appear in study navigation
+const EXCLUDED_FILES = new Set(['clickup_task_ids'])
+
 const docs = Object.entries(raw).map(([path, text]) => {
   const rel = path.replace(/^\.\.\/\.\.\//, '')
   const parts = rel.split('/')
@@ -11,10 +14,11 @@ const docs = Object.entries(raw).map(([path, text]) => {
   return {
     path: rel,
     folder: parts[0],
+    sub: parts.slice(1, -1).join('/'),
     name: (generic && parent ? parent : file).replace(/_/g, ' '),
     text,
   }
-})
+}).filter((d) => !d.path.split('/').pop().startsWith('_') && !EXCLUDED_FILES.has(d.path.split('/').pop().replace('.md', '')))
 
 export const folderLabels = {
   '00_Overview': 'Overview & Plan',
@@ -28,14 +32,26 @@ export const folderLabels = {
   '08_Resources': 'Resources',
 }
 
+const subLabel = (s) => s.split('/').map((p) => p.replace(/_/g, ' ')).join(' › ')
+
 export const docTree = Object.keys(folderLabels)
-  .map((folder) => ({
-    folder,
-    label: folderLabels[folder],
-    docs: docs
+  .map((folder) => {
+    const fdocs = docs
       .filter((d) => d.folder === folder)
-      .sort((a, b) => a.path.localeCompare(b.path)),
-  }))
+      .sort((a, b) => a.path.localeCompare(b.path))
+    const subs = [...new Set(fdocs.map((d) => d.sub))]
+      .sort((a, b) => (a === '' ? -1 : b === '' ? 1 : a.localeCompare(b)))
+    return {
+      folder,
+      label: folderLabels[folder],
+      docs: fdocs,
+      groups: subs.map((s) => ({
+        sub: s,
+        label: s ? subLabel(s) : '',
+        docs: fdocs.filter((d) => d.sub === s),
+      })),
+    }
+  })
   .filter((g) => g.docs.length > 0)
 
 export const allDocs = docs

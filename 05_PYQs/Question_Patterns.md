@@ -7,14 +7,14 @@ Compiled from official SEBI notifications (2024 & Feb-2026), memory-based PYQs
 
 ## PHASE 1 — Paper 1 (General aptitude, 100 marks, 60 min)
 
-~25 Qs per section. Sectional cutoff ~30% each + aggregate ~40%. Negative marking 1/4.
+Official handout split (Jan-2026, sebi.gov.in): **80 Qs × 1.25 marks — exactly 20 questions per section**, equal 25-mark sections. Cutoffs: Paper-1 total ≥ 30% (NO sectional cutoff) + Paper-2 ≥ 40% + aggregate ≥ 40% (80/200). Negative marking 1/4.
 
-| Section | Archetypes (what actually comes) |
+| Section | 20 Qs break down as (Jan-2026 real paper) |
 |---|---|
 | GA | Last ~6 months affairs; SEBI/RBI/regulator facts (chair, HQ, est.), market terms (T+1, IPO, MF), budget/eco survey, schemes — all direct factual MCQs |
-| Reasoning | 1–2 puzzle/seating sets (5 Qs each), syllogism, inequality, coding-decoding, blood relation, direction, order-ranking, alphanumeric series |
-| Quant | 1 DI set (5), number series (5), quadratic eqns (5), arithmetic word problems (10), simplification/approximation (5) |
-| English | RC passage (5–8), error spotting, para jumbles, cloze, sentence fillers, vocab (syn/anto) |
+| Reasoning | ~15 puzzle/seating Qs (month+subject, box+color, double-row, height) + ~5 singles (statement-assumption, syllogism, inequality, coding, blood relation, series) |
+| Quant | Approximation 5, wrong number series 4–5, arithmetic word problems 5–6, line-graph DI 5, caselet DI 5 |
+| English | RC passage 5, error spotting 4–5, double fillers 4–5, sentence improvement 3–4, para jumble 4 |
 
 ## PHASE 1 — Paper 2 IT (50 MCQs, 100 marks, 40 min)
 
@@ -32,8 +32,12 @@ Compiled from official SEBI notifications (2024 & Feb-2026), memory-based PYQs
 | Data Warehousing | 5% | 2–3 | ETL, metadata, data cube/mart, OLAP ops (roll-up, drill-down, slice-dice) |
 | Shell Programming | 5% | 2–3 | Basic commands, shell variables, scripting basics |
 
-**Trap:** real papers include IT trivia beyond the listed topics (Windows ADS, UNIX
+**Trap 1:** real papers include IT trivia beyond the listed topics (Windows ADS, UNIX
 commands) — broad "computer awareness" MCQs. Testbook chapter tests cover these wells.
+
+**Trap 2:** OS, Software Engineering and Emerging Tech are NOT in the official
+Phase-1 syllabus — they surface only as ~0–3 stray trivia Qs. Don't budget dedicated
+study days for them. Full priority ranking + plan audit: `00_Overview/Topic_Priority.md`.
 
 ## PHASE 2 — Paper 1 English Descriptive (100 marks, 60 min, typed)
 

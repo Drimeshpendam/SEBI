@@ -1,0 +1,2164 @@
+ 
+1st to 8th November 2026 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+ 
+Contents 
+RBI Banking and Economy ................................ ................................ ................... 2 
+SEBI and Financial Awareness ................................ ................................ ............. 8 
+NABARD and Agriculture ................................ ................................ ................... 14 
+National ................................ ................................ ................................ ............... 15 
+Government Schemes ................................ ................................ ........................ 24 
+International ................................ ................................ ................................ ........ 29 
+States ................................ ................................ ................................ .................. 33 
+Reports and Indexes ................................ ................................ ...........................  36 
+Science and Technology ................................ ................................ .................... 39 
+Defence ................................ ................................ ................................ ............... 43 
+Events................................ ................................ ................................ .................. 44 
+Awards & Rewards ................................ ................................ ..............................  46 
+Appointments ................................ ................................ ................................ ...... 47 
+Important Days ................................ ................................ ................................ .... 50 
+Obituaries ................................ ................................ ................................ ............ 52 
+Books ................................ ................................ ................................ .................. 54 
+Sports ................................ ................................ ................................ .................. 55 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+RBI Banking and Economy 
+RBI proposes ₹100 crore limit on bank loans for agri infrastructure under 
+revised PSL norms 
+Key Points 
+• The RBI proposed an aggregate sanctioned limit of ₹100 crore per borrower 
+from the banking system for agricultural infrastructure  loans, under draft 
+Priority Sector Lending (PSL) norms.  
+– For crop loans, medium and long -term agri loans and pre - and post -
+harvest loans, the proposed limit is ₹4 crore per borrowing entity. 
+• Education loans to individuals, including vocational courses, up to ₹25 lakh 
+will be eligible for PSL. 
+• Renewable energy  loans up to ₹35 crore  for power generators and public 
+utilities, and up to ₹10 lakh per borrower for households, will be eligible. 
+• The RBI also issued draft directions for small finance banks, local area banks 
+and regional rural banks, and invited comments by 26 November. 
+Q: What is Priority Sector Lending (PSL)?  A: It is an RBI requirement that banks lend 
+a set share of their credit to sectors like agriculture, MSMEs, education and housing, 
+which may otherwise get inadequate credit. 
+Q: What is a draft direction?  A: It is a proposed regulation that the RBI releases for 
+public feedback before issuing the final rules. 
+ 
+RBI tightens cyber oversight of non-bank payment system operators 
+Key Points 
+• The RBI issued consolidated Master Directions on Cyber Resilience and 
+Digital Payment Security Controls  for non-bank payment system 
+operators (PSOs), including NPCI, card networks, payment aggregators, PPI 
+issuers and white-label ATM operators (WLAOs).  
+– They take effect immediately for large and medium PSOs, and small 
+PSOs have until 1 April 2028. 
+– Six earlier circulars, the oldest from 2009, have been repealed. 
+• PSOs must obtain the source code of critical third-party applications, or have 
+an escrow arrangement in place.  
+– Otherwise, they need a developer certificate that the code is free of 
+vulnerabilities, malware and covert channels, renewed after every 
+change. 
+• PSOs must file an annual system audit report  within two months  of the 
+financial year-end.  
+– The auditor must not have provided any service to the entity in the last 
+two financial years , and open observations must be fixed within 3 
+months. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• Cyber incidents must be reported to the RBI within six hours of detection, and 
+a minimum 12-hour cooling-off period applies after a customer changes their 
+registered mobile number or email. 
+Q: What is a Payment System Operator (PSO)?  A: A PSO is an entity authorised by 
+the RBI to set up and operate a payment system, such as a payment aggregator or 
+prepaid instrument issuer. 
+Q: What is a white-label ATM operator (WLAO)?  A: It is a non-bank entity authorised 
+by the RBI to set up and run ATMs that serve customers of all banks. 
+ 
+RBI Constitutes TCCFM, Eases Reporting for Small Service Exporters and 
+Importers 
+• RBI constituted a Technical Consultative Committee for Financial Markets 
+(TCCFM), chaired by Deputy Governor Rohit Jain, to engage market 
+participants on money markets, government securities, forex and derivatives. 
+• It amended the Foreign Exchange Management (Export and Import of Goods 
+and Services) Regulations, 2026, easing reporting for small-value service trade, 
+retrospectively from 1 October 2026. 
+• Resident individual service exporters are deemed to have submitted the EDF 
+once they give payment information to their AD bank. Non-individual exporters 
+get similar treatment for receipts up to Rs 10 lakh. 
+• AD banks must enter service import details in IDPMS within five working days. 
+ 
+RBI's net short dollar forward position hits record $239.2 billion in September 
+Key Points 
+• The RBI's outstanding net short dollar position in the forward market rose to 
+a record $239.2 billion  at the end of September, from $200.06 billion  in 
+August.  
+– Net shorts of more than one year maturity rose to $199 billion from 
+$176.6 billion. 
+• The rise was driven by the special concessional swap window for banks to 
+mobilise FCNR(B) deposits, which was operationalised on 8 June.  
+– The window closed on 31 August, but banks could enter swaps under it 
+until 11 September. 
+– Banks mobilised $133 billion in FCNR(B) deposits through the window. 
+• The 12-month dollar -rupee forward premium  rose by over 120 bps  in 
+October, to 4.57% from 3.36%. 
+• The rupee rebounded about 2% from its recent low of 96.85 per dollar. 
+Q: What is a net short dollar forward position?  A: It means the RBI has contracted to 
+sell more dollars than it has bought in the forward market, to be delivered on future 
+dates. 
+Q: What is a forward premium?  A: It is the difference between the forward and spot 
+exchange rates, which reflects the cost of hedging future dollar payments. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Inward FDI to ODI ratio narrows to 4.2 times in FY26 from 5.5 times: RBI 
+Key Points 
+• The ratio of India's outstanding inward FDI to ODI narrowed to 4.2 times at the 
+end of March 2026 from 5.5 times a year earlier, according to the RBI's annual 
+census on Foreign Liabilities and Assets (FLA). 
+• The US was the largest source of outstanding FDI in India at 16.5%, followed 
+by Mauritius (14.5%), Singapore (13.7%) and the UK (10.8%). 
+• For ODI, Singapore, the UAE and the US were the top destinations, together 
+accounting for more than half of Indian entities' overseas investments. 
+• Manufacturing accounted for 50.1% of outstanding FDI equity capital at 
+market value, followed by services at 45%.  
+– About 97% of Indian entities reporting FDI and/or ODI were unlisted. 
+Q: What is Overseas Direct Investment (ODI)?  A: It is an investment by an Indian 
+entity in a foreign entity, such as setting up or acquiring a business abroad. 
+Q: What is the FLA census?  A: The Foreign Liabilities and Assets (FLA) census is the 
+RBI's annual survey that captures the cross -border assets and liabilities of Indian 
+entities. 
+ 
+GoI Constitutes High-Level Committee on Banking for Viksit Bharat, Chaired by 
+Suresh N. Patel 
+• MoF constituted the committee under Suresh N. Patel, former Central Vigilance 
+Commissioner, with a six -month tenure. It was first announced in the Union 
+Budget 2026-27 (February 2026) by FM Nirmala Sitharaman. 
+• Its task is a comprehensive review of the banking sector and recommendations 
+for structural, institutional, regulatory and legislative reforms. The goal is a 
+globally competitive, inclusive and resilient system for Viksit Bharat 2047. 
+• Members include Shirish Chandra Murmu (RBI Deputy Governor), Padmaja 
+Chunduru (former MD & CEO, Indian Bank) and N S Vishwanathan (former RBI 
+Deputy Governor). 
+• The Joint Secretary (Banking), DFS, MoF, is the Member Secretary. 
+• Under its Terms of Reference, it will examine the regulatory and legislative 
+frameworks governing banks, including RRBs and cooperative banks. 
+ 
+NPCI Sets Up Technology Subsidiary NPCI Tech Solutions Limited; Appoints 
+Vishal Kanvaty as CEO 
+• The National Payments Corporation of India (NPCI) has established NPCI Tech 
+Solutions Limited (NTSL), a wholly owned subsidiary that will serve as the 
+technology and innovation arm of the NPCI Group. 
+• Vishal Kanvaty, currently NPCI's Chief Technology Officer (CTO), has been 
+appointed as the Managing Director and Chief Executive Officer (MD & CEO) 
+of NTSL. 
+• NTSL will focus on emerging technologies, including Artificial Intelligence (AI), 
+blockchain, digital financial infrastructure and Global Capability Centre (GCC) 
+services. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• The subsidiary will also provide technology services for initiatives such as eKYC 
+Setu and the Unified Ticketing Platform (UTP), along with other Digital Public 
+Infrastructure (DPI) programmes. 
+• NTSL is NPCI's fourth wholly owned subsidiary, following NPCI International 
+Payments Limited (NIPL), NPCI Bharat BillPay Limited (NBBL) and NPCI BHIM 
+Services Limited (NBSL). Its establishment has received approval from the 
+NPCI Board and the Reserve Bank of India (RBI). 
+ 
+Bank of Baroda to reinvest MDR proceeds in UPI; expects up to 50 bps repo hike 
+Key Points 
+• Bank of Baroda  CEO Debadatta Chand said proceeds from the proposed 
+MDR on select UPI transactions will be reinvested in UPI technology and 
+infrastructure, not treated as profit.  
+– More than 95% of UPI transactions are outside the proposed MDR 
+framework, which covers only certain large-value transactions. 
+• The bank expects the RBI to hike the repo rate by a maximum of 50 bps, taking 
+the terminal repo rate to 6%, as inflation has risen above 5%. 
+• BoB mobilised almost twice its $4 billion target under the RBI's special swap 
+window for FCNR(B) deposits, and also raised about $1.1 billion  through 
+external commercial borrowings. 
+• Its NIM guidance is 2.75-2.95%, with Q2 FY27 NIM at about 2.75%.  
+– It raised its advances and deposit growth guidance by 1 percentage 
+point each. 
+– The NSE share sale gave a total positive impact of about ₹3,100 crore, 
+of which about ₹1,600 crore was set aside as an expected credit loss 
+provision. 
+Q: What is MDR?  A: The Merchant Discount Rate (MDR) is the fee a merchant pays 
+the bank for accepting digital payments. 
+Q: What is FCNR(B)?  A: Foreign Currency Non -Resident (Bank) deposits are term 
+deposits held by NRIs in foreign currency with Indian banks. 
+ 
+Net GST collections rise 25.6% to ₹2.03 trillion in October, fastest growth in FY27 
+Key Points 
+• Net GST collection rose 25.6% year-on-year to ₹2.03 trillion in October 2026, 
+the highest growth rate of FY27 so far.  
+– Gross GST rose 22.9% to ₹2.31 trillion, also the fastest growth this 
+financial year. 
+– Both were second -highest of the year after April (₹2.42 trillion gross, 
+₹2.10 trillion net). 
+• Import-linked GST outpaced domestic collection, as gross IGST from imports 
+rose 42.2% to ₹72,246 crore.  
+– Net GST from imports rose 56.2% to ₹58,319 crore , while gross 
+domestic GST rose 15.8% to ₹1.59 trillion. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• Refunds rose 6.5% to ₹27,934 crore, of which domestic refunds were ₹14,007 
+crore and export refunds via ICEGATE were ₹13,927 crore. 
+• In April-October, gross GST grew 13.2% to ₹14.78 trillion and net GST rose 
+12.6% to ₹12.69 trillion. 
+Q: What is IGST?  A: The Integrated GST (IGST) is the tax levied on inter-state supply 
+of goods and services and on imports. 
+Q: What is ICEGATE?  A: ICEGATE is the customs electronic data interchange (EDI) 
+platform of the Central Board of Indirect Taxes and Customs (CBIC). 
+ 
+India's manufacturing PMI dips to 54.7 in October 
+Key Points 
+• The HSBC India Manufacturing PMI  fell to 54.7 in October from 55.1 in 
+September, slightly below the flash estimate of 54.9.  
+– A reading above 50 indicates expansion, and October was the 60th 
+consecutive month of expansion. 
+• New export orders grew at their fastest pace in six months, while growth in 
+new domestic business eased from September's seven-month high. 
+• Input cost inflation  fell to its lowest since February, and the rise in selling 
+prices was the weakest in just under four years. 
+• Factory employment rose, but job creation slowed and capital goods  
+employment declined. 
+Q: What is the PMI?  A: The Purchasing Managers' Index (PMI) is a monthly survey -
+based indicator of business activity, where above 50 means expansion and below 50 
+means contraction. 
+Q: What is a flash PMI?  A: It is an early estimate of the PMI released before the final 
+data, based on a subset of survey responses. 
+ 
+India's services PMI hits four-month high of 55.8 in October 
+Key Points 
+• The HSBC India Services PMI  rose to 55.8 in October from 55.2 in 
+September, a four-month high.  
+– It stayed above 50 for the 63rd consecutive month. 
+– Finance & Insurance led growth in new business and output, while Real 
+Estate & Business Services ranked last. 
+• Input cost inflation eased to its slowest pace in more than six years. 
+• New export orders  grew at their weakest pace since February 2023 , and 
+employment growth slowed to its weakest since June. 
+• The HSBC India Composite PMI Output Index  rose to 56.2 from 55.9, the 
+fastest rise in aggregate output in four months. 
+Q: What is the Composite PMI Output Index?  A: It is a weighted average of the 
+Manufacturing Output Index and the Services Business Activity Index, showing overall 
+private sector output. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Q: What are the four segments tracked in the Services PMI?  A: They are consumer 
+services, finance and insurance, real estate and business services, and transport, 
+information and communication. 
+ 
+Sensex and Nifty end Samvat 2082 with weakest performance in 15 years 
+Key Points 
+• The Nifty 50 and Sensex ended Samvat 2082 down 3.1% and 4%, their worst 
+Samvat-wise performance since 2011, when both fell 17.4%.  
+– In Samvat 2081, the Nifty had gained 6.8% and the Sensex 6.3%. 
+– Both indices posted weekly gains of 8.6-8.8%, their biggest in nearly six 
+years. 
+• About $31.3 billion of foreign selling hit Indian equities in 2026, driven by high 
+crude oil, West Asia tensions, US tariff disruption and inflation worries. 
+• In the broader market, the Nifty Midcap 100 rose 2.1% and the Nifty Smallcap 
+100 rose 4.2%.  
+– Nifty Pharma, Metal and Capital Markets were the top outperformers, 
+gaining 22-25%. 
+– Nifty IT, India Tourism, Cement and FMCG  were among the worst 
+performers, falling 7-17%. 
+• Nifty 50 valuations moderated to around 17 times, below the 10-year average. 
+Q: What is Samvat?  A: Samvat is the Hindu calendar year, and the Indian stock 
+market treats the period between two Diwali Muhurat trading sessions as one Samvat 
+year. 
+Q: What are FPIs?  A: Foreign Portfolio Investors (FPIs) are overseas investors who 
+buy Indian stocks and bonds without taking direct control of companies. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+SEBI and Financial Awareness 
+Sebi eases digital KYC rules for NRIs and foreign nationals from December 3 
+Key Points 
+• Sebi relaxed KYC norms for persons resident outside India (PROIs), letting 
+those in FATF-compliant countries complete digital onboarding without being 
+physically present in India.  
+– The framework is effective from 3 December and covers NRIs, OCIs 
+and foreign nationals. 
+– Clients in FATF non-compliant countries  continue to follow existing 
+KYC requirements. 
+• KYC records are now portable across intermediaries, and intermediaries can 
+rely on KYC done by another Sebi -registered intermediary, based on records 
+from KRAs or the Central KYC Records Registry. 
+• Intermediaries must collect passport copies and, where applicable, OCI cards, 
+and overseas addresses will be accepted as proof of address.  
+– Video-based in-person verification requires an authorised official and 
+is subject to concurrent audit. 
+• Intermediaries must submit completed KYC information to KRAs within three 
+working days. 
+Q: What is the FATF?  A: The Financial Action Task Force (FATF) is the global body 
+that sets standards to combat money laundering and terrorist financing. 
+Q: What is a KYC Registration Agency (KRA)?  A: A KRA is a Sebi -registered entity 
+that stores investors' KYC records so that they can be reused across financial 
+intermediaries. 
+ 
+Sebi forms working group to review Innovators Growth Platform framework 
+Key Points 
+• Sebi constituted a working group to review the regulatory framework of the 
+Innovators Growth Platform (IGP) , to ease capital market access for 
+innovation-led enterprises.  
+– The review comes amid the rise of businesses in deep-tech, 
+biotechnology, semiconductors and space. 
+• The group will examine eligibility and listing requirements for research-stage, 
+pre-revenue, IP-led and technology-intensive firms.  
+– It will also review investor participation , pricing, allocation and 
+minimum subscription  norms, and post-listing disclosure and 
+governance. 
+• It will examine migration requirements from the IGP to the main board and 
+benchmark India's framework against international regulations. 
+• The group is co-chaired by Srini Srinivasan of IVCA and Prashanth Prakash 
+of Accel Partners. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Q: What is the Innovators Growth Platform (IGP)?  A: It is a Sebi framework that allows 
+innovation-led, technology-intensive start-ups to list on stock exchanges with relaxed 
+eligibility norms. 
+Q: What is a pre-revenue company?  A: It is a company that has not yet started earning 
+revenue from its products or services, often because it is still in research or 
+development. 
+ 
+SEBI Extends KYC Review Periodicity to 8 Years for Eligible FPIs 
+• SEBI's circular "Rationalisation of periodicity of KYC review for FPIs" extends 
+the KYC review period for eligible FPIs from 3 years to 8 years, to ease 
+compliance. It takes effect from 1 December 2026. 
+• The annual KYC review period is extended from 1 year to 2 years for specified 
+FPIs. 
+• Category I: 8 years for all FPIs from non -high-risk jurisdictions and those 
+registered under Regulation 5(a)(i) from high-risk jurisdictions. Other Category 
+I FPIs from high-risk jurisdictions are reviewed every 2 years. 
+• Category II: 8 years for regulated FPIs from non -high-risk jurisdictions. All 
+others, including all from high-risk jurisdictions, are reviewed every 2 years. 
+ 
+Sebi allows mutual funds to net cash market fund obligations from April 2027 
+Key Points 
+• Sebi allowed mutual fund schemes  to net fund obligations  from outright 
+purchase and sale transactions in the cash market, effective 1 April 2027.  
+– It extends to mutual funds a net settlement facility  that Sebi earlier 
+introduced for FPIs. 
+– The aim is to reduce temporary funding requirements  and improve 
+settlement efficiency. 
+• Netting is allowed only within the same scheme and settlement cycle , and 
+not across different schemes of the same fund.  
+– If a scheme buys and sells the same security in the same cycle, it is 
+settled on a gross basis. 
+• Securities settlement continues on a gross basis , and derivatives, 
+securities lending and borrowing  and short selling  transactions remain 
+outside the framework. 
+• Sebi asked AMFI to formulate implementation standards, and AMCs and 
+custodians must ensure scheme-wise accounting and audit trails. 
+Q: What is net settlement?  A: It is a settlement method where amounts payable and 
+receivable are offset, so only the net difference is paid or received. 
+Q: What is gross settlement?  A: It is a settlement method where each transaction is 
+settled separately and in full, without offsetting. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Sebi eases accredited investor norms, lets fund managers certify status 
+Key Points 
+• Sebi allowed managers of AIFs, asset management companies of SIFs and 
+portfolio managers to verify and grant accredited investor status, in addition 
+to the existing route through recognised accreditation agencies.  
+– The circular came into effect immediately. 
+• Such accreditation is valid for three years and is recognised across managers 
+in the same corporate group.  
+– Managers must keep verification records for at least five years. 
+• LLPs qualify as accredited investors if each partner independently meets the 
+eligibility criteria. 
+• Persons resident outside India are treated as deemed accredited investors 
+and need no separate certificate, though AML and client due diligence  
+obligations remain. 
+Q: What is an accredited investor?  A: It is an investor who meets prescribed income 
+or net worth criteria and is considered capable of taking higher risks, so they can invest 
+in certain products with relaxed norms. 
+Q: What is an AIF?  A: An Alternative Investment Fund (AIF) is a privately pooled 
+investment vehicle, such as a venture capital or private equity fund, that raises money 
+from sophisticated investors. 
+ 
+Sebi cuts OFS cooling-off period for illiquid privately listed InvITs to 8 weeks 
+Key Points 
+• Sebi reduced the cooling-off period for offer-for-sale (OFS) transactions by 
+privately listed illiquid InvITs  to 8 weeks  from 12 weeks , effective 
+immediately.  
+– The aim is to ease doing business and trading-related restrictions. 
+• The cooling-off period covers purchases or sales before and after an OFS, and 
+depends on liquidity.  
+– It is 2 weeks for the most liquid shares, 4 weeks for liquid shares and 
+12 weeks for illiquid shares. 
+• Privately listed InvITs face liquidity constraints due to their high trading lot size, 
+which limits participation largely to institutional investors, body corporates 
+and HNIs. 
+Q: What is an InvIT?  A: An Infrastructure Investment Trust (InvIT) is a trust that pools 
+money from investors to own and operate infrastructure assets, such as roads and 
+power transmission lines, and pays them returns. 
+Q: What is an Offer for Sale (OFS)?  A: It is a mechanism where existing shareholders, 
+such as promoters, sell their shares to the public through the stock exchange platform. 
+ 
+Irdai cuts share transfer approval fee by 80% to ₹10 lakh for insurers 
+Key Points 
+• Irdai issued a master circular on insurer registration, capital structure, share 
+transfers and amalgamations, effective from the date of issuance.  
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+– The processing fee for share-transfer approvals under Regulation 22(4) 
+was cut by 80%, from ₹50 lakh to ₹10 lakh. 
+• Insurers planning an IPO must disclose pre- and post-listing shareholding, with 
+separate details for shareholders holding more than 1% of paid -up equity 
+capital.  
+– They must also submit a declaration signed by the MD or CEO. 
+• ESOP issuances through employee trusts, and option exercises by KMPs or 
+directors that breach threshold limits, need prior regulatory clearance. 
+• For amalgamations, insurers must submit a report by an independent 
+actuary with no professional connection to the parties in the previous five 
+years. 
+• Insurers issuing other forms of capital (OFC) must file post-allotment details 
+within 15 days of allotment. 
+Q: What is Other Forms of Capital (OFC)?  A: OFC refers to capital instruments, other 
+than equity, that insurers can issue to raise funds under the Registration Regulations, 
+2024. 
+Q: What is a voluntary surrender of registration?  A: It is when an insurer gives up its 
+Irdai registration, for example after its business is transferred or amalgamated with 
+another insurer. 
+ 
+PFRDA Revises NPS Scheme Naming and Display of Pension Fund Options on 
+PoP Platforms 
+• PFRDA revised NPS scheme naming and the display of pension fund options 
+on Point of Presence (PoP) platforms, effective 1 December 2026. 
+• The new name format has three elements: Pension Fund abbreviation, the 
+common identifier "NPS" and a unique scheme name given by the PF. 
+• The category must appear below or alongside the scheme name in a smaller 
+font. 
+• Tier II schemes carry the suffix "Tier II", while Tier I schemes need no tier 
+designation. 
+• PoP platforms may place a particular pension fund's schemes at the top or pre-
+select a scheme. 
+ 
+Razorpay gets final IFSCA licence to expand cross-border payments from GIFT 
+City 
+Key Points 
+• Razorpay received a final Payment Service Provider (PSP) licence from the 
+IFSCA to operate from GIFT City.  
+– It follows the in-principle approval received in April 2026. 
+• The licence lets Razorpay move money into and out of India from GIFT City, 
+offer foreign currency transfers and hold funds in multi-currency accounts 
+under a single regulatory framework. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• Razorpay's GIFT City infrastructure has banking integrations with RBL Bank 
+and ICICI Bank, and investment platforms can integrate in about two to three 
+weeks. 
+• Indian residents invested $2.65 billion in overseas stocks and debt in FY26, 
+up 56% year-on-year. 
+Q: What is IFSCA?  A: The International Financial Services Centres Authority (IFSCA) 
+is the unified regulator for financial services in the International Financial Services 
+Centres (IFSCs) in India, such as GIFT City. 
+Q: What is GIFT City?  A: Gujarat International Finance Tec -City (GIFT City), in 
+Gandhinagar, is India's first International Financial Services Centre (IFSC). 
+ 
+Mainboard IPOs raise ₹44,451 crore in October; Jio Platforms accounts for 68% 
+Key Points 
+• Mainboard IPOs raised ₹44,451 crore in October, up 12.9% month-on-month, 
+with Jio Platforms' ₹30,188 crore IPO making up nearly 68%.  
+– There were 13 mainboard IPOs in October, against 34 in September. 
+• SME IPOs  raised ₹643 crore  in October, down 70% from ₹2,125 crore  in 
+September.  
+– Ravita Engineering Services' ₹110 crore offer was the largest. 
+• Jio's anchor book stood at ₹8,110 crore, with LIC the largest single anchor 
+investor at about ₹500 crore. 
+• Of the eight mainboard issues listed in October, six closed above issue price 
+on debut, with Tonbo Imaging gaining 62% and Jio 26.7%. 
+• In 2026 so far, 109 mainboard issues have raised ₹1.58 trillion, against ₹1.76 
+trillion in all of 2025. 
+Q: What is an anchor investor?  A: An anchor investor is a large institutional investor 
+that is allotted shares in an IPO a day before it opens to the public. 
+Q: What is an SME IPO?  A: It is a public issue by a small or medium-sized enterprise, 
+listed on the SME platform of an exchange rather than the mainboard. 
+ 
+Upstox Gets SEBI Approval to Operate as Online Bond Platform Provider 
+• Upstox Securities Private Limited received SEBI approval to operate as an 
+Online Bond Platform Provider (OBPP), allowing it to offer corporate bonds 
+directly to investors. 
+• This places it alongside Groww, Zerodha and Angel One. Nearly 40 firms have 
+been approved under SEBI's OBPP framework since 2023. 
+• The approval replaces its earlier arrangement with IndiaBonds. Bonds start at 
+Rs 1,000, with indicative returns of 8% to 16%, and initial offerings are rated 
+AAA to BBB-. 
+• Upstox was founded in 2009 as RKSV Securities, rebranded in 2016, and is 
+headquartered in Mumbai. Ravi Kumar is CEO. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Sidbi raises ₹5,607 crore via five-year bonds at 8.17% coupon 
+Key Points 
+• Sidbi raised ₹5,607 crore through five-year bonds at a coupon rate of 8.17%, 
+against a planned ₹6,000 crore.  
+– It received bids worth over ₹13,300 crore  but accepted only ₹5,607 
+crore, as the rest were at higher yields than it was willing to offer. 
+• The fundraise came amid a rally in the government bond market, with the 10-
+year benchmark yield falling to 7.18% from 7.48% on 26 October, following 
+a correction in crude oil prices. 
+• Earlier that week, Nabard raised ₹6,000 crore through five-year bonds at a 
+coupon rate of 8.27%. 
+Q: What is a coupon rate?  A: It is the fixed annual interest rate that a bond issuer 
+pays to bondholders, expressed as a percentage of the bond's face value. 
+Q: What is the 10-year benchmark government bond yield?  A: It is the return on the 
+most actively traded 10-year government security, and it acts as a reference for pricing 
+other bonds and loans. 
+ 
+Angel One Overtakes Zerodha to Become India's Second -Largest Stockbroker 
+by Active Clients 
+• According to National Stock Exchange (NSE) data for October 2026, Angel One 
+has overtaken Zerodha to become India's second-largest stockbroker by active 
+clients. 
+• Angel One recorded 6.99 million active clients, compared with Zerodha's 6.76 
+million. Groww retained the top position with 13.75 million active clients. 
+• Angel One added around 2.43 lakh active clients during October, while Zerodha 
+witnessed a decline of nearly 33,000 clients. The surge in Angel One's client 
+additions was partly attributed to Jio Platforms' record IPO. 
+• India added 3.36 million demat accounts in October 2026, the highest monthly 
+addition since January 2026. The total number of demat accounts reached 
+approximately 243.95 million. 
+• Other major brokers included ICICI Securities (2.16 million active clients), 
+Upstox (1.84 million), Kotak Securities (1.40 million) and HDFC Securities (1.36 
+million). 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+NABARD and Agriculture 
+1st International Maize Conference 2026 Held in Hyderabad 
+• The conference was held on 2 -4 November 2026 at JD Convention Centre, 
+Hyderabad, under the theme "Maize Revolution for Food, Feed, Fodder, Fuel 
+and Sustainability in the Changing World" (M4FS). 
+• It was organised jointly by MTAI, PJTAU, ICAR, TAAS, CIMMYT and ICAR -
+IIMR. 
+• India's maize production is about 55 million tonnes, with a target of 75 MT over 
+the next decade through a 1.5-fold productivity increase. 
+• The traditional 4F framework (Food, Feed, Fodder, Fuel) was expanded to 5F 
+by adding Farmers. 
+ 
+MSDE Recognises MANAGE Hyderabad as CoE-Skills in Agriculture 
+• MSDE recognised MANAGE, Hyderabad (under the Ministry of Agriculture and 
+Farmers Welfare) as a Centre of Excellence -Skills in agriculture. Secretary 
+Debashree Mukherjee presented the certificate on 2 November 2026 at 
+Kaushal Bhawan, New Delhi. 
+• MANAGE was among 19 institutions recognised under the Green Channel 
+mechanism. Recognition is valid for 3 years, from 9 October 2026 to 8 October 
+2029. 
+• The empanelment was led by MANAGE DG Sanjay Kumar Agarwal. 
+• MANAGE was established in 1987 to strengthen agricultural extension through 
+training, consultancy, research and policy support. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+National 
+CBIC Notifies Key GST Changes under Finance Act, 2026, Effective 1 November 
+2026 
+• CBIC, a statutory body under the Department of Revenue, MoF, notified 1 
+November 2026 as the date key GST changes under Section 1(2)(b) of the 
+Finance Act, 2026 come into force. 
+• Amended Section 15(3)(b): post-supply discounts are excluded from the value 
+of supply if the supplier issues a credit note and the recipient reverses the ITC. 
+No prior agreement or invoice-wise linkage is needed. 
+• Section 54(6): provisional refunds extend to eligible inverted duty structure 
+claims, with 90% of the refund released within 7 days, subject to conditions. 
+• Section 54(14): the Rs 1,000 minimum refund limit is removed for tax paid on 
+exported goods, helping small exporters. It does not apply to other refund 
+categories. 
+ 
+Retail e-invoicing pilot likely from April 2027 to improve GST compliance 
+Key Points 
+• GST authorities plan a pilot to electronically record B2C (retail consumer) 
+invoices in select sectors from 1 April 2027.  
+– The aim is to track retail sales, improve GST compliance and curb tax 
+evasion. 
+– The pilot is expected to be voluntary initially. 
+• The GST Council, at its 54th meeting in September 2024 , recommended a 
+voluntary trial of electronic consumer bills in select sectors and states.  
+– It proposed making the system mandatory later in sectors prone to 
+evasion, with restaurants cited as an example. 
+• Currently, businesses with annual sales above ₹5 crore  must register B2B 
+invoices electronically on the government-designated portal.  
+– Banks, insurers and NBFCs are exempt from B2B e-invoicing, and the 
+government is considering bringing them in, though this is not part of the 
+pilot. 
+• GSTN awarded Infosys a fresh seven-year contract in 2025 to handle the 
+higher storage and processing capacity needed. 
+Q: What is e-invoicing?  A: It is a system where invoices are electronically registered 
+on a government-designated portal, so tax authorities can see transactions in real time. 
+Q: What is GSTN?  A: The GST Network (GSTN) is the entity that manages the 
+technology backbone of the GST system. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Centre advances ₹1.09 trillion tax devolution to states for November 
+Key Points 
+• The Centre released ₹1.09 trillion to states as tax devolution for November, 
+advancing the monthly instalment from 10 November  to 5 November  for 
+festive-season spending.  
+– An additional instalment was also released in October, and two 
+instalments were released in August. 
+• Under the Sixteenth Finance Commission , the Centre shares 41% of the 
+divisible pool of central taxes with states.  
+– Budget FY27 estimates states' share at ₹15.26 trillion, against ₹13.93 
+trillion transferred last year. 
+• The Sixteenth Finance Commission's horizontal devolution  weights are 
+42.5% for income distance, 17.5% for population, and 10% each for area, 
+forest cover, demographic performance and contribution to GDP.  
+– Contribution to GDP  is a new parameter introduced by this 
+Commission. 
+• Uttar Pradesh received the largest share at ₹19,208 crore, followed by Bihar 
+(₹10,845 crore) and Madhya Pradesh (₹8,010 crore). 
+Q: What is the divisible pool?  A: It is the portion of the Centre's gross tax revenue, 
+excluding cesses, surcharges and collection costs, that is shared with states. 
+Q: What is horizontal devolution?  A: It is the formula that decides how each state's 
+share is determined from the total amount going to states. 
+ 
+PM Modi Approves 1,500-km Delhi-Guwahati Bullet Train Corridor via Siliguri 
+• On 31 October 2026, PM Narendra Modi approved the 1,500 -km Northern 
+Bullet Train Corridor linking Delhi with Guwahati (Assam) via Siliguri (West 
+Bengal). Railway Minister Ashwini Vaishnaw announced it in Varanasi at the 
+flag-off of the Varanasi-New Delhi Vande Bharat Sleeper Express. 
+• The route covers Agra, Kanpur, Lucknow, Ayodhya, Varanasi, Prayagraj, Patna 
+and Siliguri. 
+• It will be built under Make in India, using domestically manufactured 
+components and Indian engineering expertise. 
+• Union Budget 2026 -27 had announced 7 high -speed rail corridors: Mumbai -
+Pune, Pune -Hyderabad, Hyderabad -Bengaluru, Hyderabad -Chennai, 
+Chennai-Bengaluru, Delhi-Varanasi and Varanasi-Siliguri. 
+• India's first bullet train project, the 508 -km Mumbai -Ahmedabad corridor, is 
+under construction. 
+ 
+MoLE Constitutes National Social Security Boards for Unorganised, Gig and 
+Platform Workers 
+• The Ministry of Labour and Employment constituted two National Social 
+Security Boards (unorganised workers; gig and platform workers) under the 
+Code on Social Security, 2020. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• Each board has a three -year tenure and meets at least three times a year. 
+Union Minister Mansukh Mandaviya chairs both, with MoLE Secretary Dr. 
+Chandra Bhushan Kumar as Vice-Chairperson. 
+• The Unorganised Workers' Board has the DG of Labour Welfare as ex -officio 
+Member-Secretary. The Gig and Platform Workers' Board includes five 
+aggregators (Eternal Group, Swiggy, Zepto, Urban Company, Rapido) and 
+worker bodies such as IFAT, BMS, NFITU and TUCC. 
+• Functions: recommending social security schemes, advising the Centre, 
+monitoring welfare schemes and reviewing State-level expenditure. 
+• The Code on Social Security, 2020 was enacted in September 2020 and came 
+into effect on 21 November 2025, replacing nine labour laws. Section 6 covers 
+the unorganised workers' board and Section 114(6) covers gig and platform 
+workers. 
+ 
+EPFO launches WhatsApp services and automatic settlement of small 
+inoperative accounts 
+Key Points 
+• EPFO launched interactive WhatsApp-based services  on its 74th 
+Foundation Day , letting subscribers check their PF balance , latest five 
+transactions and passbook details.  
+– The service also guides subscribers on requirements under the Pradhan 
+Mantri Viksit Bharat Rozgar Yojana (PMVBRY). 
+• EPFO will automatically settle Aadhaar-verified inoperative accounts with 
+balances up to ₹1,000, without individual claims.  
+– Around 1 lakh accounts worth about ₹5 crore are expected to benefit. 
+– The pilot was approved at the 239th meeting  of the EPFO Central 
+Board of Trustees in March. 
+• An account is inoperative if no contribution is received for three continuous 
+years after the member turns 55 or retires, whichever is later. 
+• Under CITES 2.01 , the average claim settlement time fell to 2.57 days  in 
+October 2026.  
+– EPFO has about 80 million contributory members , 8.5 million 
+pensioners and a corpus of nearly ₹32 trillion. 
+Q: What is PMVBRY?  A: Launched in August 2025 with an outlay of ₹99,446 crore, it 
+aims to support 35 million jobs over two years, including 19.2 million first-time formal-
+sector entrants. 
+Q: What is an inoperative PF account?  A: It is a PF account that has received no 
+contributions for a continuous period of three years after the member reaches 55 or 
+retires. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Supreme Court upholds states' power to levy additional sales tax under pre-GST 
+regime 
+Key Points 
+• A seven-judge Constitution Bench headed by CJI Surya Kant upheld states' 
+power to impose an additional sales tax or surcharge calculated on the sales 
+tax payable by dealers.  
+– It held that such a levy is an increase in sales tax and falls under Entry 
+54 of the State List. 
+– The question was whether it encroached on Parliament's powers under 
+Entry 82 of the Union List , which covers taxes on income other than 
+agricultural income. 
+• The court said the reference had become infructuous and of no prospective 
+significance after GST was introduced in 2017. 
+• The reference arose from Arjun Flour Mills v State of Odisha , which 
+challenged Section 5A of the Odisha Sales Tax Act, 1947, and was made in 
+1999.  
+– The bench had reserved its verdict on 22 September 2026. 
+• Justice K V Viswanathan, in a separate opinion, held that S Kodar v State of 
+Kerala was correctly decided and remained good law. 
+Q: What is Entry 54 of the State List?  A: It gives states the power to levy taxes on the 
+sale or purchase of goods, other than newspapers, subject to the provisions of Entry 
+92A of the Union List. 
+Q: What is a Constitution Bench?  A: It is a Supreme Court bench of five or more 
+judges that hears cases involving substantial questions of constitutional law. 
+ 
+CDSCO mandates digital batchwise clearance for high-risk pharma solvents 
+Key Points 
+• The CDSCO has directed manufacturers and suppliers of high-risk 
+pharmaceutical solvents  to register on its Digital Management System 
+(DMS), and no batch can be distributed without a system-generated NOC.  
+– The DMS is set up on the Online National Drug Licensing System 
+(ONDLS) portal. 
+– The order is dated 27 October and was sent to states and UTs by DCGI 
+Rajeev Raghuvanshi. 
+• The order covers 10 excipients , including propylene glycol , glycerine, 
+maltitol and sorbitol. 
+• The move follows the deaths of at least 22 children linked to toxic cough syrup 
+(Coldrif) in Chhindwara, Madhya Pradesh , which contained diethylene 
+glycol (DEG) beyond permissible limits. 
+Q: What is CDSCO?  A: The Central Drugs Standard Control Organisation (CDSCO) 
+is India's apex drug regulatory authority, headed by the Drugs Controller General of 
+India (DCGI). 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Q: What is diethylene glycol (DEG)?  A: DEG is a toxic industrial chemical used in 
+brake fluids and paints, which can wrongly be used in medicines as a cheap substitute 
+for propylene glycol and cause severe poisoning. 
+ 
+ASSOCHAM seeks Customs amnesty scheme to settle ₹1.5 lakh crore disputes 
+in Budget 2027-28 
+Key Points 
+• ASSOCHAM, in its pre -Budget memorandum, sought a one-time Customs 
+amnesty scheme  in Union Budget 2027 -28 to resolve legacy disputes of 
+about ₹1.5 lakh crore.  
+– It proposed a waiver of interest and penalties and a graded reduction 
+in disputed duty based on the age and stage of litigation. 
+– Priority was sought for pre-GST disputes on CVD and SAD, which were 
+subsumed under GST in July 2017. 
+• On LTCG on listed securities, ASSOCHAM suggested 10% for holdings of 1-2 
+years and a nil or about 5% rate beyond 2 years.  
+– FICCI instead sought restoration of the LTCG exemption, noting LTCG 
+tax is 12.5% and STCG tax 20% since 23 July 2024. 
+• ASSOCHAM sought a concessional tax regime for new manufacturing 
+companies like the erstwhile Section 115BAB, which offered a 15% rate to 
+companies that began manufacturing by 31 March 2024. 
+• ASSOCHAM also wants the Dispute Resolution Committee threshold raised 
+from ₹10 lakh to ₹10 crore. 
+Q: What is Countervailing Duty (CVD)?  A: CVD was a pre-GST duty on imports meant 
+to offset the central excise duty on similar domestically manufactured goods. 
+Q: What is Special Additional Duty (SAD)?  A: SAD was a pre -GST duty on imports 
+meant to counterbalance state-level taxes such as VAT and sales tax. 
+ 
+IICA Signs MoU with IAMC to Strengthen India's ADR Ecosystem 
+• On 4 November 2026, the Indian Institute of Corporate Affairs (IICA) signed an 
+MoU with the International Arbitration and Mediation Centre (IAMC), Hyderabad, 
+to strengthen Alternative Dispute Resolution and Ease of Doing Business. 
+• It was signed by Col. Amandeep Singh Puri (IICA) and AJ Jawad (IAMC CEO 
+and Registrar), in the presence of IICA DG and CEO Gyaneshwar Kumar Singh. 
+• It will build a specialised pool of arbitrators and mediators through courses and 
+workshops, strengthen MSME mediation, and promote joint research towards 
+Viksit Bharat@2047. 
+• IICA was established in 2008 under the Ministry of Corporate Affairs and is 
+headquartered in Gurugram, Haryana. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Department of Posts Releases Commemorative Stamps on Breast Cancer 
+Awareness 
+• The Department of Posts released a souvenir sheet of two stamps (Rs 25 and 
+Rs 50) and picture postcards at Dak Bhawan, New Delhi, for International 
+Breast Cancer Awareness Month. 
+• The stamps were unveiled by Manisha Sinha (DG, Postal Services) and Punya 
+Salila Srivastava (Secretary, MoHFW). 
+• The initiative has MoHFW's technical support. It promotes early detection, 
+screening and preventive care, and supports the NP-NCD. 
+• The sheet is available through Philately Bureaus and the e-Post Office portal. 
+• Breast Cancer Awareness Month is observed from 1 to 31 October. 
+ 
+Nirmala Sitharaman Releases Rs 250 Commemorative Coin for Muthuswami 
+Dikshitar 
+• FM Nirmala Sitharaman released a Rs 250 coin on 3 November 2026 at BHU, 
+Varanasi, marking the 250th birth anniversary of Carnatic maestro Muthuswami 
+Dikshitar. The event was organised by IIT (BHU)'s Centre of Excellence for 
+Indian Knowledge Systems. 
+• The 35-gram, 44-mm coin was minted at India Government Mint, Mumbai. It is 
+50% silver, 40% copper, 5% nickel and 5% zinc. 
+• It is a collector's item, listed at Rs 6,985. BSE provided CSR support. 
+• The book "Amar Guruguham Potruvam" was released at the event. 
+• Dikshitar is one of the Trinity of Carnatic Music (with Tyagaraja and Syama 
+Sastri) and composed around 450-500 Sanskrit compositions. 
+ 
+NITI Aayog and GIZ Sign Agreement under NDC -TIA II for Road Freight 
+Decarbonisation 
+• On 3 November 2026, NITI Aayog and Germany's GIZ GmbH signed an 
+Implementation Agreement under the NDC -Transport Initiative for Asia Phase 
+II (NDC-TIA II) to decarbonise India's road freight. 
+• NDC-TIA II is a regional initiative supported by Germany's International Climate 
+Initiative (IKI). Phase I began in August 2020, covering India, China and 
+Vietnam. 
+• Implementing partners: WRI India, ICCT India and Agora Energiewende. 
+• It promotes EV charging infrastructure, innovative financing and supportive 
+regulations to support India's NDCs under the Paris Agreement, 2015. 
+ 
+CSIR and DAKSHIN Sign LoA to Strengthen Global South Cooperation 
+• On 3 November 2026, CSIR and DAKSHIN (Global South Centre of Excellence, 
+hosted by RIS) signed a Letter of Association to promote capacity building, 
+research and technology partnerships among Global South countries. 
+• It was signed by Dr. Rama Swami Bansal (CSIR -ISTAD) and Prof. Sachin 
+Kumar Sharma (DG, RIS). 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• CSIR's affordable, ready -to-deploy technologies will be transferred across 
+healthcare, infrastructure, agriculture, blue economy and digital economy. 
+• DAKSHIN promotes mutual learning and locally relevant solutions to 
+development challenges and the SDGs. 
+ 
+Ministry of Culture Signs MoU with Google Arts & Culture to Digitise Cultural 
+Heritage 
+• On 5 November 2026, the Ministry of Culture signed an MoU with Google Arts 
+& Culture at a virtual ceremony, in the presence of Secretary Vivek Aggarwal 
+and Amit Sood (Founder, Google Arts & Culture). 
+• It aims to digitally preserve monuments, archaeological sites, museum 
+collections, manuscripts and traditional art forms. 
+• It covers collections of ASI, the National Museum and NGMA, and supports 
+digitisation of manuscripts under Gyan Bharatam. 
+• The upcoming Yuge Yugeen Bharat Museum in the North and South Blocks, 
+New Delhi, is a major focus. 
+ 
+NCLT Allows SFIO to Seek Recovery of ₹5,431 Crore in Bhushan Power and 
+Steel Fraud Case 
+• The National Company Law Tribunal (NCLT), New Delhi, has allowed the 
+Serious Fraud Investigation Office (SFIO) to pursue its ₹5,431 crore recovery 
+petition against former promoters and other entities of Bhushan Power & Steel 
+Ltd (BPSL). 
+• The tribunal rejected eight applications challenging the proceedings and 
+clarified that approval of a resolution plan under the Insolvency and Bankruptcy 
+Code (IBC) does not protect former directors or third parties from proceedings 
+for recovery of assets allegedly diverted through fraudulent transactions. 
+• The petition, filed in April 2023 under Sections 241, 242, 246 and 339 of the 
+Companies Act, 2013, names 76 respondents, including former chairman and 
+managing director Sanjay Singal, his wife and associated entities. 
+• According to the SFIO investigation, funds were allegedly siphoned off through 
+a network of associated firms and individuals from 2009 -10 onwards. The 
+recovery claim seeks at least ₹5,431 crore along with interest. 
+• The NCLT clarified that its order concerns only the maintainability of the petition 
+and does not establish that fraud was committed. It directed SFIO to submit 
+details of each respondent's alleged role within four weeks. The next hearing is 
+scheduled for November 26, 2026. 
+ 
+Azim Premji Foundation Launches Social Startups Programme to Support 
+Grassroots Organisations 
+• The Azim Premji Foundation has launched the Social Startups Programme to 
+provide financial assistance, mentorship and learning opportunities to 
+development sector professionals seeking to establish civil society 
+organisations in underserved communities. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• The first cohort will have 100 participants across four geographies: Odisha, 
+Northeast India, eastern Uttar Pradesh and Bengaluru Urban. 
+• The programme will support initiatives in areas such as rural livelihoods, 
+healthcare, mental health, disability, children's welfare, youth development and 
+the well-being of Adivasi communities. 
+• Applicants must be below 40 years of age, hold a graduate degree and have at 
+least three years of grassroots development sector experience. Those who 
+have already registered an organisation are not eligible. 
+• The programme has two phases: an eight -month seeding phase providing 
+financial support and guidance, followed by a potential two-year seed grant for 
+selected participants. Applications are open from 1 November to 31 December 
+2026, and the first phase will begin on 1 April 2027. 
+ 
+ReNew to Invest ₹9,000 Crore in 1,500 MW Pumped Hydro Storage Project in 
+Odisha 
+• Renewable energy company ReNew has signed a Memorandum of 
+Understanding (MoU) with the Odisha government to develop a 1,500 MW 
+pumped hydro storage project at Putabali in Ganjam district. 
+• The project involves an estimated investment of ₹9,000 crore and is part of 
+ReNew's larger investment plan of ₹45,000 crore in Odisha. 
+• The MoU was signed in the presence of Odisha Chief Minister Mohan Charan 
+Majhi at the Bharat Renewable Energy Summit. 
+• The project aims to strengthen Odisha's energy storage capacity, facilitate the 
+integration of renewable energy into the power grid and ensure reliable round -
+the-clock clean electricity. 
+• Sumant Sinha, Founder, Chairman and CEO of ReNew, stated that the project 
+would combine renewable energy generation with storage infrastructure to 
+strengthen the state's clean energy ecosystem. 
+ 
+MakeMyTrip Acquires Majority Stake in Quick Ride to Enter Ride -Pooling 
+Segment 
+• Travel technology platform MakeMyTrip has acquired a majority stake in 
+Bengaluru-based shared mobility platform Quick Ride for an undisclosed 
+amount, marking its entry into the ride-pooling and shared mobility segment. 
+• Quick Ride operates an asset -light platform that enables users travelling on 
+similar routes to share vehicles, making daily commuting more affordable and 
+efficient. 
+• The platform has partnerships with corporates, enterprises, IT parks and 
+business campuses to facilitate employee transportation. 
+• The acquisition will help MakeMyTrip expand into daily urban commuting and 
+intercity travel while complementing its existing ground transportation business, 
+which includes redBus. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• Rajesh Magow, Co-founder and Group CEO of MakeMyTrip, stated that ride -
+pooling could help reduce traffic congestion by encouraging people to share 
+their daily journeys. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Government Schemes 
+Cabinet clears ₹4,371.10 crore VISTAR scheme to overhaul India's statistical 
+system 
+Key Points 
+• The Union Cabinet  approved the ₹4,371.10 crore  central sector scheme 
+VISTAR (Viksit Bharat Initiative for Statistical Transformation, Analytics & 
+Research) for FY27 to FY31.  
+– It will fund 59 surveys, against 43 major surveys conducted earlier. 
+– It also funds the long-delayed 8th Economic Census. 
+• VISTAR has three components: comprehensive statistical operations , 
+Support for Statistical Strengthening (SSS)  for states, and the Economic 
+Census.  
+– Under SSS 2.0 , central funds to states and UTs will be deliverable-
+linked. 
+• Mospi will embed AI and machine learning  in data processing and plans a 
+Headline Index of Services Production  and an Index of Unincorporated 
+Sector Enterprises. 
+• The 8th Economic Census  will count all non-farm establishments  and 
+workers down to gram panchayat and ward levels, forming the baseline for a 
+National Statistical Business Register. 
+Q: What is the Economic Census?  A: It is a complete count of all economic units 
+(establishments) in the country, excluding crop production and plantations, along with 
+the workers they employ. 
+Q: What is Mospi?  A: The Ministry of Statistics and Programme Implementation 
+(Mospi) is the government ministry responsible for official statistics, including GDP, 
+CPI and IIP. 
+ 
+Cabinet clears ₹14,500 crore VGF scheme for 92 GWh of energy storage capacity 
+Key Points 
+• The Union Cabinet approved a ₹14,500 crore Viability Gap Funding (VGF)  
+scheme to support 92 GWh of grid-scale energy storage capacity over FY27-
+FY31.  
+– The projects are expected to attract an estimated investment of ₹97,600 
+crore. 
+– India's estimated requirement is 411 GWh by 2031-32. 
+• Of the 92 GWh, 60 GWh will come from hydro pumped storage plants (PSPs), 
+30 GWh  from battery energy storage systems (BESS)  and 2 GWh  from 
+alternative technologies. 
+• Capacity will be allocated through tariff-based competitive bidding , and 
+power distribution utilities  are eligible for VGF support for BESS and PSP 
+projects. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• BESS projects must meet a minimum Domestic Content Requirement (DCR) 
+of 40%. 
+Q: What is Viability Gap Funding (VGF)?  A: It is a government grant that covers part 
+of the project cost for infrastructure projects that are socially useful but not financially 
+viable on their own. 
+Q: What is a pumped storage plant (PSP)?  A: It is a hydroelectric facility that stores 
+energy by pumping water to an upper reservoir when power is cheap and releasing it 
+to generate electricity when demand is high. 
+ 
+Cabinet clears ₹2,814 crore scheme for lithium and nickel processing plants 
+Key Points 
+• The Union Cabinet  approved a ₹2,814 crore  capital expenditure support 
+scheme for domestic lithium and nickel processing plants , running for five 
+years from FY27 to FY31.  
+– The government will provide a 30% capital subsidy on eligible 
+investment for two lithium and two nickel plants. 
+• Minimum capacities are 30,000 tonnes  for each lithium plant and 50,000 
+tonnes for each nickel plant.  
+– Maximum support is capped at ₹500 crore per lithium beneficiary and 
+₹900 crore per nickel beneficiary. 
+– Cobalt is expected to be recovered as a by-product of nickel processing. 
+• Beneficiaries will be selected through technical qualification  followed by 
+financial bidding, based on the least-cost criterion, and incentives will be 
+paid in three tranches linked to milestones. 
+• The government is also working on critical mineral processing parks  in 
+Gujarat, Maharashtra, Odisha and Andhra Pradesh. 
+Q: What are critical minerals?  A: They are minerals essential for sectors such as clean 
+energy, electronics and defence, whose supply is vulnerable to disruption, such as 
+lithium, nickel and cobalt. 
+Q: What is a capital subsidy?  A: It is a one-time government grant that covers a share 
+of the upfront cost of setting up a plant or project. 
+ 
+Govt approves 12 more projects under ₹40,000 crore ECMS; ISM 2.0 portal 
+launched 
+Key Points 
+• The government approved 12 new applications  under the ₹40,000 crore 
+Electronics Component Manufacturing Scheme (ECMS), taking the total to 
+118 projects.  
+– They involve production worth ₹39,045 crore and 7,127 direct jobs. 
+– They will make copper foil, cathode active material, speciality 
+ceramics, multi-layer PCBs, relays and heat sinks. 
+• Minister Ashwini Vaishnaw launched a web portal for applications under the 
+second phase of the ₹1.27 trillion India Semiconductor Mission (ISM 2.0).  
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+– It covers machine and materials units, new chip fabrication units and 
+ATMP/OSAT units. 
+• The portal will accept only complete applications , with no place for 
+"placeholders" or "frivolous applicants". 
+• Under ECMS, 275 applications have been received so far, of which about 17-
+18 lacked basic requirements. 
+Q: What is the Electronics Component Manufacturing Scheme (ECMS)?  A: It is a 
+government scheme under MeitY that offers incentives to set up domestic 
+manufacturing of electronic components and sub-assemblies. 
+Q: What is ATMP/OSAT?  A: ATMP (Assembly, Testing, Marking and Packaging) and 
+OSAT (Outsourced Semiconductor Assembly and Test) are the stages that turn 
+fabricated chips into finished, tested chips. 
+ 
+Cabinet Approves Rs 3,788.04 Crore for Continuation of Fast Track Special 
+Courts Till March 2031 
+• The Cabinet approved continuing the Centrally Sponsored Scheme for Fast 
+Track Special Courts (including exclusive POCSO Courts) from 1 April 2026 to 
+31 March 2031, with an outlay of Rs 3,788.04 crore. 
+• The aim is time -bound trials and lower pendency of rape and POCSO cases. 
+Functional courts will rise from 779 to 850. 
+• The Centre will contribute Rs 2,353.15 crore from the Nirbhaya Fund, and 
+States/UTs Rs 1,434.89 crore. 
+• The Cabinet also approved a two-year additional engagement for the remaining 
+75% of Agniveers, with regular enrolment after six years, while the 25% merit -
+based enrolment after four years continues. 
+ 
+Union Cabinet Approves Two-Year Extension of Agniveer Service Tenure Under 
+Agnipath Scheme 
+• The Union Cabinet has approved an extension of the service tenure of 
+Agniveers from four years to six years under the Agnipath scheme, which was 
+launched in 2022. 
+• Under the earlier policy, only 25% of Agniveers were retained in the armed 
+forces on a merit basis, while the remaining 75% exited after four years. Under 
+the revised policy, the remaining 75% can serve for two additional years, 
+subject to their willingness. 
+• After completing six years, all Agniveers will have the opportunity to join the 
+regular armed forces, subject to willingness and fulfilment of selection criteria. 
+• During the two-year extension, monthly remuneration will increase to ₹43,500 
+in the first year and ₹47,500 in the second year. The final settlement will start 
+at ₹10.92 lakh. 
+• The revised policy also provides enhanced remuneration, higher final 
+settlement and seniority benefits. However, Agniveers will continue to remain 
+ineligible for pension benefits. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+FISME seeks fresh ECLGS 5.0 allocation to clear pending MSME loan requests 
+Key Points 
+• FISME urged the government to provide additional funds for ECLGS 5.0 in the 
+upcoming Union Budget to clear eligible MSME loan applications left pending.  
+– It wants a one-time window to process applications submitted before 
+the scheme closed, including loans sanctioned but awaiting guarantee 
+or disbursement. 
+• The Union Cabinet approved ECLGS 5.0 on 5 May 2026 to help businesses 
+with cash-flow problems arising from the West Asia crisis. 
+• The scheme was to run until 31 March 2027 or until guarantees of ₹2.55 trillion 
+were issued, but the allocation was exhausted in August 2026. 
+• Applications were made through the Jan Samarth portal  or directly through 
+banks. 
+Q: What is ECLGS?  A: The Emergency Credit Line Guarantee Scheme (ECLGS) is 
+a government scheme under which banks give additional loans to eligible businesses, 
+with the government guaranteeing repayment of the covered amount. 
+Q: What is the Jan Samarth portal?  A: It is a government online portal that links credit-
+linked schemes with beneficiaries and lenders for loan applications. 
+ 
+Digital Bharat Nidhi Signs Agreement with Tamil Nadu to Expand BharatNet 
+under ABP 
+• Digital Bharat Nidhi (DoT) signed a Utilisation Agreement with the Tamil Nadu 
+Government and TANFINET at Sanchar Bhawan, New Delhi, under the 
+Amended BharatNet Program (ABP). 
+• It follows a state-led model with financial subsidy support from the Centre. The 
+aim is rural broadband for e -governance, digital payments, online education 
+and telemedicine. 
+• It targets over 5 lakh rural household fibre connections and broadband access 
+to 4,767 villages on a demand basis. 
+• DBN began as the Universal Service Obligation Fund (USOF) in 2002 and was 
+renamed under the Telecommunications Act, 2023. The Union Cabinet 
+approved the ABP on 4 August 2023. 
+ 
+MoMSME Signs MoU with TRIFED to Expand Market Access for Tribal Artisans 
+under PM Vishwakarma 
+• MoMSME signed an MoU with TRIFED (under the Ministry of Tribal Affairs) to 
+improve market access for eligible tribal artisans registered under the PM 
+Vishwakarma Scheme. 
+• MoMSME will identify and refer artisans. TRIFED will handle onboarding, 
+capacity building, aggregation, quality assurance, packaging, imaging and 
+cataloguing. 
+• It covers crafts such as carpentry, metalworking, pottery, basketry, coir weaving 
+and toy making, with display space in Tribes India outlets and tribesindia.com, 
+including a proposed "Tribes India-PM Vishwakarma Collection". 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• MoMSME also signed a three -year MoU with Samsung India for NSQF -
+compliant training in electronics across 15 MSME Technology Centres. 
+ 
+Dr. Virendra Kumar Launches 'Vayo Samman Rashtriya Abhiyan' 
+• Union Minister Dr. Virendra Kumar (MoSJE) launched the National 
+Intergenerational Bonding Campaign under the Atal Vayo Abhyuday Yojana 
+(AVYAY) in New Delhi. 
+• It aims to build intergenerational solidarity and ensure dignity, care and social 
+inclusion of senior citizens. 
+• It follows the 5C Model: Connect, Converse, Co -create, Contribute and 
+Continue. It has 12 themes, including '30 Minutes Together', 'Digital Dada-Dadi 
+/ Digital Saathi' and 'Silver Skills'. 
+• He released the handbook and launched Vayo SAATHI, a digital volunteer 
+initiative for citizens aged 18 and above to support senior citizens. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+International 
+India and Kazakhstan Sign Extradition Treaty 
+• India and Kazakhstan signed an Extradition Treaty to create a legal framework 
+for extraditing wanted individuals and to strengthen cooperation against 
+international crime and terrorism. 
+• It was signed by Kazakhstan's Prosecutor General Berik Assylov and India's 
+Ambassador Y.K. Sailas Thangal. 
+• The Union Cabinet approved signing and ratification on 26 August 2026. An 
+earlier treaty was signed on 24 January 2009 and ratified in February 2009. 
+• It complements the existing agreements on Mutual Legal Assistance in Criminal 
+Matters and Transfer of Sentenced Persons. 
+ 
+Bahamas Joins International Solar Alliance as 116th Member 
+• On 4 November 2026, the Bahamas became the 116th ISA member by 
+submitting its Instrument of Accession during the 9th ISA Assembly session in 
+New Delhi. 
+• High Commissioner Peter Nicholas Symonette Jr. handed it to P.S. Gangadhar, 
+Joint Secretary (Economic Diplomacy) and Head of Depository. 
+• ISA promotes solar deployment through knowledge -sharing, technical 
+assistance and investment facilitation, especially in LDCs and Small Island 
+Developing States. 
+• Membership lets the Bahamas join ISA programmes, access technical 
+expertise and explore collaborative funding. 
+ 
+UNESCO Inscribes Rajatarangini, Mahabharata and Arthashastra in Memory of 
+the World Asia-Pacific Register 
+• UNESCO inscribed Kalhana's Rajatarangini, the Mahabharata and Kautilya's 
+Arthashastra in the Memory of the World Asia -Pacific (MOWCAP) Regional 
+Register at the 11th MOWCAP session in Jakarta. India now has six inscriptions 
+in the register. 
+• Rajatarangini: a 12th-century Sanskrit chronicle of Kashmir's rulers, preserved 
+at the Oriental Research Library, Srinagar. 
+• Mahabharata: a 400 -year-old birch -bark manuscript in Sharada script, 
+preserved at Bhandarkar Oriental Research Institute, Pune. 
+• Arthashastra: a 16th-century palm-leaf manuscript in Grantha script, preserved 
+at the Oriental Research Institute, Mysuru. 
+ 
+IFC extends $150 million social loan to SBI to expand farm credit for rural women 
+Key Points 
+• The International Finance Corporation (IFC) extended a $150 million social 
+loan to SBI to expand agricultural finance for around 864,000 rural women  
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+across value chains such as crop cultivation, animal husbandry, fisheries and 
+food processing.  
+– Up to 90% of the financing will support women borrowing through Self-
+Help Groups (SHGs). 
+– The rest will fund women entrepreneurs moving to Micro Enterprise 
+Loans under SBI's Svayam Siddha Scheme. 
+• It is IFC's first line of credit to a public -sector bank  in India and its first 
+investment in a state-owned bank in the country. 
+• The deal includes IFC's first cross-currency swap  under an ISDA Master 
+Agreement, making SBI IFC's first domestic swap counterparty in India and 
+first local swap counterparty in South Asia. 
+• The initiative is aligned with the World Bank Group's AgriConnect  
+programme. 
+Q: What is the IFC?  A: The International Finance Corporation (IFC) is the private -
+sector arm of the World Bank Group, which invests in private -sector projects in 
+developing countries. 
+Q: What is a cross-currency swap?  A: It is a contract in which two parties exchange 
+principal and interest payments in different currencies, which helps manage foreign 
+exchange risk. 
+ 
+ADB Approves USD 139.55 Million Loan for Urban Development in Puducherry 
+• ADB approved a USD 139.55 million loan for the Puducherry Integrated Urban 
+Livability Improvement Project (PIULIP), its first engagement in the UT of 
+Puducherry. 
+• The project aims to improve urban livability through climate -resilient water, 
+sewerage and sanitation infrastructure, modern public spaces and stronger 
+municipal governance. 
+• Water supply: upgrade 100 km of networks, lay 80 km of new pipelines, build 
+overhead reservoirs and set up brackish-water RO desalination plants. 
+• Sewerage: build 270 km of underground sewers, rehabilitate 80 km and set up 
+a 50 MLD sewage treatment plant. 
+• Urban infrastructure: 4.5 km of disabled -accessible walkways and improved 
+drainage to reduce flooding. 
+ 
+Saudi Arabia extends $3 billion financing facility for Pakistan 
+Key Points 
+• Saudi Arabia  extended its $3 billion  financing facility for Pakistan for a 
+"reasonable period", according to Finance Minister Muhammad Aurangzeb.  
+– The facility was first given in April for three months, when Pakistan had 
+to repay $3.5 billion to the UAE. 
+– Another $5 billion from Saudi Arabia has been extended until 2028. 
+• Pakistan faces external debt repayments of about $21 billion in FY 2026/27, 
+and is negotiating rollovers of $4.3 billion from China and Kuwait.  
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+– This includes $4 billion  from China and $300 million  from Kuwait, 
+bringing expected rollovers to $7.3 billion. 
+• Pakistan issued a $3 billion bond in September against orders of $6 billion, 
+and has requested a $10 billion Exchange Stabilisation Support Facility 
+(ESSF) from the US. 
+• The IMF Executive Board is to consider a $1.2 billion disbursement to Pakistan 
+in December. 
+Q: What is a loan rollover?  A: It is when a lender extends the repayment date of a 
+loan, so the borrower does not have to repay it on the original due date. 
+Q: What is a Panda bond?  A: It is a yuan -denominated bond issued in China by a 
+foreign entity. 
+ 
+Bank of England raises rates to 4%, first hike since 2023 
+Key Points 
+• The Bank of England (BoE) raised its key rate to 4% from 3.75%, its first hike 
+in over three years, and warned that at least one more increase is likely if the 
+US-Iran conflict continues.  
+– The Monetary Policy Committee (MPC)  voted 8-1, with Catherine 
+Mann voting for a larger hike to 4.25%. 
+• The BoE expects inflation to peak at an average 4.8% in Q2 2027, and not 
+return to the 2% target until Q3 2028.  
+– In an adverse scenario with oil at about $130 a barrel, inflation would hit 
+6.2% in Q3 2027. 
+• The BoE raised its growth forecasts to 1.6% for this year and 1.3% for next year, 
+partly due to AI spending. 
+• Andrew Bailey  is the BoE Governor, and UK inflation rose to 3.5% in 
+September. 
+Q: What is the Monetary Policy Committee (MPC)?  A: It is the committee of the central 
+bank that votes on the key interest rate to keep inflation near its target. 
+Q: What are second-round effects?  A: They are the knock-on effects of an initial price 
+shock, such as higher energy prices, spreading into wages and other prices across 
+the economy. 
+ 
+Meta kicks off first euro bond sale to fund AI infrastructure 
+Key Points 
+• Meta Platforms launched its first sale of euro-denominated bonds, a multi-
+tranche offering with maturities ranging from 4 to 38 years. 
+• On the previous day, Meta said it was raising $15 billion through a five-part 
+US dollar bond offering. 
+• The funds are meant to finance accelerating investments in AI infrastructure, 
+even as doubts emerge over the strength of the AI boom. 
+Q: What is a multi-tranche bond?  A: It is a bond issue split into several parts (tranches), 
+each with its own maturity and interest rate. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Q: What is a euro -denominated bond?  A: It is a bond issued in euros, so the issuer 
+raises money in euros and pays interest and principal in euros. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+States 
+PM Modi Visits Gujarat (30-31 October 2026), Inaugurates and Lays Foundation 
+for Projects Worth Over Rs 14,400 Crore 
+• PM Narendra Modi inaugurated and laid foundation stones for infrastructure, 
+agriculture, dairy and social welfare projects worth over Rs 14,400 crore across 
+Banaskantha and Ekta Nagar (Narmada district), Gujarat. 
+• At Bhildi (Banaskantha), he inaugurated the Rs 325 crore Bharat Bovine 
+Breeding and Research Centre (BBRC) with an ET -IVF laboratory, developed 
+by Banas Dairy with NDDB's technical support. Spread over 127 acres, it 
+targets 25,000 high -quality embryos a ye ar to improve indigenous cattle and 
+buffalo breeds. 
+• At Ekta Nagar, he inaugurated 23 projects worth Rs 307.83 crore and laid 
+foundation stones for 8 projects worth Rs 118.88 crore, totalling 31 projects 
+worth Rs 426.71 crore. 
+• Inaugurated tourism facilities included an IRCTC hotel (Rs 50 crore), Ekta 
+Cruise (Rs 16 crore), a rainforest attraction (Rs 14.30 crore) and an eco -trail 
+(Rs 3.67 crore). 
+• He also joined the National Unity Day celebrations on 31 October, marking 
+Sardar Vallabhbhai Patel's 151st birth anniversary. 
+ 
+West Bengal unveils Investment Promotion Policy 2026, offering up to 120% 
+assistance 
+Key Points 
+• The West Bengal Investment Promotion Policy, 2026  offers assistance of 
+up to 120% of eligible investment in plant and machinery  for thrust sector 
+units in priority areas, disbursed over 10 years from the start of production.  
+– Assistance is capped at 100% for regular units and 110% for a thrust 
+sector unit or a unit in a priority area. 
+– Thrust sectors include semiconductors and electronics, EVs and 
+batteries, critical minerals processing, green hydrogen, defence 
+and shipbuilding. 
+• Incentives for manufacturing units include assistance linked to SGST, 
+reimbursement of electricity duty , EPF contribution assistance and stamp 
+duty reimbursement; service units get assistance for five years. 
+• The policy applies to investments made on or after 9 May, and the state has 
+made a provision of ₹5,000 crore with a Dedicated Assured Incentive Fund. 
+• The estimated ₹50,000 crore backlog of incentives under previous regimes is 
+outside the policy, and CM Suvendu Adhikari cited a state debt burden of ₹8 
+trillion. 
+Q: What is a thrust sector?  A: It is a sector that the state government identifies as a 
+priority for industrial growth and offers higher incentives to attract investment. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Q: What is SGST?  A: The State Goods and Services Tax (SGST) is the part of GST 
+collected and retained by the state government on intra-state supplies. 
+ 
+Assam Signs Rs 600 Crore MoU with Belgium's IBA for Proton Beam Therapy 
+Centre in Guwahati 
+• The Assam Government signed an MoU with Belgium -based Ion Beam 
+Applications (IBA) to set up a Proton Beam Therapy Centre at Gauhati Medical 
+College and Hospital, Guwahati, costing about Rs 600 crore. 
+• It will be India's third proton therapy centre and the first in the public health 
+sector. 
+• Funding: World Bank loan of Rs 315 crore and Rs 285 crore from the Assam 
+Government. The Assam Cabinet under CM Himanta Biswa Sarma approved 
+it in August 2026 under the ASSIST initiative. 
+• It will be implemented through AHIDMS and is expected to be operational within 
+at least three years. 
+• The facility will use IBA's compact ProteusONE proton therapy system. 
+ 
+Odisha Signs MoU with J-PAL South Asia for Evidence-Based Policymaking 
+• Odisha signed a 3 -year MoU with J -PAL South Asia to strengthen evidence -
+based policymaking and governance, supporting Odisha Vision 2036 
+(Samruddha Odisha) and 2047 (Viksit Odisha). 
+• It was signed by Rashmi Kabi (Planning & Convergence Department) and 
+Shobhini Mukerji (ED, J-PAL South Asia). 
+• J-PAL will help departments identify policy challenges, generate research 
+evidence and turn findings into recommendations. 
+• A Chief Secretary-led Steering Committee will review projects every six months. 
+J-PAL also supports Barnali, a gender -equity curriculum in about 23,000 
+government schools. 
+• J-PAL was established in 2003 and is headquartered at MIT. J-PAL South Asia 
+is based at IFMR, Chennai. 
+ 
+Manipur CM Yumnam Khemchand Launches BRICS Sustainable Lifestyle Week 
+2026 in Imphal 
+• Manipur CM Yumnam Khemchand Singh launched the BRICS Sustainable 
+Lifestyle Week 2026 (1 -7 November) and flagged off a cyclothon at Khuman 
+Lampak Sports Complex, Imphal. 
+• The week is organised by the Government of Manipur to promote eco -friendly 
+habits and protect natural resources. 
+• It draws inspiration from Mission LiFE (Lifestyle for Environment), launched by 
+PM Modi in 2022. 
+• About 200 cyclists took part. The CM administered an environmental pledge 
+and planted Uningthou saplings. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Orange Oakleaf Proposed as Chhattisgarh's First State Butterfly 
+• In October 2026, the Chhattisgarh State Wildlife Board, at its 15th meeting, 
+approved designating the Orange Oakleaf (Kallima inachus) as the state's first 
+State Butterfly, after online public voting by the Forest and Climate Change 
+Department. 
+• The initiative aims to raise awareness of butterfly diversity and public 
+participation in conservation. 
+• Also called the Dead Leaf Butterfly, it belongs to the Nymphalidae family, has 
+an 85-110 mm wingspan and closed wings that resemble a dry leaf. 
+• Maharashtra was the first state to name a State Butterfly (Blue Mormon, 2015). 
+Others include the Southern Birdwing (Karnataka), Tamil Yeoman (Tamil Nadu), 
+Malabar Banded Peacock (Kerala) and Orange Oakleaf (Madhya Pradesh). 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Reports and Indexes 
+World Bank: India's Extreme Poverty Falls from 27.1% to 2.6% in 12 Years 
+• The World Bank's "India Poverty and Equity Brief: October 2026" says extreme 
+poverty fell from 27.1% (2011) to 2.6% (2023), one of the fastest declines 
+globally. 
+• About 496 million people moved above the lower-middle-income poverty line of 
+USD 4.20/day (2021 PPP). The share below that line fell from 57.7% to 16.1%. 
+• Key drivers: strong consumption growth, better employment (especially for 
+women) and expanded social transfers such as food subsidies. 
+• Projection: poverty at the USD 4.20 line may fall at a slower pace, from 14.2% 
+(2026) to 12.1% (2028). 
+• Multidimensional poverty (OPHDI MPI) fell from 53.8% (2005 -06) to 16.4% 
+(2019-21). 
+ 
+MoSPI's ASI 2024-25: Five States Contribute Over 54% of Manufacturing GVA 
+• MoSPI released the Annual Survey of Industries results for FY25. Maharashtra, 
+Gujarat, Tamil Nadu, Karnataka and Uttar Pradesh contributed over 54% of 
+India's manufacturing GVA. 
+• Registered manufacturing GVA grew 9.59%, and the manufacturing corporate 
+sector grew 9.28%. 
+• Basic metals, motor vehicles, chemicals, pharmaceuticals and food products 
+together contributed over 45% of GVA. 
+• Persons engaged rose 7.19% (1.96 crore to 2.10 crore). Establishments rose 
+2.64% (2.60 lakh to 2.67 lakh). 
+• Top employment sectors: food products, textiles, basic metals, motor vehicles 
+and wearing apparel (over 41%). Top states by establishments: Tamil Nadu 
+(41,221), Gujarat (33,084) and Maharashtra (27,379). 
+ 
+Icrier study: India's women workforce nearly doubled since 2017 -18, but in 
+insecure jobs 
+Key Points 
+• The Icrier study, The Participation Paradox , says the number of working 
+women rose from 104 million (2017-18) to 201 million (2025), based on PLFS 
+data.  
+– The women worker population ratio rose from 22% to 38%. 
+• The rise was concentrated in rural India  and agriculture, with the rural 
+women's ratio rising from 23.7% to 44.9%.  
+– Rural women's own-account workers  rose from 13.9 million  to 56 
+million, while the share of regular salaried jobs slipped from 10.5% to 
+9.3%. 
+• The pay gap  widened, as rural women earned about 45% of rural men's 
+monthly wages in 2025, down from 53%.  
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+– Rural women's average weekly hours fell the most, by a little over six 
+hours. 
+• Six in 10  women outside the labour force cited childcare and household 
+duties as the main reason, against virtually no men. 
+Q: What is the Periodic Labour Force Survey (PLFS)?  A: It is the government's survey 
+that measures employment and unemployment in India, including the worker 
+population ratio. 
+Q: What is the worker population ratio?  A: It is the percentage of the total population 
+that is employed. 
+ 
+India ranks 32nd of 34 Asia-Pacific economies in women's managerial roles: ILO 
+report 
+Key Points 
+• The ILO report, Women in business and management: Scaling success , says 
+women hold fewer than 12% of managerial positions in India, ranking 32nd 
+among 34 Asia-Pacific economies, ahead of only Pakistan and Bangladesh.  
+– The figures are based on 2024 data. 
+• Women employees in India earn about 28% less per hour than men, the fourth-
+widest gender wage gap among 23 Asia-Pacific economies.  
+– The gap is widest in Tonga (about 64%), followed by South Korea  
+(about 41%) and Vanuatu (about 29%). 
+– Among managers, India's gender pay gap is close to zero. 
+• Globally, women earn 78 cents for every dollar earned by men, and women 
+are about one in five managers in Asia-Pacific against a global share of 30.5%. 
+• In India, 23.1% of female tertiary graduates studied STEM, compared with 
+31.4% of male graduates. 
+• The report draws on an ILO survey of 11,957 enterprises across 99 countries. 
+Q: What is the ILO?  A: The International Labour Organization (ILO) is a United Nations 
+agency that sets international labour standards and promotes decent work. 
+Q: What is the gender pay gap?  A: It is the difference between the average earnings 
+of men and women, usually expressed as a percentage of men's earnings. 
+ 
+India ranks third in 2026 Hurun Gazelle Index with 51 companies, beating the UK 
+Key Points 
+• India overtook the UK to rank third in the 2026 ASK Private Wealth Hurun 
+India Gazelle Index with 51 companies, four more than the previous year.  
+– The US (302) and China (278) retained the top two spots. 
+– India also ranked third in the global Cheetah and Unicorn lists. 
+• The 51 Gazelles have a combined valuation of ₹3.3 trillion, with an average 
+valuation of ₹6,400 crore. 
+• Fintech is India's leading sector with 13 of the 51 Gazelles, followed by SaaS.  
+– Bengaluru, NCR and Mumbai account for 71% of the Gazelles. 
+• 15 companies are new entrants and 7 graduated to Unicorn status, including 
+Twin Health, KreditBee and InVideo AI.  
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+– Ninjacart is the most -funded (₹4,919 crore), and Infinx is the largest 
+employer (7,000 employees). 
+Q: What is a Gazelle?  A: A Gazelle is a privately held company founded in or after 
+2000, valued between $500 million and $1 billion, and likely to become a Unicorn 
+within three years. 
+Q: What is a Cheetah?  A: A Cheetah is a privately owned startup that is building 
+towards a valuation of $500 million. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Science and Technology 
+ISRO Launches NVS-03 Navigation Satellite on GSLV-F18 from Sriharikota 
+• On 30 October 2026, ISRO launched NVS -03 aboard GSLV -F18 from the 
+Second Launch Pad, Satish Dhawan Space Centre, Sriharikota (Andhra 
+Pradesh). 
+• It was the 20th GSLV flight and restores NavIC to its minimum operational 
+configuration of four satellites. 
+• NVS-03 is the third satellite in the second-generation navigation series, meant 
+to ensure continuity and improve NavIC's availability and capabilities. 
+• The 2,250-kg satellite reached its Geosynchronous Transfer Orbit in about 18 
+minutes. 
+• Thomas Kurian served as GSLV Project Director and Mission Director. 
+ 
+IndiaAI Mission Releases Indigenous AI Foundation Models EKA-1, Dhīr 2B and 
+Dhīr 5B 
+• IndiaAI Mission (MeitY) released three indigenous foundation models, 
+developed by Soket Labs and ZenteiQ AiTech under the IndiaAI Innovation 
+Centre pillar. They were unveiled in New Delhi in the presence of MeitY 
+Secretary S. Krishnan. 
+• EKA-1 is an open, sparse hybrid language model with 26.3 billion parameters, 
+trained on 7.5 trillion tokens. It supports all 22 Scheduled Indian Languages 
+and English. 
+• Dhīr 2B and Dhīr 5B are compact open-source models supporting English and 
+10 Indian languages, suited to secure offline and on-premise use. 
+• The models were built with subsidised national AI compute, research funding 
+and AIKosh, and can run on GPUs, TPUs and mobile devices without cloud 
+connectivity. 
+ 
+IN-SPACe Selects Six Private Firms for AI INSPIRED Grants of Up to Rs 1 Crore 
+Each 
+• IN-SPACe (under the Department of Space) selected six companies for seed 
+grants of up to Rs 1 crore each under the AI INSPIRED programme. 
+• The programme has an outlay of up to Rs 6 crore. It supports AI solutions for 
+precision landing, space surveillance, debris detection and spacecraft 
+autonomy, across Edge Intelligence in Orbit, Space for Earth Intelligence and 
+Smart Access to Space. 
+• Selected firms: Agnikul Cosmos (precision landing), Digantara (space object 
+evaluation), EON Space Labs (debris detection), OrbitAid Aerospace (satellite 
+servicing and refuelling), Omnipresent Robot Technologies (automated target 
+recognition) and TakeMeToSpace (spacecraft autonomy). 
+• IN-SPACe was established on 24 June 2020, is headquartered in Ahmedabad, 
+Gujarat, and is chaired by Dr. Pawan Goenka. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+ 
+Cert-In issues AI security audit guidelines with six-hour incident reporting 
+Key Points 
+• Cert-In released guidelines for enterprise AI security audits, requiring all AI-
+related security incidents across government and private entities to be reported 
+within six hours. 
+• All AI systems must be classified as low, moderate, high or critical risk, based 
+on factors such as incident severity, the autonomy of the AI model's decision-
+making, the sensitivity and scale of data  impacted, and reversibility of the 
+impact. 
+• Enterprises must conduct audits across nine domains, including governance 
+and accountability, data lifecycle, AI model risk management , bias and 
+fairness, and explainability. 
+• All enterprises must maintain logs for 180 days , with time synchronisation 
+across all AI components for forensic readiness. 
+Q: What is Cert-In?  A: The Indian Computer Emergency Response Team (Cert-In) is 
+the national agency for responding to cybersecurity incidents, under the Ministry of 
+Electronics and IT. 
+Q: What is forensic readiness?  A: It is an organisation's ability to collect and preserve 
+digital evidence, such as logs, so that security incidents can be investigated. 
+ 
+Trai proposes new satcom provider category and issues D2D connectivity 
+norms 
+Key Points 
+• Trai recommended a new business -to-business authorisation, Satellite 
+Communication Network -as-a-Service (SCNaaS) , under the 
+Telecommunications Act, 2023 , letting satellite network providers offer 
+capacity to satellite service providers and telecom operators.  
+– The authorisation covers national coverage  with 20 years  validity, 
+renewable for another 20 years. 
+– Satellite spectrum (FSS or MSS) would be assigned for up to five years, 
+extendable by two years. 
+• Proposed fees include an authorisation fee of 8% of AGR , an annual 
+minimum spectrum charge of ₹3,500 per MHz and an entry fee of ₹37.5 lakh.  
+– Minimum equity and net worth requirements are ₹60 lakh each. 
+• Trai recommended allowing mobile satellite spectrum (MSS) and terrestrial 
+mobile (IMT) spectrum  for direct-to-device (D2D)  services, on a non-
+interference and non-protection basis.  
+– The bands include 600, 700, 800, 900, 1800 and 2100 MHz. 
+• The recommendations go to the DoT and are not binding on the government. 
+Q: What is direct-to-device (D2D) connectivity?  A: It is a technology that lets satellites 
+connect directly to compatible mobile phones, without needing a ground-based mobile 
+tower. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Q: What is Adjusted Gross Revenue (AGR)?  A: It is the revenue base, after permitted 
+deductions, on which telecom licence fees and spectrum usage charges are calculated. 
+ 
+TRAI Launches 'Network Anubhav' Platform to Monitor Network Performance 
+• On 4 November 2026, TRAI launched the Network Anubhav Platform, a 
+geospatial dashboard combining user test data with TRAI's Independent Drive 
+Test (IDT) data, plus a web interface for Do Not Disturb (DND) services. 
+• It aims to improve transparency in telecom service quality using location -
+specific data. 
+• It integrates data from TRAI's MySpeed and MyCall apps and lets users 
+compare coverage, speeds and call quality across locations and operators, with 
+report downloads. A MySpeed SDK lets third-party apps add speed testing. 
+• TRAI was established on 20 February 1997, is headquartered in New Delhi and 
+is chaired by Anil Kumar Lahoti. 
+ 
+Cosmoserve Space Unveils India's First Private Space Debris Removal and 
+Satellite Servicing Facility in Hyderabad 
+• Indian spacetech startup Cosmoserve Space has inaugurated Base 1 in 
+Hyderabad, India's first privately developed facility and the world's sixth facility 
+equipped with space vision effects and microgravity simulation capabilities. 
+• The facility will support Active Debris Removal (ADR), satellite servicing, in -
+orbit repairs and refuelling to address the growing problem of space debris. 
+• Cosmoserve announced a $6 million seed funding round, taking its total funding 
+to over $9 million. Japan -based Rebright Partners and Indian investors, 
+including Aranya Holdings, Naandi Ventures, AUM Ventures and Shakti VC, 
+participated in the round. 
+• Base 1 houses four key facilities: Orbital Rendezvous and Capture Lab, Space 
+Robotics Innovation Lab, ISO Class 8 Clean Room, and Mission Simulation and 
+Control Centre. 
+• The company aims to begin commercial operations by mid -2028 and plans a 
+full-scale space debris capture demonstration in 2027. Its first payload, Mission 
+Embrace, was launched aboard Skyroot Aerospace's Vikram -1 rocket in July 
+2026. 
+ 
+New Catfish Species 'Exostoma nasibarbatum' Identified in Manipur 
+• Researchers from Dhanamanjuri University, Imphal, identified the new 
+freshwater catfish in Bupal stream, Chandel district, near the India -Myanmar 
+border. The findings were published in the Journal of Natural History. 
+• It belongs to the Sisoridae family. The name comes from Latin nasus (nose) 
+and barba (beard), referring to its elongated nasal barbels. 
+• It lives in cold, fast -flowing water at 12 -14°C, with a flattened head and body 
+and adhesive ridges on its fins to resist currents. 
+• The genus Exostoma has 23 recognised species, including seven in the 
+Chindwin-Irrawaddy drainage. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+ 
+New Flowering Plant 'Disporum kamakhasiense' Discovered in Assam and 
+Meghalaya 
+• Researchers discovered Disporum kamakhasiense, a perennial flowering herb 
+of the Colchicaceae family, in Assam and Meghalaya. The findings were 
+published in the journal Novon. 
+• It was recorded at Garbhanga Reserve Forest and Laisong (Assam) and 
+Barapani (Meghalaya), growing on cliffs under bamboo forests at 200-1,100 m. 
+• It grows 120-180 cm tall, with glossy leaves showing seven parallel veins and 
+white star-shaped flowers with straight spurs. It flowers in June-July. 
+• The name derives from Kamrupa (ancient Assam) and the Khasi Hills. 
+ 
+Earth Captures Temporary Mini-Moon 2026 QQ8 Until December 2026 
+• Asteroid 2026 QQ8, about 1 metre across, was confirmed as a natural 
+temporary mini-moon captured by Earth's gravity in April 2026. It will stay bound 
+until December 2026. 
+• Hungarian astronomer Krisztián Sárneczky first observed it on 20 August 2026, 
+and the Minor Planet Center reported it on 29 October 2026. 
+• Its closest approach was about 568,000 km (0.0038 AU), roughly 1.5 times the 
+Earth-Moon distance, and it poses no threat. 
+• It crossed Earth's Hill sphere in April 2026. It approaches Earth about once 
+every 10 years, with the next close encounter in 2058 unlikely to cause capture. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Defence 
+India Hosts First -Ever BIMSTEC Maritime Security Exercise in Andaman and 
+Nicobar Islands 
+• The Andaman and Nicobar Command (ANC), India's integrated tri -services 
+command, hosted the first -ever BIMSTEC Maritime Security Exercise at Sri 
+Vijaya Puram from 30 October to 3 November 2026. 
+• All seven members took part: Bangladesh, Bhutan, India, Myanmar, Nepal, Sri 
+Lanka and Thailand. 
+• PM Modi had announced it at the 6th BIMSTEC Summit (Thailand, April 2025). 
+The theme is "Shared Seas, Shared Security and Shared Prosperity", with the 
+tagline "Translating Vision to Action". 
+• It had two phases: a three-day Tabletop Phase and a two-day Harbour Phase, 
+with ships such as SLNS Gajabahu and UMS King Aung Zeya. 
+• Objectives: better operational coordination and interoperability, stronger 
+maritime domain awareness and exchange of best practices. 
+ 
+Quad Naval Exercise MALABAR 2026 Begins in Japan; INS Sahyadri 
+Participates 
+• The 30th edition of Exercise Malabar began on 5 November 2026 south of 
+Japan's Kanto region, hosted by Japan, with the navies of India, the USA, 
+Japan and Australia. It runs until 12 November. 
+• It aims to strengthen maritime cooperation and interoperability for a Free and 
+Open Indo-Pacific. 
+• It involves multi -domain operations across surface, subsurface, air and 
+information warfare. 
+• It has a Harbour Phase (interactions and planning) followed by a Sea Phase, in 
+which INS Sahyadri operates with Japanese, US and Australian assets. 
+ 
+GRSE Delivers Fifth ASW Shallow Water Craft 'Amini' to Indian Navy 
+• GRSE, Kolkata, delivered 'Amini', the fifth of eight indigenous Anti -Submarine 
+Warfare Shallow Water Crafts, on 5 November 2026. It is GRSE's 119th 
+warship and the 81st delivered to the Navy. 
+• It was accepted by Rear Admiral Gautam Marwaha, CSO (Technical), HQ 
+Eastern Naval Command. 
+• It is named after Amini Island (Lakshadweep) and carries forward the name of 
+the former INS Amini, a Petya III-class corvette decommissioned in 2002. 
+• It is about 77.6 m long, displaces around 900 tonnes, has a top speed of 25 
+knots and endurance of about 1,800 nautical miles, with waterjet propulsion 
+and a 2.7-m draught. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Events 
+PM Modi Inaugurates ESTIC 2026 at Bharat Mandapam, New Delhi 
+• PM Narendra Modi inaugurated the 2nd edition of the Emerging Science, 
+Technology and Innovation Conclave (ESTIC 2026), held 27-29 October 2026 
+at Bharat Mandapam, New Delhi. 
+• He urged scientists and deep -tech startups to deliver measurable, scalable 
+outcomes within 3 years. 
+• The theme was "Creative Minds, Catalyzing Science, Empowering 
+Technologies". It was organised by CSIR (under the Ministry of Science and 
+Technology) with CSIR-NIIST. 
+• The event covered 12 thematic areas, including generative AI, biotechnology, 
+quantum communication and agri -tech. A new Global Connect event brought 
+together 300+ participants. 
+• CSIR was founded in 1942 and is headquartered in New Delhi. 
+ 
+Union MoS Sanjay Seth Inaugurates VISV-2026 at Manekshaw Centre, New Delhi 
+• MoS Defence Sanjay Seth inaugurated VISV-2026 (Vision, Innovation, Synergy, 
+Values) under the theme "Showcasing Defence Capabilities, Strengthening 
+Global Partnerships". 
+• It was organised by DRDO with the Centre for Joint Warfare Studies 
+(CENJOWS) to promote indigenous defence technology and self -reliance, in 
+line with Viksit Bharat 2047. 
+• He released a compendium of DRDO products in Arabic, Spanish and French 
+for international partners. 
+• CENJOWS is a tri -service defence think tank raised on 27 August 2007. It is 
+registered under the Societies Registration Act, 1860 and is headquartered in 
+New Delhi. 
+ 
+Bharat Renewable Energy Summit and Expo 2026 Held in New Delhi 
+• The inaugural BRES & Expo 2026 was held on 2 -5 November 2026 at Bharat 
+Mandapam, New Delhi, under the theme "Invest. Innovate. Inspire". PM 
+Narendra Modi inaugurated it and Vice -President C. P. Radhakrishnan gave 
+the valedictory address. 
+• It was organised by MNRE with the ISA, with IREDA and SECI as organising 
+partners, alongside the 9th ISA Assembly and the 4th International Conference 
+on Green Hydrogen. 
+• PM Modi announced plans to add another 500 GW of non -fossil capacity over 
+10-11 years. India reached 50% non-fossil installed capacity in 2025, five years 
+ahead of schedule. 
+• Investment commitments of nearly USD 400 billion were secured, against the 
+government's USD 220 billion estimate for the 2030 transition. 10 MoUs and 
+framework agreements were signed. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• The IEA launched "India RE Market Report 2026: Analysis and Forecast to 
+2030". 
+ 
+Mansukh Mandaviya Inaugurates 74th Foundation Day of EPFO in New Delhi 
+• Union Labour Minister Dr. Mansukh Mandaviya inaugurated EPFO's 74th 
+Foundation Day on 1 November 2026 at Dr. Ambedkar International Centre, 
+New Delhi. 
+• EPFO presented the Bhavishya Nidhi Awards 2026 to Regional and Zonal 
+Offices, officers and employees. They recognised excellence in grievance 
+management, pension services, death claim settlement, PRAYAAS and the 
+Pradhan Mantri Viksit Bharat Rozgar Yojana (PMVBRY). 
+• Three initiatives were launched: automatic settlement of eligible inoperative 
+EPF accounts with balances up to Rs 1,000, and EPFO services via WhatsApp. 
+• Seven EPFO publications were also released. 
+ 
+Amit Shah Presents President's Colour to Chandigarh Police on 60th Raising 
+Day 
+• Union Home Minister Amit Shah presented the President's Colour to 
+Chandigarh Police at its 60th Raising Day (Diamond Jubilee) at Police Lines, 
+Chandigarh. 
+• The Centre provided 2,152 additional AI-enabled surveillance cameras, adding 
+to about 2,130 existing ones. He also flagged off 141 new vehicles. 
+• Since 4 August 2024, the force registered 8,206 FIRs and filed online 
+chargesheets in 7,590 cases (92.5%). Conviction rates are 85% overall and 
+93% under the NDPS Act, with an average response time of 4 minutes. 
+• Chandigarh Police won 145 medals (35 gold, 38 silver, 72 bronze) at the All 
+India Police Duty Meet. It has over 6,000 personnel. 
+• Shah also flagged off the 'Run for Unity' in New Delhi for Sardar Patel's 151st 
+birth anniversary and set 31 December 2029 as the target for a drug-free India. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Awards & Rewards 
+Prasar Bharati Engineer Wins ABU Broadcast Engineering Excellence Award 
+2026 
+• Nongmaithem Nandakumar Singh of Prasar Bharati won the Asia -Pacific 
+Broadcasting Union (ABU) Broadcast Engineering Excellence Award 2026. 
+Mihir Kumar Jha (Under Secretary, MIB) received it on his behalf. 
+• His innovations include DDPlayout (indigenous automated playout software 
+used by Doordarshan Kendras) and DDSlowMo (a low-cost slow-motion replay 
+system for national sporting events). 
+• ABU has around 224 member organisations across 66 countries. Its 63rd 
+General Assembly was held in Colombo, Sri Lanka (30 October to 3 November 
+2026) under the theme "Media for Peace and Humanity: Truth, Trust, and 
+Transformation". 
+• Prasar Bharati was established on 23 November 1997 under the Prasar Bharati 
+Act, 1990. It comprises Akashvani and Doordarshan, is headquartered in New 
+Delhi and is chaired by Prasoon Joshi. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Appointments 
+IREDA Appoints Jatin Kumar Nayak as CMD 
+• On 30 October 2026, IREDA (a Navratna CPSE under MNRE) appointed Jatin 
+Kumar Nayak as Chairman and Managing Director. The ACC approved the 
+appointment. 
+• He succeeds Dr. Bijay Kumar Mohanty, who held additional charge of CMD. 
+• Nayak has over three decades of experience in the power sector and resource-
+intensive industries such as mining and metals. 
+• He was previously Executive Director (Finance) at REC Limited, a Maharatna 
+CPSE under the Ministry of Power. 
+ 
+Dinesh Vitthalrao Ganvir Assumes Charge as 55th DG of GSI 
+• Geologist Dinesh Vitthalrao Ganvir took charge as the 55th Director General of 
+the Geological Survey of India (Ministry of Mines). He succeeds Varsha Ashok 
+Agalwe, the 54th DG and the first woman DG, who retired on superannuation. 
+• He has over 32 years of experience in geological investigations, mineral 
+exploration and engineering geology. 
+• He was earlier ADG and HoD, Central Region, Nagpur, with additional charge 
+as National Mission Head-II. 
+• He has represented GSI at forums including the India -Peru JWG, the Russia -
+India Mining Sub-Group and IMARC 2022 (Australia). 
+ 
+Air Marshal Inderpal Singh Walia Appointed Next Vice Chief of the IAF 
+• Air Marshal Inderpal Singh Walia, currently AOC-in-C of Eastern Air Command, 
+was appointed Vice Chief of the Air Staff (VCAS), effective 1 November 2026. 
+• He succeeds Air Marshal Ashutosh Dixit, who becomes the 29th Chief of the 
+Air Staff (Air Chief Marshal) from 31 October 2026. 
+• Walia is an NDA alumnus, commissioned in the IAF fighter stream on 11 June 
+1988. He has flown MiG-21, MiG-23, MiG-27, Jaguar and Su-30MKI aircraft. 
+• He has served as Defence Attaché in Japan and South Korea, and has received 
+the Vayu Sena Medal (2008) and Ati Vishisht Seva Medal (2018). 
+• The IAF was established on 8 October 1932, is headquartered in New Delhi 
+and operates under the Ministry of Defence. 
+ 
+Air Marshal Mehtab Singh Deswal Takes Over as AOC -in-C, IAF Eastern Air 
+Command 
+• On 1 November 2026, Air Marshal Mehtab Singh Deswal assumed charge as 
+AOC-in-C of the Eastern Air Command, succeeding Air Marshal Inderpal Singh 
+Walia, now Vice Chief of the Air Staff. 
+• He was commissioned as a fighter pilot in June 1989, has over 3,200 flying 
+hours and was part of the core team that inducted the Su-30K in 1997. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• He has served as Air Attaché in Pakistan and DG (Weapon Systems) at Air HQ. 
+Most recently he was SASO at HQ South Western Air Command. 
+• He holds the AVSM and Vayu Sena Medal. 
+• EAC is one of the IAF's five operational commands, headquartered at Upper 
+Shillong, Meghalaya. It was set up in 1958 and upgraded to a full command on 
+1 December 1959. 
+ 
+Iliana Iotova Becomes Bulgaria's First Elected Female President 
+• Acting President and former Vice President Iliana Iotova won the presidential 
+runoff on 1 November 2026, becoming Bulgaria's first democratically elected 
+female President. 
+• She and running mate Kiril Valchev secured 57.58% of the votes (about 1.1 
+million ballots). 
+• She defeated former caretaker PM Andrey Gyurov and his running mate Georgi 
+Kandev, who got 39.47% (about 7.5 lakh ballots). 
+ 
+Abdul El-Sayed Wins Michigan Senate Race, Becomes First Muslim Elected to 
+US Senate 
+• Abdul El-Sayed defeated Republican candidate Mike Rogers in the 2026 US 
+Senate election from Michigan, becoming the first Muslim ever elected to the 
+US Senate. 
+• El-Sayed, the son of Egyptian immigrants, is a former public health official who 
+gained prominence through his grassroots campaign and progressive political 
+agenda. 
+• His campaign focused on universal healthcare (Medicare for All), reducing the 
+influence of outside money in elections and economic issues. 
+• His victory strengthens the progressive wing of the Democratic Party ahead of 
+the 2028 US Presidential Election. He received support from prominent 
+progressive leaders, including Bernie Sanders and Alexandria Ocasio-Cortez. 
+• The Michigan Senate seat became vacant after Democratic Senator Gary 
+Peters decided not to seek re-election. 
+ 
+Goldman Sachs Appoints Gowri Sekar as Its First Woman Partner in India 
+• US-based investment bank Goldman Sachs has elevated Gowri Sekar as its 
+first woman partner in India, marking a significant milestone in the firm's 
+leadership representation. 
+• Sekar is the Global Head of Product Data Engineering and Asia -Pacific Lead 
+for AI Strategy for Data Engineering. She has been associated with Goldman 
+Sachs for 20 years. 
+• Alongside Sekar, Ashoke Sharma has also been promoted as a partner in India. 
+He heads Operations Engineering globally within Global Banking and Markets 
+(GBM) Public and leads GBM Engineering in India. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+• Goldman Sachs announced the promotion of 109 partners globally, including 
+14 Indians, making it the largest partner class since 2010. The new partners 
+will assume their positions from January 1, 2027. 
+• Goldman Sachs employs over 8,000 people in India across Mumbai, Bengaluru 
+and Hyderabad, with approximately 45% of its Indian workforce engaged in 
+engineering roles. 
+ 
+Wipro Reappoints Angan Guha as CEO of Americas 2 Strategic Market Unit 
+• IT services major Wipro has appointed Angan Guha as President and Chief 
+Executive Officer (CEO) of its Americas 2 strategic market unit, effective 
+December 8, 2026. 
+• Guha will report to Wipro's Managing Director and CEO Srini Pallia and will 
+become a member of the company's executive leadership team. 
+• He previously spent nearly 29 years at Wipro before joining Birlasoft as CEO 
+and Managing Director in 2022. He had earlier headed Wipro's Americas 2 unit. 
+• In his new role, Guha will focus on strengthening business growth and client 
+relationships across Banking, Financial Services and Insurance (BFSI), energy 
+and utilities, and manufacturing sectors. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Important Days 
+National Unity Day 2026 – 31 October 
+• National Unity Day (Rashtriya Ekta Diwas) is observed on 31 October on the 
+birth anniversary of Sardar Vallabhbhai Patel, the "Iron Man of India". 2026 
+marks his 151st birth anniversary. 
+• The Government of India under PM Narendra Modi declared the day in 2014, 
+and the first observance was on 31 October 2014. 
+• The 2026 celebrations at the Statue of Unity, Ekta Nagar, Gujarat, were 
+coordinated mainly by the MHA with the Gujarat Government and SOUADTGA. 
+ 
+World Vegan Day 2026 – 1 November 
+• World Vegan Day is observed on 1 November to promote veganism, animal 
+welfare and the benefits of a vegan lifestyle. 
+• 2026 marks the 82nd anniversary of The Vegan Society and the 32nd 
+anniversary of World Vegan Day. 
+• It was established in 1994 by Louise Wallis, then Chair of The Vegan Society, 
+for the Society's 50th anniversary. The first observance was on 1 November 
+1994. 
+• The term "vegan" was coined by Donald Watson in November 1944, from the 
+first three and last two letters of "vegetarian". 
+ 
+International Day to End Impunity for Crimes against Journalists 2026 – 2 
+November 
+• The UN observance on 2 November highlights violence against journalists and 
+promotes accountability, press freedom and freedom of expression. The 2026 
+theme is "Threats Evolve. Impunity Endures." 
+• It was inspired by the killing of French journalists Ghislaine Dupont and Claude 
+Verlon in Kidal, Mali, on 2 November 2013. 
+• UNGA Resolution A/RES/68/163 (18 December 2013) proclaimed the day, and 
+it was first observed in 2014. 
+• The 2026 event was held at UNESCO Headquarters, Paris. 
+ 
+International Day against Violence and Bullying at School, Including 
+Cyberbullying 2026 – 5 November 
+• UNESCO observes the day on the first Thursday of November. In 2026 it fell 
+on 5 November, beginning the second five -year cycle. The theme is "Every 
+learner safe and well: From promise to practice." 
+• It was proclaimed by UNESCO General Conference Resolution 40 
+C/Resolution 19 (25 November 2019) and first observed on 5 November 2020. 
+• The Second Global Ministerial Conference on Ending Violence Against 
+Children is scheduled for 18-19 November 2026 in Manila, building on the 2024 
+Bogotá conference. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+ 
+International Day for Preventing the Exploitation of the Environment in War and 
+Armed Conflict 2026 – 6 November 
+• The UN observes the day on 6 November to highlight the environmental impact 
+of armed conflict and promote protection of natural resources. 2026 marks the 
+25th observance. 
+• UNGA Resolution A/RES/56/4 (5 November 2001) declared the day, and it was 
+first observed on 6 November 2002. 
+• On 27 May 2016, UNEA adopted Resolution UNEP/EA.2/Res.15 on protecting 
+the environment in conflict-affected areas. 
+ 
+National Cancer Awareness Day 2026 – 7 November 
+• India observes the day on 7 November to promote cancer prevention, early 
+detection, screening and timely treatment. 2026 is the 13th observance. It is 
+supported by MoHFW. 
+• It was introduced in September 2014 by then Union Health Minister Dr. Harsh 
+Vardhan, and first observed on 7 November 2014. 
+• The date is Marie Curie's birth anniversary (1867). She won the Nobel Prize in 
+Physics (1903) and Chemistry (1911). 
+• Ribbons: lavender for all cancers, pink for breast cancer, pearl/white for lung 
+cancer. 
+ 
+138th Birth Anniversary of C. V. Raman – 7 November 2026 
+• India marks the 138th birth anniversary of Sir C. V. Raman, the first Indian 
+physicist to win the Nobel Prize in Physics (1930) for the Raman Effect, which 
+explains scattering of light by molecules. 
+• He was born on 7 November 1888 in Tiruchirappalli, Tamil Nadu, was a 
+professor at the University of Calcutta and became India's first National 
+Professor. 
+• He was the first Indian Director of IISc, Bengaluru (1933 -1937) and led its 
+Physics Department until 1948. 
+• He discovered the Raman Effect in 1928 and co -discovered quantum photon 
+spin in 1932. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Obituaries 
+Nobel Laureate Economist William Nordhaus Passes Away at 85 
+• William D. Nordhaus, the American economist who pioneered the economic 
+approach to climate change, passed away on October 30, 2026, at the age of 
+85. 
+• He shared the 2018 Nobel Prize in Economic Sciences with Paul Romer for 
+integrating climate change into long-run macroeconomic analysis. 
+• He developed the Dynamic Integrated Climate -Economy (DICE) Model, which 
+links economic growth, carbon emissions and global temperatures to assess 
+the economic costs of climate change and emission reduction. 
+• Nordhaus's work laid the foundation for carbon pricing, arguing that polluters 
+should pay for environmental damage. In 2017, he estimated the optimal 
+carbon tax at $30 per tonne of carbon dioxide. 
+• He also proposed the concept of a Climate Club, under which participating 
+countries adopt a common carbon price and impose tariffs on imports from 
+countries that do not participate. 
+ 
+Former Rajya Sabha MP Ravindra Kishore Sinha Passes Away at 75 
+• BJP leader and former Rajya Sabha MP Ravindra Kishore Sinha died at 75 in 
+Noida, Uttar Pradesh. He was born on 22 September 1951 in Bahiyara village, 
+Bhojpur district, Bihar. 
+• He began as a journalist with a Hindi newspaper and was a war correspondent 
+during the 1971 India-Pakistan War. 
+• In 1974 he founded Security and Intelligence Services (SIS), which employed 
+retired defence personnel and later expanded into security and business 
+support services. 
+• He was an early BJP member and served on its National Executive Committee. 
+He was a Rajya Sabha MP from Bihar from 2014 to 9 April 2020. 
+ 
+Veteran Dogri Writer and Filmmaker Ved Rahi Passes Away at 93 
+• Ved Rahi died at 93 in Thane, Maharashtra. He was born on 22 May 1933 in 
+Jammu, and was the son of Lala Mulk Raj Saraf, who founded J&K's first 
+newspaper in 1924. 
+• He wrote Dogri stories, novels and poetry, and received the Maharashtra 
+Gaurav Award, Rahul Sankrityayan Award and Kusumagraj Rashtriya Sahitya 
+Puraskar. 
+• He wrote scripts and dialogues for about 25 Hindi films, including Yeh Raat Phir 
+Na Aayegi and Bezubaan. He directed Prem Parbat, Kali Ghata and Veer 
+Savarkar (2001), and DD serials such as Gul Gulshan Gulfam. 
+• He won the Sahitya Akademi Award in 1983 for the Dogri story collection Aale, 
+and the Sahitya Akademi Fellowship in 2024. 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Former Australian F1 World Champion Alan Jones Passes Away at 80 
+• Alan Stanley Jones, who won the 1980 F1 World Drivers' Championship with 
+Williams, died at 80. He was the second Australian champion after Sir Jack 
+Brabham and gave Williams its first Drivers' title. 
+• He was born on 2 November 1946 in Melbourne, son of Stan Jones, winner of 
+the 1959 Australian GP. 
+• He debuted with Hesketh at the 1975 Spanish GP, won first with Shadow at the 
+1977 Austrian GP and last at the 1981 Las Vegas GP. He had 12 wins in 116 
+starts. 
+• He was appointed MBE in 1980 and inducted into the Sport Australia Hall of 
+Fame in 1985. 
+ 
+Former SPG Commando and Four-Time HP MLA Nand Lal Passes Away at 72 
+• Nand Lal, Congress leader and four -time MLA from Rampur (Himachal 
+Pradesh), died on 3 November 2026 at 72 in Shimla. He was born on 16 April 
+1954 in Devthi village, Shimla district. 
+• He joined ITBP in 1980 and the SPG in 1985 (until 1997), serving on Sonia 
+Gandhi's security detail and earning the nickname "Sonia's Sentinel". 
+• He won Rampur in 2007, 2012, 2017 and 2022. 
+• He was Chief Parliamentary Secretary (2013 -2017) and chaired the Seventh 
+HP State Finance Commission from 2024. 
+• He received the President's Police Medal for Meritorious Service (2001) and for 
+Distinguished Service. 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Books 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Sports 
+Men's Asian Champions Trophy 2026: India Beats Japan to Win Record Sixth 
+Title 
+• India beat Japan 4 -1 in the final of the 9th Men's Asian Champions Trophy 
+(Hero Asian Champions Trophy Punjab 2026), held 27 October -5 November 
+2026 in Jalandhar and Mohali. Malaysia won bronze. 
+• It is India's record sixth title (2011, 2016, 2018, 2023, 2024, 2026) and third in 
+a row. 
+• Six teams played a single round-robin, with the top four reaching the semifinals. 
+It was organised by the Asian Hockey Federation with Hockey India. 
+• Harmanpreet Singh was Hero of the Tournament and top scorer (10 goals). 
+Krishan Bahadur Pathak was Goalkeeper of the Tournament. Azimuddin 
+Kamaruddin (Malaysia) was Best Young Player. 
+ 
+India Wins Both Titles at Inaugural Commonwealth Kabaddi Championship 2026 
+• India won both the men's and women's titles at the inaugural Commonwealth 
+Kabaddi Championship, held at Veer Savarkar Sports Complex, Ahmedabad, 
+on 23-31 October 2026. 
+• The men beat Sri Lanka 54-20 in the final. The women beat Uganda 35-15. 
+• The men were unbeaten, defeating Bangladesh 56 -27 in the semi -final and 
+scoring 380 points across eight matches. 
+• The women beat Sri Lanka 39-14 in the semi-final. Sakshi scored 52 points in 
+six matches. 
+• It was organised by the Amateur Kabaddi Federation of India (AKFI) with IKF 
+approval. The theme was "One Breath. One Raid. One Commonwealth." 
+ 
+Senior World Wrestling Championships 2026: Manisha Bhanwala Wins India's 
+First Women's Gold; USA Tops 
+• The championships were held on 24 October-1 November 2026 at Barys Arena, 
+Astana, Kazakhstan. India won 4 medals (1 gold, 2 silver, 1 bronze), all in 
+women's freestyle. 
+• Manisha Bhanwala became the first Indian woman to win Senior World gold, 
+and the second Indian wrestler after Sushil Kumar (66 kg, 2010). 
+• About 900 wrestlers from 90 countries competed for 30 world titles. 
+• Medal tally: USA 15 (7 gold), Iran 15 (6 gold), Russia 14 (4 gold). 
+• USA topped men's freestyle (194 points) and women's freestyle (137), while 
+Iran led Greco-Roman (192). 
+ 
+
+
+Weekly Beepedia November 2026 Week 1 
+ 
+Rahul Dravid and Saina Nehwal Nominated to 2030 Commonwealth Games 
+Organising Committee 
+• MYAS nominated Rahul Dravid and Saina Nehwal as athlete representatives 
+to the Organising Committee for the 2030 CWG in Ahmedabad, Gujarat. Jinal 
+Mehta and Ananya Birla were recommended as private-sector representatives. 
+• Gujarat Deputy CM Harsh Sanghavi is expected to head it, with Sports 
+Secretary Hari Ranjan Rao and IOA President P. T. Usha as Vice-Chairpersons. 
+M. Thennarasan is CEO. 
+• The committee is expected to have 12 -15 members. Lt Gen Harpal Singh will 
+represent the Commonwealth Games Association of India. 
+• India plans 15-17 disciplines, against 10 at the 2026 Glasgow Games, possibly 
+including hockey, wrestling and cricket. 
+• CWG was established in 1930 (first edition in Hamilton, Canada), is 
+headquartered in London and its President is Dr. Donald Rukare. 

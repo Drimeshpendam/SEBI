@@ -6,6 +6,23 @@
 >
 > **30% of the paper = ~15 of 50 questions. This file is your single highest-ROI study material in Paper 2.**
 
+## 📅 DAY MAP — which sections match your plan day
+
+| Plan day | Target | Read these sections | Then do |
+|---|---|---|---|
+| **D12** | control flow, loops, operators | §1 loops + dry-run method | 20 dry-runs — trace tables, not guesses |
+| **D13** | functions, scope/binding, param passing, recursion | §1 recursion (call-stack method) → §2 Scope, Binding, Parameter Passing | 10 param-passing traces (the #1 trap) |
+| **D19** | OOP pillars — constructors, inheritance, polymorphism | §4 OOP — pillars + inheritance types | class-hierarchy MCQs |
+| **D20** | exceptions, overloading + output prediction | §4 overriding-vs-overloading-vs-hiding → §5 Exceptions → C++/Java specifics | output drills ×15 |
+| **D22** | C pointers + tracing | §2 param passing → §3 C Output-Tracing (pointer facts) | 15 pointer traces |
+| **D23** | Java/Python idioms + output traps | §4 Java specifics → Python OOP → Functional/logic | Java override-vs-hide drills |
+| **D24** | recursion + backtracking | §1 recursion → DSA notes §7 backtracking | trace 10 recursive calls with call-stack drawings |
+| **D26** | output marathon | §3 + all Worked Examples | 50 traces across C/Java/Python |
+| **D27** | topic test | whole file skim → lock-list | 30-Q output-heavy test |
+| **D33** | pointer tracing re-run | §3 pointer facts only | 15 traces — cold, timed |
+
+---
+
 **How to read:** programming questions are dry-runs — you're asked what code prints. You learn that by tracing variables line-by-line, never by guessing. Every concept below: the plain-English idea → a code example you can trace → the exam trap.
 
 ---

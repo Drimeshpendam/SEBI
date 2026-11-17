@@ -4,6 +4,17 @@
 >
 > **How SEBI tests it:** name-the-attack MCQs, CIA-triad scenario matching, crypto type (symmetric/asymmetric/hash), authentication factors, security definitions. Mostly recall + scenario matching — high marks-per-hour.
 
+## 📅 DAY MAP — which sections match your plan day
+
+| Plan day | Target | Read these sections | Then do |
+|---|---|---|---|
+| **D15** | CIA triad + symmetric/asymmetric crypto | §1 CIA → §3 Crypto intro + Symmetric-vs-Asymmetric table | scenario-match CIA ×10 |
+| **D16** | hashing, digital signatures, certs/PKI | §3 Hashing → Digital signature vs certificate → §4 Authentication | factor MCQs + cert-chain ordering |
+| **D17** | attacks + defenses + access control | §2 Attack list (all) → §5 Network & Systems Security | name-the-attack drill — cover the table, recall |
+| **D18** | topic test | whole file skim → error-log rules | 25-Q test + redo wrongs |
+
+---
+
 **How to read:** security is a vocabulary-heavy topic — the trick is that every attack/defense is just a story. Each entry below gives the story, then the one-line exam rule. When two things look alike (virus/worm/trojan, SQLi/XSS/CSRF), the "who gets hurt" question separates them.
 
 ---
@@ -118,6 +129,19 @@
 - **Biometric accuracy metrics:** **FAR** = false acceptance rate — lets an impostor IN (the dangerous direction); **FRR** = false rejection rate — locks a legit user OUT (the annoying direction). **CER/EER** = the error rate where the two curves cross → lower = better system (asked!).
 - **Kerberos** — ticket-based network authentication: a KDC issues time-stamped tickets so passwords never cross the wire. **SSO** = one login, many services. **OAuth** = delegated AUTHORIZATION (letting an app act for you — not authentication). **SAML** = enterprise SSO assertions.
 - Password storage rule: **salted + hashed** (bcrypt/Argon2), never plaintext, never reversible encryption.
+
+### Access control models — who decides what you may open (asked as model↔rule matching)
+
+**Plain words:** authentication says *who you are*; access control says *what you're allowed to touch*.
+
+| Model | Who decides access | Example you can see |
+|---|---|---|
+| **DAC** — Discretionary | the **owner** of the file decides | you share a Google Doc — YOU pick who edits (Discretionary = owner's discretion) |
+| **MAC** — Mandatory | the **system**, by security labels — users can't override | military: file marked TOP-SECRET opens only for clearance-holders, no sharing allowed (Mandatory = no choice) |
+| **RBAC** — Role-Based | the **job role**, not the person | "Tellers can view accounts; only Managers approve loans" — you get rights by being a Manager, not by name |
+| **Rule-BAC** | conditions/rules — time, IP, location | "trading system accessible 9:00–15:30 only" |
+
+REMEMBER: *"DAC = owner, MAC = machine, RBAC = role."* Trap pairing: Bell-LaPadula/Biba (from §5) are MAC-style label models — the exam loves asking which family they belong to.
 
 ---
 

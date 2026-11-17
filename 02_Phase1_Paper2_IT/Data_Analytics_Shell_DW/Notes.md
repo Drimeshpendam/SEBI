@@ -4,6 +4,17 @@
 >
 > **How SEBI tests it (real recalled):** Python slicing `abc[1:4]`, slicing time complexity O(k), triple-quoted multiline strings, `__init__`, `json.dumps()` returns `str`, pandas/DataFrame basics, shell variables, OLAP operations, star schema.
 
+## 📅 DAY MAP — which sections match your plan day
+
+| Plan day | Target | Read these sections | Then do |
+|---|---|---|---|
+| **D25** | pandas slicing, dict/set ops, regex, file modes | Part A §1–§4 (types→files) → §5 pandas → §7 regex | trace 15 slicing/dict snippets by hand |
+| **D36** | DW cram: ETL, OLAP, star/snowflake, SCD | Part B — all of it (definitions cold) | draw star vs snowflake from memory + 5 OLAP ops |
+| **D37** | reshaping, groupby/merge, charts, R basics | §5 pandas reshaping → §6 R | write groupby/merge/pivot snippets by hand |
+| **D38** | shell cram: grep/awk/sed/chmod/cron | Part C — all of it | 15 command drills — `$?`, quotes, octal |
+
+---
+
 **How to read:** every snippet below can be traced by hand — do it. Python questions are output-prediction: you only learn them by executing the code mentally line by line.
 
 ---
@@ -73,6 +84,18 @@ s[-1]    → 'f'        # negative index = count from the right
 - **Selection — the loc/iloc distinction (asked):** `df['col']` picks a column; `df.loc[row_label, 'col']` selects by LABELS; `df.iloc[0:5, 1:3]` selects by POSITIONS (like slicing). loc = label, iloc = integer index.
 - Filtering: `df[df['sal'] > 50000]` keeps rows where the condition is True — a boolean mask.
 - Reshaping (syllabus keyword): `.groupby().agg() .pivot() .melt() .merge() .concat() .sort_values() .dropna() .fillna()` — know each name's job.
+- **Worked pandas example (trace this once):**
+  ```python
+  df = pd.DataFrame({'dept':['IT','HR','IT','HR'],
+                     'sal':[60,50,70,55]})
+  df.groupby('dept')['sal'].mean()   # -> HR 52.5, IT 65.0
+  df[df['sal'] > 55]                 # 55>55 is False -> keeps rows 0,2 only
+  pd.merge(df1, df2, on='id')        # inner join - the asked DEFAULT
+  pd.merge(df1, df2, on='id', how='left')  # keeps ALL df1 rows, NaN where no match
+  df.pivot(index='dept', columns='year', values='sal')  # long -> wide
+  df.melt(id_vars='id')              # wide -> long (unpivot)
+  ```
+  Traps: `>` is strict - `merge` default = INNER join - `groupby` result is indexed by the group column - `.loc` = labels, `.iloc` = positions.
 - Inspection: `.head() .describe() .value_counts() .shape .dtypes`.
 - Charts: `matplotlib.pyplot` → `plt.plot() .bar() .hist() .scatter() .show()`; seaborn wraps it prettier (name-level).
 

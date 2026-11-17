@@ -2,6 +2,15 @@
 
 > SE is not a named section in the official Paper 2 syllabus, but "software development security" (InfoSec), project-process and design-principle questions do appear — and real mains PYQs asked **"high cohesion, low coupling"**. Cover the famous models + testing levels + a few metrics; that's enough.
 
+## DAY MAP - which sections match your plan day
+
+| Plan day | Target | Read |
+|---|---|---|
+| **D40** | trivia buffer — one-pager cram | this WHOLE file, once through, definition-recall style |
+| any | Phase-2 prep / weak-spot patch | sections per the syllabus line being tested |
+
+---
+
 **How to read:** software engineering is just "how do teams build big software without chaos?" Every model below is a different answer to that — learn the story each model tells, and the matching MCQs become trivial.
 
 ---

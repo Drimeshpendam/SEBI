@@ -4,6 +4,18 @@
 >
 > **Why this file is huge:** it's only 10% of Phase-1 Paper 2, but memory-based Mains PYQs show **~55% of Phase-2 IT questions come from here** (sorting, trees, graphs, hashing). Every hour spent here pays twice — once in Phase 1, again in Phase 2 where it's 2/3 of your final score.
 
+## 📅 DAY MAP — which sections match your plan day
+
+| Plan day | Target | Read these sections | Then do |
+|---|---|---|---|
+| **D29** | arrays/strings, stack/queue/LL + infix→postfix | Part 2 — all linear structures + postfix method | 10 infix→postfix conversions by hand |
+| **D30** | trees — traversals, BST, heap, AVL | Part 4 — all of it | draw traversals ×5, AVL rotation ×3 |
+| **D31** | graphs (BFS/DFS/MST/Dijkstra) + hashing | Part 5 + Part 3 | trace BFS/DFS order on a drawn graph |
+| **D32** | complexity + sort/search table + paradigms | Part 1 → Part 6 → Part 7 | memorize the master sorting table cold |
+| **D34** | DSA + Prog combined test | whole file skim → lock-list | 30-Q test + redo wrongs |
+
+---
+
 **How to read:** every structure is a physical thing — array = a row of numbered boxes, linked list = a treasure hunt, stack = a pile of plates, queue = a ticket line, hash table = a locker wall. Learn the picture first, then the table of facts.
 
 ---
@@ -120,6 +132,15 @@ Left < node < right at every node → an inorder walk always yields sorted order
   - **Prim's** — grow one tree: repeatedly add the cheapest edge leaving the tree. **Greedy** (real Q: "Prim's works on which principle?").
   - **Kruskal's** — sort ALL edges, add cheapest that doesn't close a cycle (union-find). Greedy too.
 - **Dijkstra** — shortest path from ONE source, greedy — **no negative weights allowed** (greedy can't revisit decisions). O((V+E) log V) with a heap.
+  **How to trace it (the exam asks the ORDER nodes are finalized):**
+  ```
+  Graph: A-B:4, A-C:2, C-B:1, B-D:5, C-D:8
+  Start A: dist = {A:0, B:inf, C:inf, D:inf}
+  Pick smallest unfinalized -> C(2): relax -> B:4->3, D:inf->10
+  Pick smallest -> B(3): relax -> D:10->8
+  Pick -> D(8) done.  Final order: A,C,B,D.  Path to D = A->C->B->D = 8.
+  ```
+  Rule: each round, lock the closest unvisited node and relax its edges - "greedy means you never undo a lock." 
 - **Bellman-Ford** — the fix for negative edges — relaxes every edge V−1 times; also detects negative cycles. DP-flavoured.
 - **Floyd-Warshall** — shortest paths between ALL pairs — triple loop, O(V³).
 - **Topological sort** — linear ordering of a DAG (finish prerequisites before dependents); DFS finish-times or Kahn's indegree-0 queue.

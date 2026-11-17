@@ -4,6 +4,17 @@
 >
 > **How SEBI tests it:** layer↔protocol/device matching, port numbers, TCP vs UDP, subnetting numerics, "which layer does X" MCQs. Mostly fact-recall + one numeric type (subnetting).
 
+## 📅 DAY MAP — which sections match your plan day
+
+| Plan day | Target | Read these sections | Then do |
+|---|---|---|---|
+| **D8** | OSI vs TCP/IP + ports | §1 OSI Model (+device↔layer map) → §4 Ports & Protocols | memorize both tables cold |
+| **D9** | subnetting + IP addressing | §2 IP Addressing & Subnetting (whole section) | 10 subnetting drills — 30-sec method |
+| **D10** | TCP vs UDP, routing, devices, firewall | §3 TCP vs UDP → §5 LAN → §6 Routing & WAN → §7 Firewalls | state-diagram dry-run + device matching |
+| **D11** | topic test | whole file skim → error-log rules | 25-Q test + redo wrongs |
+
+---
+
 **How to read:** every topic goes *plain-English explanation → a tiny example you can see → the exam rule/trap*. Networks sound abstract until you attach them to a postal system or a phone call — the analogies below are doing real work, not decoration.
 
 ---

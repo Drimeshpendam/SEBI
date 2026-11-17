@@ -5,7 +5,19 @@
 >
 > **Every trick below: WHY it works → REMEMBER hook → worked examples covering each pattern the exam actually uses.**
 
+
 ---
+## DAILY MAP — which TYPE section for which plan day
+Open the listed TYPE(s) that day; the day's Reasoning single + puzzle type are in `Reasoning/Tricks.md` DAILY MAP.
+
+- **D1** TYPE 1 + TYPE 2 · **D4** TYPE 3 + TYPE 1 · **D6** TYPE 2 + TYPE 4 (mini-DI)
+- **D8** TYPE 1 + TYPE 4 · **D11** TYPE 2 + TYPE 3 · **D13** TYPE 1 + TYPE 4
+- **D15** TYPE 1 + TYPE 4 · **D18** TYPE 2 + TYPE 3 · **D20** TYPE 1 + TYPE 4
+- **D22** TYPE 2 + TYPE 1 · **D25** TYPE 5 (P&L + SI/CI) · **D27** TYPE 5 + TYPE 4
+- **D29** TYPE 2 + TYPE 1 · **D32** TYPE 5 (T&W + TSD) · **D34** TYPE 1 + TYPE 4
+- **D36** TYPE 2 + TYPE 1 · **D39** TYPE 5 (Ages + Mixture) · **D41** TYPE 1 + TYPE 4
+- **D43** TYPE 2 + TYPE 3 · **D46** TYPE 1 + TYPE 4 · **D48** TYPE 2 + TYPE 3
+- Arithmetic rotating topic on non-arithmetic days: keep the TYPE 5 formula card warm via the first 10 min of the rotation block (rewrite from memory).
 
 # PART 0 — SPEED FOUNDATION (memorise until reflex)
 

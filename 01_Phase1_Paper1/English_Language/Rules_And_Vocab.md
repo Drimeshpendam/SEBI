@@ -13,6 +13,19 @@ Read it through 2–3 times. After that, each time you get a question wrong, com
 
 ---
 
+
+## DAILY MAP — which type + which rule block, per plan day
+Tuesday = English day; Sunday = RC day. Study the type section first, then drill it.
+
+- **D5**  Type 1 (error spotting) + Rules 1-11 (agreement/tense) + collocations vocab
+- **D12** Type 2 (fillers) + Rules 15-20 (preposition/connector) + idioms vocab
+- **D19** Types 1+2 mixed + phrasal-verbs vocab
+- **D26** Type 3 (improvement) + Rules 12-13/21-23 + one-word substitutions
+- **D33** Types 2+3 + root-words vocab
+- **D40** weakest type (error log) + full vocab-log review + Type 6 if not yet covered
+- **Every Sunday** Type 5 (RC set) + the week's vocab words as self-quiz
+- Type 4 (jumbles), 6 (cloze), 7 (match-column): no fixed day -- drill 1 set inside the daily 40-Q quota whenever that type appears in the error log.
+
 # PART 1 — THE GRAMMAR RULEBOOK (understand version)
 
 ## AGREEMENT RULES (verb matches subject)
@@ -233,8 +246,25 @@ Closer = conclusion words (thus, finally, overall).
 6. Tone: SEBI passages are usually **analytical/cautionary**. Praise words → optimistic; flaw words → critical; just facts → neutral.
 **6-minute hard cap. If a question needs re-reading the whole passage → guess, flag, move.**
 
----
 
+## Type 6 - Cloze Test (0-5 Qs - rotates in some years)
+A short passage with 5 numbered blanks; each blank gets 5 word options.
+**Method:**
+1. Read the whole passage WITHOUT filling anything - get the story direction first (a blank's word depends on sentences around it, not its own line).
+2. Then per blank: grammar test first (blank after "the" wants a noun; after "to" wants base verb), tone test second (positive/negative story direction kills half the options).
+3. Consecutive blanks often share one connector logic - "not only X but Y", "although X, Y" - solve them as pairs.
+WHY this works: a cloze is just 5 double-filler questions wearing a passage - Type 2 method on each blank.
+REMEMBER: *Story first, blanks second - a cloze punishes line-by-line reading.*
+
+## Type 7 - Match the Column / Phrase Replacement (0-4 Qs - rotates)
+Two columns (sentence starts A-D vs endings i-v), pick the matching combination. Variant: replace a phrase so the sentence becomes correct.
+**Method:**
+1. Match by grammar hard-locks first - an ending starting with a verb only fits a start ending in a subject; tense and number must agree across the join.
+2. Then meaning-check the survivors (usually only 1-2 combos survive grammar).
+3. For phrase-replacement: it is Type 3 (improvement) on a fragment - same checklist, "no replacement needed" is a real option.
+REMEMBER: *Grammar locks, meaning checks - never match on vibes alone.*
+
+---
 # PART 2B — WORKED EXAMPLES (every question type, solved the way you'd solve it in the exam)
 
 ## Type 1 — Error Spotting (solve in 25–35 sec each)

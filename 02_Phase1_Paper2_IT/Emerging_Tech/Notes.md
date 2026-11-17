@@ -2,6 +2,15 @@
 
 > Cloud, big data, AI/ML, blockchain, payments — SEBI sprinkles 1–3 "awareness" questions. Pure recall — cheap marks. One focused read + the memory tables below is enough.
 
+## DAY MAP - which sections match your plan day
+
+| Plan day | Target | Read |
+|---|---|---|
+| **D40** | trivia buffer — one-pager cram | this WHOLE file, once through, definition-recall style |
+| any | Phase-2 prep / weak-spot patch | sections per the syllabus line being tested |
+
+---
+
 **How to read:** these are buzzword questions — you only need to know what each thing IS plus one distinguishing fact. Every entry below gives the plain-English idea, then the exam hook.
 
 ---
@@ -37,6 +46,27 @@ REMEMBER: *"IaaS = hardware, PaaS = platform, SaaS = software."* Each layer up =
 
 - **Key terms:** training/test split (never judge on the data it memorized), **overfitting** (99% on training, fails new data — memorized, didn't generalize), NLP (language), LLM/GenAI (text generators), hallucination (confident wrong answers).
 - **SEBI-flavored AI:** algo trading, market surveillance for manipulation, robo-advisory — plausible "application" MCQ.
+
+### GenAI / trending terms (2025–26 papers love these)
+
+| Term | The idea | Exam hook |
+|---|---|---|
+| **LLM** (Large Language Model) | a model trained on massive text that generates language — GPT, Gemini, Claude, Llama | "LLM = predicts the next token/word" |
+| **Generative AI** | AI that CREATES content — text, images, code, audio — vs predictive AI that only classifies/forecasts | "which produces NEW content?" → GenAI |
+| **Hallucination** | the model states false things confidently — made-up citations, fake facts | the #1 GenAI risk asked |
+| **Prompt engineering** | crafting inputs to steer the model's output | "the skill of writing effective instructions to an LLM" |
+| **RAG** (Retrieval-Augmented Generation) | LLM answers from YOUR documents — it retrieves relevant chunks, then generates | cures hallucination/staleness — "AI grounded in company data" |
+| **Agentic AI** | AI that plans + acts autonomously — books meetings, runs tools, multi-step goals | "AI that takes actions, not just answers" |
+| **Deepfake** | AI-generated fake video/audio indistinguishable from real — KYC-fraud weapon | SEBI-adjacent: fake CEO videos, market-manipulation hoaxes |
+| **Foundation model** | one huge pre-trained model fine-tuned for many tasks (vs trained per-task) | GPT-family = foundation models |
+| **Fine-tuning** | extra training of a foundation model on your domain data | "adapting a general model to legal/finance text" |
+| **Bias in AI** | model inherits skews in its training data — unfair loan/fraud scoring | governance MCQ — "why does AI need audit?" |
+| **Explainable AI (XAI)** | models that can justify their outputs — required where decisions affect people (credit, surveillance) | regulator concern = explainability |
+| **AI governance / responsible AI** | the framework of rules making AI safe, fair, auditable | SEBI's consultation papers on AI in markets |
+| **Token** | the chunk an LLM reads — ~¾ of a word | usage/billing unit of LLMs |
+| **Turing test** | the classic "can a machine fool a human judge" benchmark | origin: Alan Turing |
+
+REMEMBER: *"LLM writes, RAG grounds, agentic acts, hallucination lies, deepfake fakes."*
 
 ## 4. Blockchain
 

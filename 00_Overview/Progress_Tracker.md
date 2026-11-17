@@ -4,7 +4,7 @@ Update weekly (Sundays). Scores = percentage.
 
 ## Diagnostics (Block A)
 
-| Mock | Paper 1 (R/Q/E/GA) | Paper 2 IT | Sectional fails | Date |
+| Mock | Paper 1 (R/Q/E/GA) | Paper 2 IT | Gate misses (P1<30 / P2<40 / agg<80) | Date |
 |---|---|---|---|---|
 | Baseline 1 | | | | |
 | Baseline 2 | | | | |
@@ -16,16 +16,16 @@ Update weekly (Sundays). Scores = percentage.
 
 ## Subject confidence (update monthly)
 
-| Subject | Phase | Status | Next action |
+| Subject (official wt, Phase-1 P2) | Phase | Status | Next action |
 |---|---|---|---|
-| DS & Algorithms | 1/2 | | |
-| DBMS & SQL | 1/2 | | |
-| Operating Systems | 1/2 | | |
-| Networks | 1/2 | | |
-| Info Security | 1/2 | | |
-| Software Engg | 1/2 | | |
-| Programming | 1/2 | | |
-| Emerging Tech | 1/2 | | |
+| Programming Concepts (30%) | 1/2 | | |
+| DS & Algorithms (10% P1 · 70% P2) | 1/2 | | |
+| DBMS & SQL (20%) | 1/2 | | |
+| Data Analytics Python/R (10%) | 1 | | |
+| Networks (10%) | 1 | | |
+| Info Security (10%) | 1 | | |
+| Data Warehousing + Shell (10%) | 1 | | |
+| OS/SE/Emerging trivia (~0%, Day-40 buffer only) | 1 | | |
 | Reasoning | 1 | | |
 | Quant | 1 | | |
 | English | 1/2 | | |
@@ -33,8 +33,11 @@ Update weekly (Sundays). Scores = percentage.
 
 ## Mock log (Block D)
 
-| Date | Paper 1 % | Paper 2 % | Sectional fail? | Top error source |
-|---|---|---|---|---|
+Attempts/accuracy columns = the smart-attempt metrics (`00_Overview/Attempt_Strategy.md`).
+Fill them from each test's Mock_Review audit.
+
+| Date | Paper 1 % | Paper 2 % | Attempts (P1/P2) | Accuracy % | Regret skips | Time sinks | Gate missed? (P1<30/P2<40) | Top error source |
+|---|---|---|---|---|---|---|---|---|
 
 ## Descriptive English log
 

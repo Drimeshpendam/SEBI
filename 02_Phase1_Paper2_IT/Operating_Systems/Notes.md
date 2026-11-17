@@ -4,6 +4,15 @@
 >
 > **What's testable:** process states & fork(), scheduling numerics, deadlock/Banker's, paging/TLB/page-replacement, RAID levels, Linux commands & file system, chmod permissions.
 
+## DAY MAP - which sections match your plan day
+
+| Plan day | Target | Read |
+|---|---|---|
+| **D40** | trivia buffer — one-pager cram | this WHOLE file, once through, definition-recall style |
+| any | Phase-2 prep / weak-spot patch | sections per the syllabus line being tested |
+
+---
+
 **How to read:** OS concepts are just stories about a manager (the OS) juggling workers (processes), a shared kitchen (memory), and one chef (the CPU). Each topic below: the story → the example you can see → the exam trap.
 
 ---
