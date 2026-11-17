@@ -4,6 +4,7 @@
 // Page target = 100/concept; pools fill toward it.
 
 const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1))
+const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b))
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)]
 const shuffle = (arr) => arr.map((x) => [Math.random(), x]).sort((a, b) => a[0] - b[0]).map((x) => x[1])
 
@@ -178,12 +179,35 @@ const genDDL = (n, t) => {
   while (out.size < n && guard++ < n * 30) {
     const fam = pick(Object.keys(fams))
     const cmd = pick(fams[fam])
-    if (rand(0, 2) === 0) {
-      const others = shuffle(Object.keys(fams).filter((f) => f !== fam)).slice(0, 3).flatMap((f) => [pick(fams[f]), 'DQL' === f ? 'SELECT' : ''])
-      const q2 = `Which command is NOT ${fam}?`
+    const mode = rand(0, 4)
+    if (mode === 3) {
+      const ddlPick = pick(fams.DDL)
+      const nonDDL = shuffle(['INSERT', 'UPDATE', 'DELETE', 'MERGE', 'ROLLBACK', 'SELECT'].filter((c) => c !== ddlPick)).slice(0, 4)
+      const q2 = `Which of these commands auto-commits (cannot be rolled back)?`
+      out.set(q2 + '|' + ddlPick, mkq(q2, ddlPick, nonDDL, 'DDL auto-commits — structure changes lock instantly; DML waits for COMMIT.', 'med', t))
+      continue
+    }
+    if (mode === 4) {
+      const dmlPick = pick(['INSERT', 'UPDATE', 'DELETE', 'MERGE'])
+      const ddl4 = shuffle(['CREATE', 'ALTER', 'DROP', 'TRUNCATE', 'RENAME', 'GRANT', 'COMMIT'].filter((c) => c !== dmlPick)).slice(0, 4)
+      const q2 = `Which of these commands can be rolled back?`
+      out.set(q2 + '|' + dmlPick, mkq(q2, dmlPick, ddl4, 'DML is rollback-able; DDL/DCL/TCL aren\'t.', 'med', t))
+      continue
+    }
+    if (mode === 0) {
       const wrongCmd = pick(fams[pick(Object.keys(fams).filter((f) => f !== fam))])
-      const correctCmd = pick(fams[fam])
-      out.set(q2 + '|' + cmd, mkq(q2, wrongCmd, [correctCmd, pick(fams[fam]), 'GRANT' === wrongCmd ? 'REVOKE' : 'GRANT', 'SELECT'], `${wrongCmd} belongs to a different family; ${correctCmd} is ${fam}.`, 'med', t))
+      const fams4 = shuffle([...fams[fam]]).slice(0, 4)
+      const q2 = `Which of the following commands is NOT a ${fam} command? Options drawn: ${shuffle([wrongCmd, ...fams4]).join(', ')}`
+      out.set(q2, mkq(q2, wrongCmd, fams4.slice(0, 4), `${wrongCmd} sits in a different family — the rest are ${fam}.`, 'med', t))
+      continue
+    }
+    if (mode === 1) {
+      const q2 = `Which list contains ONLY ${fam} commands?`
+      const clean = shuffle([...fams[fam]]).slice(0, 3).join(', ')
+      const dirty1 = `${pick(fams[fam])}, ${pick(fams[pick(Object.keys(fams).filter((f) => f !== fam))])}, ${pick(fams[fam])}`
+      const dirty2 = `${pick(fams[pick(Object.keys(fams).filter((f) => f !== fam))])}, ${pick(fams[fam])}, ${pick(fams[fam])}`
+      const dirty3 = `${pick(fams[fam])}, ${pick(fams[fam])}, ${pick(fams[pick(Object.keys(fams).filter((f) => f !== fam))])}`
+      out.set(q2 + '|' + clean, mkq(q2, clean, [dirty1, dirty2, dirty3, 'SELECT, SHOW, DESCRIBE'], `Only "${clean}" is pure ${fam} — each wrong list smuggles an outsider.`, 'med', t))
       continue
     }
     const q = `The SQL command ${cmd} ${pick(phs)}?`
@@ -396,8 +420,23 @@ const genDecomp = (n, t) => {
     ['R(A,B,C) split into R1(A,B) + R2(B,C) with FD AB→BC', 'Lossless — AB (shared B plus A) determines R2'],
     ['R(P,Q,R,S) split into R1(P,Q,R) + R2(R,S) with FD R→S', 'Lossless — R determines all of R2'],
     ['R(A,B) split into R1(A) + R2(B)', 'Lossy — no common attribute'],
+    ['R(A,B,C,D) split into R1(A,B,C) + R2(B,C,D) with FD BC→D', 'Lossless — BC shared determines D in R2'],
+    ['R(E,F,G,H) split into R1(E,F) + R2(F,G,H) with FD F→GH', 'Lossless — F determines all of R2'],
+    ['R(E,F,G) split into R1(E,G) + R2(F,G) — shared G keyless', 'Lossy — shared G determines neither side'],
+    ['R(A,B,C,D,E) split into R1(A,B) + R2(A,C,D,E) with FD A→BCDE', 'Lossless — A determines all of R2'],
+    ['R(P,Q,R,S,T) split into R1(P,Q) + R2(P,R,S,T) with FD P→QRST', 'Lossless — P determines all of R2'],
+    ['R(A,B,C) split into R1(A,B) + R2(A,B,C)', 'Lossless — shared AB is the whole R1'],
+    ['R(A,B,C,D) split into R1(A,C) + R2(B,D) — pairs never rejoin', 'Lossy — no common attribute'],
+    ['R(J,K,L) split into R1(J,K) + R2(K,L) with FD K→J', 'Lossless — K determines J → superkey of R1'],
+    ['R(J,K,L,M) split into R1(J,K,L) + R2(L,M) with FD L→M', 'Lossless — L determines all of R2'],
+    ['R(A,B,C) split into R1(A,C) + R2(B,C) with FD C→B', 'Lossless — C determines B → superkey of R2'],
+    ['R(M,N,O) split into R1(M,O) + R2(N,O) with FD O→M', 'Lossless — O determines M → superkey of R1'],
+    ['R(U,V,W,X) split into R1(U,V) + R2(V,W,X) with FD V→WX', 'Lossless — V determines all of R2'],
+    ['R(U,V,W,X) split into R1(U,W) + R2(V,X)', 'Lossy — no common attribute'],
+    ['R(A,B,C,D,E) split into R1(A,B,C) + R2(D,E) — nothing shared', 'Lossy — no common attribute'],
+    ['R(K,L,M,N) split into R1(K,L,M) + R2(K,N) with FD K→N', 'Lossless — K determines all of R2'],
   ]
-  const phs = ['Is the decomposition lossless?', 'Classify this decomposition', 'Lossless or lossy?']
+  const phs = ['Is the decomposition lossless?', 'Classify this decomposition', 'Lossless or lossy?', 'Does this split lose information on rejoin?', 'The decomposition above is:']
   while (out.size < n && guard++ < n * 30) {
     const [sc, ans] = pick(cases)
     const q = `${sc}. ${pick(phs)}`
@@ -670,27 +709,68 @@ const genArith = (n, t) => {
   const out = new Map()
   let guard = 0
   while (out.size < n && guard++ < n * 30) {
-    const mode = rand(0, 3)
-    let q, ans
+    const mode = rand(0, 8)
+    let q, ans, x = 'Direct formula — SI = PRT/100 · SP = CP(1+p%) · speed = d/t.'
     if (mode === 0) {
       const P = rand(2, 9) * 1000, R = rand(4, 12), T = rand(2, 5)
       ans = P * R * T / 100
-      q = `SI on ₹${P} at ${R}% p.a. for ${T} years = ?`
+      q = `What is the simple interest on ₹${P} at ${R}% p.a. for ${T} years?`
     } else if (mode === 1) {
       const cp = rand(2, 9) * 100, pct = rand(10, 30)
       ans = cp + cp * pct / 100
-      q = `A trader buys at ₹${cp} and sells at ${pct}% profit. Selling price?`
+      q = `A trader buys an article at ₹${cp} and sells it at ${pct}% profit. What is the selling price?`
     } else if (mode === 2) {
+      const mark = pick([40, 50, 60, 80]), d1 = pick([10, 15, 25])
+      const cp = rand(2, 8) * 1000
+      const mp = cp * (1 + mark / 100)
+      const sp1 = Math.round(mp * (1 - d1 / 100))
+      const d2 = pick([5, 10, 20])
+      ans = Math.round(mp * (1 - d2 / 100))
+      q = `A shopkeeper marks an article ${mark}% above its cost price. After offering a ${d1}% discount, he sells it for ₹${sp1}. At what price would it be sold if a ${d2}% discount had been allowed instead?`
+      x = `MP = CP×${1 + mark / 100} → back-solve CP = ₹${cp} → SP at ${d2}% off = ₹${ans}. (SEBI 2024 Q1 pattern.)`
+    } else if (mode === 3) {
+      const milkR = rand(2, 4), watR = milkR + 1
+      const tot = (milkR + watR) * pick([22, 33, 44])
+      const milk1 = (tot * milkR) / (milkR + watR), wat1 = tot - milk1
+      const exW = pick([33, 44, 66])
+      const tot2 = pick([160, 220, 200])
+      const wat2 = (tot2 + exW) / 2, milk2 = tot2 - wat2
+      const gm = milk1 + milk2, gw = wat1 + wat2
+      const g = gcd(gm, gw)
+      ans = `${gm / g} : ${gw / g}`
+      q = `Vessel M contains ${tot} litres of a milk–water mixture in the ratio ${milkR}:${watR}. Vessel N contains ${tot2} litres in which water exceeds milk by ${exW} litres. If both are mixed, what is the ratio of milk to water in the final mixture?`
+      x = `M: milk ${milk1}, water ${wat1} · N: milk ${milk2}, water ${wat2} → ${gm}:${gw} = ${ans}. (SEBI 2024 Q2 pattern.)`
+    } else if (mode === 4) {
+      const total = rand(10, 15) * 1000
+      const r = pick([15, 20, 25])
+      const grown = Math.round(total * 0.5 * (1 + r / 100) * (1 + r / 100) / 10) * 10
+      const inv = Math.round(grown / ((1 + r / 100) * (1 + r / 100)) / 100) * 100
+      ans = total - inv
+      q = `Out of ₹${total}, Ramlal invested a sum at ${r}% compound interest p.a. for 2 years and kept the rest as savings. If the maturity value was ₹${grown}, how much did he save?`
+      x = `CI ×${(1 + r / 100) ** 2} factor → invested = ₹${inv} → saved = ₹${ans}. (SEBI 2024 Q3 pattern.)`
+    } else if (mode === 5) {
       const d = rand(20, 60), s = rand(3, 9)
-      ans = d / s
-      q = `A car covers ${d} km in ${s} hours. Speed in km/hr?`
+      ans = Math.round(d / s * 10) / 10
+      q = `A car covers ${d} km in ${s} hours. What is its speed in km/hr?`
+    } else if (mode === 6) {
+      const a1 = rand(20, 35), a2 = a1 + rand(4, 9), yrs = rand(3, 6)
+      ans = a1 + a2 + 2 * yrs
+      q = `The ages of A and B are ${a1} and ${a2} years. What will be the sum of their ages ${yrs} years from now?`
+    } else if (mode === 7) {
+      const w1 = rand(4, 8), d1 = rand(6, 12), w2 = rand(2, 5)
+      ans = Math.round((w1 * d1) / w2)
+      q = `${w1} workers finish a job in ${d1} days. In how many days will ${w2} workers finish it (same rate)?`
+      x = 'Inverse proportion — workers × days constant.'
     } else {
       const a = rand(5, 10), b = rand(5, 10), c = rand(3, 8)
-      ans = (a + b + c) / 3 % 1 === 0 ? (a + b + c) / 3 : Math.round((a + b + c) / 3)
-      q = `Three friends weigh ${a}0, ${b}0, ${c}0 kg. Average weight?`
+      ans = Math.round((a + b + c) / 3 * 10) / 10
+      q = `Three friends weigh ${a}0, ${b}0 and ${c}0 kg. What is their average weight?`
     }
-    const pool = [ans - 10, ans + 10, ans * 2, ans / 2, ans + 20].map((v) => Math.round(v)).filter((v) => v !== ans && v > 0)
-    out.set(q, mkq(q, String(ans), shuffle(pool).slice(0, 4).map(String), 'Direct formula — SI = PRT/100 · SP = CP(1+p%) · speed = d/t.', 'easy', t))
+    const num = typeof ans === 'string' ? null : ans
+    const pool = num !== null
+      ? [num - 10, num + 10, num * 2, num / 2, num + 20, num * 1.25, num - 5].map((v) => Math.round(v * 10) / 10).filter((v) => v !== num && v > 0)
+      : shuffle(['2 : 3', '3 : 5', '5 : 8', '7 : 10', '7 : 11', '4 : 7'].filter((r) => r !== ans)).slice(0, 4)
+    out.set(q, mkq(q, String(ans), shuffle(pool).slice(0, 4).map(String), x, mode >= 2 && mode <= 4 ? 'med' : 'easy', t))
   }
   return [...out.values()]
 }
@@ -710,6 +790,176 @@ const NOUNS = [
   ['warnings', 'alerts', 'flagged trades'],
   ['clerks', 'officers', 'managers'],
 ]
+// ---------- SEBI-style scenario puzzles (Directions block -> sub-questions) ----------
+const ORDS = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth']
+const PPL = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+
+const evalClue = (clue, pos) => {
+  switch (clue.k) {
+    case 'gap': return Math.abs(pos[clue.a] - pos[clue.b]) === clue.n + 1
+    case 'rel': return pos[clue.a] === pos[clue.b] + (clue.d === 'right' ? clue.n : -clue.n)
+    case 'imm': return Math.abs(pos[clue.a] - pos[clue.b]) === 1
+    case 'end': return pos[clue.a] === 0 || pos[clue.a] === clue.n - 1
+    case 'samegap': return Math.abs(pos[clue.a] - pos[clue.b]) === Math.abs(pos[clue.c] - pos[clue.d2])
+    default: return true
+  }
+}
+const clueText = (clue) => {
+  switch (clue.k) {
+    case 'gap': return `There ${clue.n === 1 ? 'is one person' : `are ${clue.n} persons`} between ${clue.a} and ${clue.b}.`
+    case 'rel': return clue.n === 1 ? `${clue.a} sits immediately to the ${clue.d} of ${clue.b}.` : `${clue.a} sits ${ORDS[clue.n - 1]} to the ${clue.d} of ${clue.b}.`
+    case 'imm': return `${clue.a} sits immediately to the ${clue.d} of ${clue.b}.`
+    case 'end': return `${clue.a} sits at one of the extreme ends.`
+    case 'samegap': return `The number of persons between ${clue.a} and ${clue.b} is the same as between ${clue.c} and ${clue.d2}.`
+  }
+}
+
+const permsOf = (arr) => {
+  if (arr.length <= 1) return [arr]
+  const res = []
+  arr.forEach((x, i) => permsOf([...arr.slice(0, i), ...arr.slice(i + 1)]).forEach((p) => res.push([x, ...p])))
+  return res
+}
+
+const solveUnique = (people, clues) => {
+  const perms = permsOf(people)
+  const sols = []
+  for (const p of perms) {
+    const pos = {}
+    p.forEach((x, i) => (pos[x] = i))
+    if (clues.every((c) => evalClue(c, pos))) sols.push(p)
+    if (sols.length > 1) return null
+  }
+  return sols.length === 1 ? sols[0] : null
+}
+
+const randClue = (perm, N) => {
+  const pos = {}
+  perm.forEach((x, i) => (pos[x] = i))
+  const a = pick(perm), b = pick(perm.filter((x) => x !== a))
+  const kind = rand(0, 4)
+  if (kind === 0 && Math.abs(pos[a] - pos[b]) > 1) return { k: 'gap', a, b, n: Math.abs(pos[a] - pos[b]) - 1 }
+  if (kind === 1) { const d = pos[a] > pos[b] ? 'right' : 'left'; return { k: 'rel', a, b, n: Math.abs(pos[a] - pos[b]), d } }
+  if (kind === 2) {
+    const adj = perm.filter((x) => Math.abs(pos[x] - pos[a]) === 1)
+    if (adj.length) { const bb = pick(adj); return { k: 'imm', a, b: bb, d: pos[a] > pos[bb] ? 'right' : 'left' } }
+  }
+  if (kind === 3) {
+    const ends = perm.filter((x) => pos[x] === 0 || pos[x] === N - 1)
+    return { k: 'end', a: pick(ends), n: N }
+  }
+  const c = pick(perm.filter((x) => x !== a && x !== b))
+  const d2 = pick(perm.filter((x) => ![a, b, c].includes(x)))
+  if (Math.abs(pos[a] - pos[b]) !== Math.abs(pos[c] - pos[d2])) return null
+  return { k: 'samegap', a, b, c, d2 }
+}
+
+const genSeatRow = (n, t) => {
+  const out = []
+  let guard = 0
+  while (out.length < n && guard++ < n * 40) {
+    const N = pick([6, 7, 8])
+    const people = shuffle([...PPL]).slice(0, N)
+    const perm = shuffle([...people])
+    const pos = {}
+    perm.forEach((x, i) => (pos[x] = i))
+    const clues = []
+    let ok = false
+    for (let tries = 0; tries < 40 && !ok; tries++) {
+      const c = randClue(perm, N)
+      if (c && !clues.some((x) => clueText(x) === clueText(c))) {
+        clues.push(c)
+        const sol = solveUnique(people, clues)
+        if (sol && JSON.stringify(sol) === JSON.stringify(perm)) ok = true
+      }
+    }
+    if (!ok || clues.length < 3) continue
+    const scen = `Directions: Study the following information carefully and answer the questions. ${N} persons — ${people.join(', ')} — are seated in a straight line, all facing north. ${clues.map(clueText).join(' ')}`
+    const subs = []
+    const x = pick(perm)
+    const k = Math.min(N - 1, rand(1, 3))
+    const kword = k === 1 ? 'immediately' : ORDS[k - 1]
+    if (pos[x] + k < N) subs.push([`Who sits ${kword} to the right of ${x}?`, perm[pos[x] + k]])
+    else if (pos[x] - k >= 0) subs.push([`Who sits ${kword} to the left of ${x}?`, perm[pos[x] - k]])
+    const y = pick(perm.filter((p) => p !== x))
+    subs.push([`How many persons sit between ${x} and ${y}?`, String(Math.abs(pos[x] - pos[y]) - 1)])
+    const ref = pick(perm.filter((p) => p !== x && pos[p] !== pos[x]))
+    const rel = pos[x] > pos[ref] ? `${ORDS[pos[x] - pos[ref] - 1]} to the right` : `${ORDS[pos[ref] - pos[x] - 1]} to the left`
+    subs.push([`What is the position of ${x} with respect to ${ref}?`, rel])
+    subs.push([`Who sits at the extreme left end?`, perm[0]])
+    subs.push([`How many people are seated in the row?`, String(N)])
+    for (const [sq, ans] of subs) {
+      const opts = ans.match(/^\d+$/)
+        ? shuffle([ans, String(+ans + 1), String(Math.max(0, +ans - 1)), String(+ans + 2), 'None of these'].filter((v, i, arr) => arr.indexOf(v) === i)).slice(0, 5)
+        : ans.includes('left') || ans.includes('right')
+          ? shuffle([ans, ...shuffle([`${ORDS[rand(0, 2)]} to the left`, `${ORDS[rand(0, 2)]} to the right`, 'Immediate left', 'Immediate right', 'None of these']).slice(0, 4)])
+          : shuffle([ans, ...perm.filter((p) => p !== ans)].slice(0, 5))
+      out.push(mkq(`${scen}\n\n${sq}`, ans, opts.filter((o) => o !== ans).slice(0, 4), 'Fix extremes/absolutes first → chain relative clues → verify full row once.', 'med', t))
+    }
+  }
+  return out
+}
+
+const MONTHS12 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const genMonths = (n, t) => {
+  const out = []
+  let guard = 0
+  while (out.length < n && guard++ < n * 40) {
+    const start = rand(0, 11 - 7)
+    const months = MONTHS12.slice(start, start + pick([6, 7]))
+    const N = months.length
+    const people = shuffle([...PPL]).slice(0, N)
+    const perm = shuffle([...people])
+    const pos = {}
+    perm.forEach((x, i) => (pos[x] = i))
+    const clues = []
+    let ok = false
+    const mClue = () => {
+      const a = pick(perm), b = pick(perm.filter((x) => x !== a))
+      const kind = rand(0, 2)
+      if (kind === 0 && Math.abs(pos[a] - pos[b]) > 1)
+        return { txt: `${Math.abs(pos[a] - pos[b]) - 1} ${Math.abs(pos[a] - pos[b]) - 1 === 1 ? 'person was' : 'persons were'} born between ${a} and ${b}.`, test: (p) => Math.abs(p[a] - p[b]) === Math.abs(pos[a] - pos[b]) }
+      if (kind === 1) {
+        const d = pos[a] > pos[b] ? 'after' : 'before'
+        const gap = Math.abs(pos[a] - pos[b])
+        return { txt: `${a} was born ${gap === 1 ? 'one month' : `${ORDS[gap - 1].replace('second', 'two').replace('third', 'three').replace('fourth', 'four').replace('fifth', 'five').replace('sixth', 'six')} months`} ${d} ${b}.`, test: (p) => pos[a] - pos[b] === p[a] - p[b] }
+      }
+      return { txt: `${a} was born in ${months[pos[a]]}.`, test: (p) => p[a] === pos[a] }
+    }
+    for (let tries = 0; tries < 40 && !ok; tries++) {
+      const c = mClue()
+      if (clues.some((x) => x.txt === c.txt)) continue
+      clues.push(c)
+      const sols = permsOf(people).filter((p) => {
+        const pp = {}
+        p.forEach((x, i) => (pp[x] = i))
+        return clues.every((cl) => cl.test(pp))
+      })
+      if (sols.length === 1 && JSON.stringify(sols[0]) === JSON.stringify(perm)) ok = true
+      if (sols.length === 0) clues.pop()
+    }
+    if (!ok || clues.length < 3) continue
+    const scen = `Directions: Study the information carefully and answer the questions. ${N} persons — ${people.join(', ')} — were born in different consecutive months of the same year: ${months.join(', ')}. ${clues.map((c) => c.txt).join(' ')}`
+    const subs = []
+    const x = pick(perm)
+    subs.push([`In which month was ${x} born?`, months[pos[x]]])
+    const y = pick(perm.filter((p) => p !== x))
+    subs.push([`Who was born in ${months[pos[y]]}?`, y])
+    subs.push([`How many persons were born between ${x} and ${y}?`, String(Math.abs(pos[x] - pos[y]) - 1)])
+    subs.push([`Who was born in ${months[0]}?`, perm[0]])
+    for (const [sq, ans] of subs) {
+      const opts = ans.match(/^\d+$/)
+        ? shuffle([ans, String(+ans + 1), String(+ans + 2), String(Math.max(0, +ans - 1)), 'None of these'].filter((v, i, arr) => arr.indexOf(v) === i)).slice(0, 5)
+        : months.includes(ans)
+          ? shuffle([ans, ...months.filter((m) => m !== ans)].slice(0, 5))
+          : shuffle([ans, ...perm.filter((p) => p !== ans)].slice(0, 5))
+      out.push(mkq(`${scen}\n\n${sq}`, ans, opts.filter((o) => o !== ans).slice(0, 4), 'Anchor the fixed-month clue → chain before/after gaps → grid out the order.', 'med', t))
+    }
+  }
+  return out
+}
+// ---------- end scenario puzzles ----------
+
 const SYL_T = [
   // [stmts, concl1, concl2, correctOption]
   ['All {0} are {1}. All {1} are {2}.', 'All {0} are {2}', 'Some {2} are {0}', 'Both follow'],
@@ -729,7 +979,7 @@ const genSyllogism = (n, t) => {
   while (out.size < n && guard++ < n * 30) {
     const [s, c1, c2, ans] = pick(SYL_T)
     const nouns = pick(NOUNS)
-    const fill = (str) => str.replace('{0}', nouns[0]).replace('{1}', nouns[1]).replace('{2}', nouns[2])
+    const fill = (str) => str.replaceAll('{0}', nouns[0]).replaceAll('{1}', nouns[1]).replaceAll('{2}', nouns[2])
     const q = `Statements: ${fill(s)} Conclusions: (1) ${fill(c1)} (2) ${fill(c2)}`
     out.set(q, mkq(q, ans, ['Only 1 follows', 'Only 2 follows', 'Both follow', 'Neither follows', 'Either 1 or 2'].filter((x) => x !== ans).slice(0, 4), 'MUST/MAYBE test — a conclusion is true only if it holds in EVERY legal diagram. All+All→All · Some+No→Some-not · Some+Some→maybe.', 'med', t))
   }
@@ -747,6 +997,21 @@ const BR_T = [
   ['"J is K\'s daughter. K is L\'s wife." How is L related to J?', ['Father', 'Uncle', 'Brother', 'Grandfather', 'Cousin'], 'K\'s wife = L is J\'s other parent → father.'],
   ['"He is the son of my mother\'s only brother." Who is he?', ['My cousin', 'My brother', 'My uncle', 'My nephew', 'My father'], 'Mother\'s brother = maternal uncle → his son = cousin.'],
   ['"R is the brother of S\'s mother." How is R related to S?', ['Maternal uncle', 'Father', 'Grandfather', 'Cousin', 'Nephew'], 'Mother\'s brother = maternal uncle.'],
+  ['"A is the father of B. C is the daughter of B." How is C related to A?', ['Granddaughter', 'Daughter', 'Niece', 'Sister', 'Cousin'], 'B = A\'s child; C = B\'s daughter → A\'s granddaughter.'],
+  ['"P is the mother of Q. R is the brother of Q." How is R related to P?', ['Son', 'Nephew', 'Brother', 'Grandson', 'Father'], 'R = Q\'s brother; Q\'s mother = P → R is P\'s son.'],
+  ['"My father\'s wife\'s only son is:" — who?', ['My brother', 'My cousin', 'My uncle', 'My nephew', 'Me or my brother'], 'Father\'s wife = my mother; her son = me or my brother — pick "me or my brother" when listed.'],
+  ['"S is the sister of T\'s son." How is S related to T?', ['Daughter', 'Sister', 'Niece', 'Aunt', 'Mother'], 'T\'s son\'s sister = T\'s daughter.'],
+  ['"M is the husband of N\'s mother\'s daughter." How is M related to N?', ['Brother-in-law', 'Father', 'Uncle', 'Brother', 'Cousin'], 'N\'s mother\'s daughter = N\'s sister; her husband = brother-in-law.'],
+  ['"The only child of my father\'s father is:" — who?', ['My father', 'My uncle', 'My grandfather', 'My brother', 'Me'], 'Grandfather\'s only child = my father.'],
+  ['"V is the wife of U\'s father\'s brother." How is V related to U?', ['Aunt', 'Mother', 'Sister', 'Grandmother', 'Cousin'], 'Father\'s brother\'s wife = aunt.'],
+  ['"K\'s son is the brother of L\'s mother." How is K related to L?', ['Grandparent', 'Uncle', 'Father', 'Brother', 'Cousin'], 'L\'s mother\'s brother = L\'s uncle; K is that uncle\'s parent → grandparent.'],
+  ['"W is the daughter of Z\'s only sibling." How is W related to Z?', ['Niece', 'Daughter', 'Sister', 'Aunt', 'Cousin'], 'Z\'s sibling\'s daughter = niece.'],
+  ['"E\'s father is F\'s son." How is E related to F?', ['Grandchild', 'Son', 'Brother', 'Nephew', 'Father'], 'E\'s father = F\'s son → E = F\'s grandchild.'],
+  ['"H is the brother of I\'s husband." How is H related to I?', ['Brother-in-law', 'Father', 'Uncle', 'Son', 'Nephew'], 'Husband\'s brother = brother-in-law.'],
+  ['"O is the mother-in-law of P\'s wife." How is O related to P?', ['Mother', 'Aunt', 'Grandmother', 'Sister', 'Mother-in-law'], 'P\'s wife\'s mother-in-law = P\'s mother.'],
+  ['"Q\'s grandfather\'s only daughter is R." How is R related to Q?', ['Mother or aunt', 'Grandmother', 'Sister', 'Cousin', 'Niece'], 'Grandfather\'s daughter = Q\'s parent or parent\'s sister → mother or aunt.'],
+  ['"Y is X\'s maternal uncle." How is X\'s mother related to Y?', ['Sister', 'Wife', 'Daughter', 'Niece', 'Aunt'], 'Maternal uncle = mother\'s brother → mother is his sister.'],
+  ['"My sister\'s husband\'s brother is:" — who to me?', ['Brother-in-law', 'Uncle', 'Cousin', 'Nephew', 'Brother'], 'Sister\'s husband = brother-in-law; his brother = also brother-in-law.'],
 ]
 const NAMES = [['A', 'B', 'C'], ['X', 'Y', 'Z'], ['P', 'Q', 'R'], ['M', 'N', 'O'], ['R', 'S', 'T'], ['D', 'E', 'F'], ['G', 'H', 'J'], ['K', 'L', 'M'], ['U', 'V', 'W']]
 const genBlood = (n, t) => {
@@ -955,6 +1220,65 @@ const bankStmt = (t) => [
   B('"Install the app to track your portfolio daily." Implicit assumption?', ['All investors own phones', 'Daily tracking is useful/valued', 'Apps are free', 'Portfolios are large', 'Tracking is mandatory'], 1, 'The recommendation presumes the benefit of daily tracking.', 'med', t),
   B('Statement-assumption questions punish assumptions that are:', ['necessary', 'extraneous/too strong', 'short', 'verifiable', 'obvious'], 1, 'Only NECESSARY assumptions are implicit — "all/must/never" claims usually overshoot.', 'med', t),
   B('"The regulator warned investors about risky products." Implicit assumption?', ['All products are risky', 'Some products carry risk investors may miss', 'Investors read warnings', 'The regulator audits daily', 'Warnings are rare'], 1, 'The warning presumes under-recognized risk exists.', 'med', t),
+  B('"Enroll early to get the early-bird discount." Implicit assumption?', ['Discounts always exist', 'Enrolling early confers a benefit the offer ties to timing', 'Seats are unlimited', 'Everyone can afford it', 'Late enrolment is banned'], 1, 'The pitch presumes early enrolment is rewarded — the assumption must be NECESSARY.', 'med', t),
+  B('"Switch to LED bulbs to cut your electricity bill." Implicit assumption?', ['LEDs are brighter', 'LED bulbs consume less electricity', 'Bills are too high', 'Everyone uses bulbs', 'LEDs last forever'], 1, 'The recommendation presumes LEDs actually reduce consumption.', 'med', t),
+  B('"The city needs more flyovers to reduce congestion." Implicit assumption?', ['Congestion is caused by traffic volume exceeding road capacity', 'Flyovers are cheap', 'Cars are banned', 'All roads are narrow', 'Nobody walks'], 0, 'The solution presumes congestion is a capacity problem.', 'hard', t),
+  B('"Aspirants should practise mocks weekly to improve scores." Implicit assumption?', ['Mocks are free', 'Scores respond to mock practice', 'All aspirants fail', 'Weekly is the only rhythm', 'Mocks have answers'], 1, 'The advice presumes a causal link: mock practice → score.', 'med', t),
+  B('"The bank reduced staff to improve profitability." Implicit assumption?', ['Staff are lazy', 'Reducing staff lowers costs relative to revenue', 'Profitability is low', 'All banks do it', 'Customers prefer automation'], 1, 'The action presumes staff reduction helps the profit equation.', 'med', t),
+  B('"Carry an umbrella — it may rain." Implicit assumption?', ['It always rains', 'An umbrella protects against rain', 'Rain is dangerous', 'Weather reports exist', 'Umbrellas are cheap'], 1, 'The instruction presumes umbrellas actually mitigate rain.', 'easy', t),
+  B('"Revise the syllabus twice before the exam." Implicit assumption?', ['The syllabus is long', 'Revision improves retention/performance', 'Everyone revises', 'The exam is hard', 'Notes exist'], 1, 'The advice presumes revision causally helps exam performance.', 'med', t),
+  B('"Invest in index funds for low-cost diversification." Implicit assumption?', ['Index funds outperform', 'Index funds provide diversification at lower cost', 'All funds are expensive', 'Investors are rich', 'Markets always rise'], 1, 'The pitch presumes the claimed cost+diversification benefit exists.', 'med', t),
+  B('"The course includes PYQ analysis to build exam pattern sense." Implicit assumption?', ['PYQs repeat verbatim', 'Studying PYQs builds usable pattern sense', 'The exam is easy', 'All questions are known', 'Analysis is fast'], 1, 'The claim presumes PYQ study translates into pattern awareness.', 'med', t),
+  B('"Take the stairs instead of the lift to stay active." Implicit assumption?', ['Lifts are broken', 'Stair-climbing contributes to physical activity', 'Everyone is unfit', 'Buildings are tall', 'Lifts are slow'], 1, 'The advice presumes stairs = exercise.', 'easy', t),
+  B('"Advertise the new branch to attract deposits." Implicit assumption?', ['Ads are free', 'Advertising can influence deposit behaviour', 'Nobody has deposits', 'The branch is far', 'All banks advertise'], 1, 'The plan presumes advertising affects deposit inflows.', 'med', t),
+  B('"The exam has negative marking — attempt only what you know." Implicit assumption?', ['Negative marking exists', 'Accuracy beats coverage under negative marking', 'All questions are hard', 'Skipping is penalised', 'Marks are low'], 1, 'The strategy presumes accuracy trade-off matters under penalties.', 'med', t),
+  B('"Learn shortcuts to finish quant faster." Implicit assumption?', ['Quant is long', 'Shortcuts reduce solving time', 'All questions need shortcuts', 'Speed does not matter', 'Formulas are useless'], 1, 'The advice presumes shortcuts actually compress time.', 'med', t),
+  B('"The regulator should disclose its surveillance methods." Implicit assumption?', ['Disclosure is mandatory', 'Transparency in methods serves the interest being argued', 'Methods are secret always', 'Regulators hide everything', 'Disclosure is easy'], 1, 'The demand presumes method-disclosure advances the goal.', 'hard', t),
+  B('"Wear a helmet while riding." Implicit assumption?', ['Helmets are stylish', 'Helmets reduce injury risk', 'All riders crash', 'Helmets are mandatory', 'Bikes are fast'], 1, 'The rule presumes helmets mitigate injury.', 'easy', t),
+  B('"The company adopted cloud systems to improve resilience." Implicit assumption?', ['Cloud is cheap', 'Cloud systems improve resilience', 'Old systems failed', 'Everyone uses cloud', 'Resilience is low'], 1, 'The decision presumes cloud → resilience benefit.', 'med', t),
+  B('"Eat breakfast to stay focused in the morning." Implicit assumption?', ['Breakfast is cheap', 'Breakfast affects morning focus', 'Everyone skips it', 'Focus is impossible otherwise', 'Mornings are hard'], 1, 'The advice presumes the meal-focus link.', 'easy', t),
+  B('"Read the passage twice for comprehension." Implicit assumption?', ['Passages are long', 'Re-reading improves comprehension', 'Reading is slow', 'Everyone misreads', 'Answers are hidden'], 1, 'The tactic presumes re-reading helps understanding.', 'easy', t),
+  B('"The bank introduced video-KYC to cut onboarding time." Implicit assumption?', ['KYC is optional', 'Video-KYC reduces onboarding time', 'All customers have phones', 'Branches are closed', 'Onboarding is slow always'], 1, 'The change presumes video-KYC is faster.', 'med', t),
+  B('"Doctors advise patients to walk 30 minutes daily." Implicit assumption?', ['All patients can walk', 'Daily walking benefits health', '30 minutes is the exact dose', 'Walking is free', 'Doctors walk daily'], 1, 'The advice presumes a walking→health benefit link.', 'easy', t),
+  B('"The SEBI circular mandates standardized offer documents." Implicit assumption?', ['Documents were uniform', 'Standardization aids comparability/investor reading', 'SEBI audits daily', 'Issuers objected', 'Documents are long'], 1, 'The mandate presumes standardization serves investors.', 'med', t),
+  B('"Traders should set stop-losses on every position." Implicit assumption?', ['All traders profit', 'Stop-losses limit downside', 'Markets always recover', 'Stops are free', 'Positions are small'], 1, 'The rule presumes stop-losses actually limit loss.', 'med', t),
+  B('"Students must attempt easy questions first." Implicit assumption?', ['Easy questions exist', 'Attempt order affects score/time outcome', 'All questions are equal', 'Time is unlimited', 'Hard questions are impossible'], 1, 'The strategy presumes ordering affects outcome.', 'med', t),
+  B('"The regulator should punish misleading ads." Implicit assumption?', ['All ads mislead', 'Misleading ads harm investors / deterrence works', 'Ads are cheap', 'Punishment is fast', 'Ads are rare'], 1, 'The demand presumes harm exists and deterrence deters.', 'med', t),
+  B('"Install two-factor authentication on your account." Implicit assumption?', ['Accounts are hacked', '2FA raises account security', 'Everyone has phones', 'Passwords are weak always', 'It is mandatory'], 1, 'The recommendation presumes 2FA adds real security.', 'easy', t),
+  B('"Read the question twice before marking." Implicit assumption?', ['Questions are tricky', 'Re-reading reduces misinterpretation errors', 'Time is plenty', 'Answers are hidden', 'Everyone misreads'], 1, 'The advice presumes re-reading catches misreads.', 'easy', t),
+  B('"The exchange introduced circuit breakers after the crash." Implicit assumption?', ['Crashes are frequent', 'Circuit breakers can contain panic selling', 'All crashes are identical', 'Trading is banned', 'Investors demanded it'], 1, 'The response presumes breakers mitigate crash dynamics.', 'med', t),
+  B('"Save a portion of every salary." Implicit assumption?', ['Salaries are large', 'Regular saving builds reserves', 'Everyone earns', 'Banks pay interest', 'Spending is bad'], 1, 'The habit advice presumes saving accumulates.', 'easy', t),
+  B('"The committee recommended higher margin for F&O." Implicit assumption?', ['Margins are always low', 'Higher margins reduce speculative over-leverage', 'F&O is banned', 'Committees decide margins', 'Traders will comply fully'], 1, 'The recommendation presumes margin hikes curb speculation.', 'hard', t),
+  B('"Applicants should submit documents before the deadline." Implicit assumption?', ['Deadlines are arbitrary', 'Late submissions are penalized/rejected', 'Documents exist', 'Everyone applies', 'The deadline is soon'], 1, 'The instruction presumes deadline consequences.', 'easy', t),
+  B('"Mutual fund ads must show risk warnings." Implicit assumption?', ['All ads lie', 'Investors may overestimate safety without warnings', 'Funds are risky always', 'Warnings are long', 'SEBI wrote ads'], 1, 'The rule presumes warnings correct a perception gap.', 'med', t),
+  B('"Check the answer key after the mock." Implicit assumption?', ['Keys are always right', 'Reviewing answers improves future attempts', 'Mocks are hard', 'All answers are scored', 'Keys are free'], 1, 'The step presumes review feeds improvement.', 'easy', t),
+  B('"The government launched a portal to track subsidy leakages." Implicit assumption?', ['Leakages are huge', 'A tracking portal can surface leakages', 'All subsidies leak', 'Portals are cheap', 'Citizens report'], 1, 'The tool presumes visibility of leakages matters.', 'med', t),
+  B('"Verify the source before sharing news." Implicit assumption?', ['All news is false', 'Unverified sharing spreads misinformation', 'Sources are hidden', 'Everyone shares', 'Verification is fast'], 1, 'The caution presumes verification prevents spread.', 'easy', t),
+  B('"The auditor flagged the transactions as suspicious." Implicit assumption?', ['All transactions are fraud', 'The transactions showed markers worth flagging', 'Auditors flag everything', 'Fraud is certain', 'Flags are rare'], 1, 'The flag presumes observable suspicious markers.', 'med', t),
+  B('"Maintain a formula sheet for last-minute revision." Implicit assumption?', ['Formulas are many', 'A consolidated sheet aids quick recall', 'Everyone forgets', 'Revision is hard', 'Sheets are short'], 1, 'The practice presumes consolidation aids recall.', 'easy', t),
+  B('"SEBI tightened custody rules for FPIs." Implicit assumption?', ['FPIs are risky always', 'Tighter custody reduces misuse risk', 'All FPIs violate', 'Custody is new', 'Rules were weak always'], 1, 'The tightening presumes custody gaps pose risk.', 'hard', t),
+  B('"Attempt the DI set only if the data is clean." Implicit assumption?', ['DI is always easy', 'Messy data slows solving enough to matter', 'All DI is dirty', 'Clean sets exist', 'DI scores high'], 1, 'The filter presumes data quality affects solve time.', 'med', t),
+  B('"The bank capped ATM withdrawals." Implicit assumption?', ['ATMs run dry', 'A cap serves the stated purpose (liquidity/fraud)', 'Cash is obsolete', 'Everyone uses ATMs', 'Caps are common'], 1, 'The cap presumes a benefit it\'s meant to produce.', 'med', t),
+  B('"Use mnemonics for tricky lists." Implicit assumption?', ['Lists are hard always', 'Mnemonics improve list recall', 'Everyone uses them', 'Lists are short', 'Memory is weak'], 1, 'The tip presumes mnemonic→recall link.', 'easy', t),
+  B('"The coach told players to visualize winning." Implicit assumption?', ['Visualization guarantees victory', 'Visualization can aid performance', 'Players never win', 'Coaches visualize too', 'Winning is random'], 1, 'The technique presumes a mental-performance link.', 'med', t),
+  B('"The school added a library hour daily." Implicit assumption?', ['Books are expensive', 'A dedicated hour improves reading access', 'Students hate reading', 'Teachers approved it', 'Libraries are small'], 1, 'The scheduling presumes the hour serves its goal.', 'easy', t),
+  B('"Investors should diversify across asset classes." Implicit assumption?', ['All assets fall together', 'Diversification reduces portfolio risk', 'Stocks always win', 'Bonds are safe', 'Classes are equal'], 1, 'The advice presumes diversification→risk reduction.', 'med', t),
+  B('"The notice period was extended to sixty days." Implicit assumption?', ['Sixty is standard', 'A longer window serves the parties\' needs', 'Employees objected', 'Notice is optional', 'All firms do it'], 1, 'The extension presumes more time helps transitions.', 'med', t),
+  B('"Candidates must report thirty minutes early." Implicit assumption?', ['Reporting is complex', 'Early arrival prevents delays/absence issues', 'All candidates are late', 'The exam is early', 'Thirty is arbitrary'], 1, 'The buffer presumes arrival timing matters.', 'easy', t),
+  B('"The auditor reconciled accounts monthly." Implicit assumption?', ['Accounts always mismatch', 'Monthly reconciliation catches discrepancies in time', 'Audits are yearly', 'Software reconciles', 'Accounts are simple'], 1, 'The cadence presumes frequency aids detection.', 'med', t),
+  B('"Drivers should avoid phones while driving." Implicit assumption?', ['Phones are illegal', 'Phone distraction raises accident risk', 'All drivers use phones', 'Roads are empty', 'Calls are short'], 1, 'The rule presumes distraction→risk.', 'easy', t),
+  B('"The fund rebalanced quarterly to manage drift." Implicit assumption?', ['Drift is always bad', 'Quarterly rebalancing controls allocation drift', 'Funds drift daily', 'Rebalancing is free', 'Drift never occurs'], 1, 'The policy presumes scheduled rebalancing works.', 'hard', t),
+  B('"Students should sleep eight hours before exams." Implicit assumption?', ['Sleep is cheap', 'Sleep affects exam-day cognition', 'All students sleep poorly', 'Eight is exact', 'Exams are morning'], 1, 'The advice presumes sleep→performance link.', 'easy', t),
+  B('"The circular required two independent directors." Implicit assumption?', ['All boards are biased', 'Independent directors strengthen oversight', 'Directors are rare', 'Boards are small', 'Two is enough always'], 1, 'The requirement presumes independence adds oversight.', 'hard', t),
+  B('"Traders were advised to log every trade." Implicit assumption?', ['Logs are mandatory', 'Logging enables review/audit of decisions', 'All trades lose', 'Logs are short', 'Trading is risky always'], 1, 'The practice presumes records enable learning/audit.', 'med', t),
+  B('"The app sends weekly spending summaries." Implicit assumption?', ['Spending is always high', 'Summaries help users track/control spending', 'Users read emails', 'Weekly is ideal always', 'Apps are free'], 1, 'The feature presumes visibility aids control.', 'easy', t),
+  B('"Inspectors must rotate assignments yearly." Implicit assumption?', ['Inspections are boring', 'Rotation prevents capture/familiarity risks', 'All inspectors corrupt', 'Rotation is cheap', 'Assignments are equal'], 1, 'The rotation presumes staleness breeds risk.', 'hard', t),
+  B('"The lab recalibrates instruments every month." Implicit assumption?', ['Instruments are broken', 'Instruments drift and need periodic recalibration', 'Calibration is free', 'Labs are strict always', 'Monthly is standard everywhere'], 1, 'The schedule presumes drift exists.', 'med', t),
+  B('"New joiners shadow seniors for two weeks." Implicit assumption?', ['Seniors are always right', 'Shadowing transfers practical knowledge', 'All joiners are slow', 'Two weeks suffices always', 'Shadowing is cheap'], 1, 'The practice presumes observation teaches.', 'med', t),
+  B('"The committee met weekly during the rollout." Implicit assumption?', ['Meetings are always useful', 'Frequent meetings keep the rollout coordinated', 'Rollouts are rare', 'Members are free', 'Weekly is mandatory'], 1, 'The cadence presumes coordination value.', 'med', t),
+  B('"Parents should check the fees receipt carefully." Implicit assumption?', ['Schools err', 'Receipts may carry errors worth catching', 'All receipts are wrong', 'Fees are high always', 'Parents are accountants'], 1, 'The caution presumes receipt errors happen.', 'easy', t),
+  B('"The platform flags accounts with unusual logins." Implicit assumption?', ['All logins are fraud', 'Unusual logins can indicate compromise', 'Users travel', 'Flags are free', 'Logins are tracked'], 1, 'The flag presumes anomaly→compromise correlation.', 'med', t),
+  B('"Review wrong answers before re-attempting a mock." Implicit assumption?', ['Mocks are hard', 'Reviewing errors prevents repeating them', 'All answers are wrong', 'Mocks repeat questions', 'Review is fast'], 1, 'The workflow presumes error-review prevents recurrence.', 'easy', t),
 ]
 
 const genDS = (n, t) => {
@@ -1048,17 +1372,71 @@ const ERR_T = [
   ['I and Ram went to school', 'I and Ram → Ram and I', 'politeness order — others first'],
   ['Much people attended the rally', 'Much → Many', 'much=uncountable · many=countable'],
   ['He is working hardly these days', 'hardly → hard', 'hardly = "barely" — wrong word entirely'],
+  ['The news are quite alarming', 'are → is', 'news is uncountable — singular'],
+  ['Neither of the two boys were present', 'were → was', 'neither of → singular'],
+  ['Every student and every teacher were asked', 'were → was', 'every + every → singular'],
+  ['He prevented me to go there', 'to go → from going', 'prevent + from + -ing'],
+  ['She is capable to handle the task', 'to handle → of handling', 'capable + of + -ing'],
+  ['I am interested for this project', 'for → in', 'interested + in'],
+  ['He is married with my sister', 'with → to', 'married + to'],
+  ['She congratulated me for my success', 'for → on', 'congratulate + on'],
+  ['They discussed about the plan', 'about the plan → the plan', 'discuss takes object directly — no "about"'],
+  ['He entered into the room quietly', 'into → into/the room', 'enter + room directly — "entered the room"'],
+  ['I reached to the station on time', 'to the station → the station', 'reach + place directly — no "to"'],
+  ['Despite of the rain, they played', 'Despite of → Despite', 'despite never takes "of" (in spite of does)'],
+  ['He is more superior to his junior', 'more superior → superior', 'comparative already built in — no "more"'],
+  ['This is most unique design', 'most unique → unique', 'unique is absolute — no comparative'],
+  ['Unless you do not work hard, you will fail', 'do not work → work', 'unless already means "if not" — double negative'],
+  ['No sooner did he arrive when it rained', 'when → than', 'no sooner + than'],
+  ['Hardly had he left than it started raining', 'than → when', 'hardly/scarcely + when'],
+  ['He is enough tall to play', 'enough tall → tall enough', 'enough comes AFTER the adjective'],
+  ['She sings very much sweetly', 'very much → very', 'very much modifies verbs, not adverbs'],
+  ['I am feeling happily today', 'happily → happy', 'feel + adjective, not adverb'],
+  ['This book is belonging to me', 'is belonging → belongs', 'belong is a state verb — no continuous'],
+  ['I am having a car now', 'am having → have', 'have (ownership) is a state verb — no continuous'],
+  ['She is knowing the answer', 'is knowing → knows', 'know is a state verb — no continuous'],
+  ['The furnitures in the room are old', 'furnitures → furniture', 'furniture uncountable'],
+  ['He gave me many advices', 'advices → advice', 'advice uncountable'],
+  ['Informations were shared online', 'Informations → Information', 'information uncountable'],
+  ['The children is playing outside', 'is → are', 'children plural'],
+  ['Neither the teacher nor the students was ready', 'was → were', 'nearer subject (students) → plural'],
+  ['A number of students was absent', 'was → were', 'a number of → plural'],
+  ['The number of absentees are growing', 'are → is', 'the number of → singular'],
+  ['Fifty percent of the work are done', 'are → is', 'percentage of uncountable → singular'],
+  ['Half of the students was absent', 'was → were', 'half of + countable plural → plural'],
+  ['He as well as his friends were invited', 'were → was', 'as well as → verb agrees with first subject'],
+  ['The captain with his team members were present', 'were → was', '"with" phrase → subject stays singular'],
+  ['Each boy and each girl were given a prize', 'were → was', 'each + each → singular'],
+  ['Many a soldier have fought bravely', 'have → has', 'many a → singular'],
+  ['There is many reasons for failure', 'is → are', 'many reasons → plural'],
+  ['He is one of the tallest boy in class', 'boy → boys', 'one of the + plural noun'],
+  ['This is the most easiest question', 'most easiest → easiest', 'double superlative'],
+  ['He ran fastly to catch the bus', 'fastly → fast', 'fast is both adjective and adverb'],
+  ['I and my friend went together', 'I and my friend → my friend and I', 'politeness — others first'],
+  ['Between you and I, this is risky', 'you and I → you and me', 'preposition + object pronoun'],
+  ['Let us keep this between we two', 'we two → us two', 'between + object pronouns'],
+  ['Who does this pen belong to?', 'who → whom', 'object of "to" → whom'],
+  ['Whom is knocking at the door?', 'whom → who', 'subject position → who'],
 ]
 const genError = (n, t) => {
   const out = new Map()
   let guard = 0
-  const phs = ['Correct the error', 'Spot the error', 'Identify the fix', 'Which correction makes this grammatical']
   while (out.size < n && guard++ < n * 30) {
     const [sent, fix, why] = pick(ERR_T)
-    const wrong = pick(ERR_T.filter((x) => x[0] !== sent))[1]
-    const wrong2 = pick(ERR_T.filter((x) => x[1] !== fix && x[1] !== wrong))[1]
-    const q = `${pick(phs)}: "${sent}"`
-    out.set(q, mkq(q, fix, [wrong, wrong2, 'no error', 'no change needed'], why, 'med', t))
+    const errPhrase = fix.split('→')[0].trim()
+    const words = sent.split(' ')
+    const errIdx = words.findIndex((w) => errPhrase.toLowerCase().includes(w.toLowerCase().replace(/[^a-z]/g, '')) || errPhrase.toLowerCase().split(' ').includes(w.toLowerCase().replace(/[^a-z]/g, '')))
+    const pivot = errIdx === -1 ? Math.floor(words.length / 2) : errIdx
+    const jit = rand(0, 1)
+    const pts = [0, Math.max(1, Math.floor(pivot * (jit ? 0.45 : 0.6))), pivot + 1, Math.min(words.length - 1, Math.floor(words.length * (jit ? 0.7 : 0.75))), words.length]
+    const dedup = [...new Set(pts)]
+    if (dedup.length < 5) dedup.push(words.length)
+    const parts = dedup.slice(0, -1).map((s, i) => `${'ABCDE'[i]}) ${words.slice(s, dedup[i + 1]).join(' ')}`).filter((p) => p.split(')')[1].trim().length > 0)
+    const errPart = parts.find((p) => errPhrase.toLowerCase().split(' ').some((w) => w.length > 1 && p.toLowerCase().includes(w))) || parts[Math.min(2, parts.length - 1)]
+    const errLabel = errPart.split(')')[0]
+    const q = `In the following question, a sentence is divided into parts. Find the part that contains an error; if there is no error, mark 'No error'. ${parts.join(' / ')}`
+    const opts = shuffle([errLabel, ...'ABCDE'.split('').filter((l) => l !== errLabel).slice(0, 3), 'No error'])
+    out.set(q, mkq(q, errLabel, opts.filter((o) => o !== errLabel).slice(0, 4), `${why} → error is in part ${errLabel}: "${errPhrase}" should be "${fix.split('→').slice(-1)[0].trim()}".`, 'med', t))
   }
   return [...out.values()]
 }
@@ -1198,6 +1576,65 @@ const bankPara = (t) => [
   B('A sentence with "Initially, the plan faced resistance" typically comes:', ['early — sets up a contrast arc', 'last', 'never used', 'as an example', 'as a conclusion'], 0, '"Initially" marks the start of a before/after sequence.', 'med', t),
   B('"As a result, volumes doubled" must follow:', ['a cause sentence', 'an opener', 'a definition', 'a question', 'the closer alone'], 0, '"As a result" needs its cause earlier.', 'easy', t),
   B('Jumble-solving second step (after finding the opener):', ['find the conclusion', 'chain pronouns to their nouns', 'count words', 'alphabetize', 'guess'], 1, 'Pronouns point backward — link each to its noun.', 'easy', t),
+  B('Arrange: (a) This widened the tax base. (b) GST replaced a patchwork of indirect taxes. (c) Compliance became simpler. (d) It unified the national market.', ['b-d-a-c', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'b-c-d-a'], 0, 'Opener = GST reform (b) → unified market (d) → widened base (a) → simpler compliance (c).', 'med', t),
+  B('Arrange: (a) Consequently, retail participation surged. (b) Brokers offered zero-brokerage plans. (c) Trading apps became free. (d) Account opening went fully digital.', ['d-c-b-a', 'a-b-c-d', 'c-d-b-a', 'b-a-d-c', 'd-b-c-a'], 0, 'Digital onboarding (d) → free apps (c) → zero-brokerage (b) → surge (a).', 'med', t),
+  B('Arrange: (a) The committee submitted its report. (b) SEBI constituted a panel. (c) It recommended tighter norms. (d) The norms were then notified.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Panel formed (b) → report submitted (a) → recommendations (c) → notified (d).', 'med', t),
+  B('Arrange: (a) However, implementation lagged. (b) The policy promised faster clearances. (c) Backlogs kept growing. (d) Audits later exposed the delay.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Promise (b) → "However" pivot (a) → backlog evidence (c) → audit confirmation (d).', 'med', t),
+  B('Arrange: (a) Such integration enabled real-time settlement. (b) Payment rails merged with banking APIs. (c) UPI volumes exploded. (d) This transformed retail payments.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Rails merged (b) → real-time settlement (a) → volumes exploded (c) → transformation (d).', 'med', t),
+  B('Arrange: (a) The regulator responded with graded surveillance. (b) Unusual volumes were flagged. (c) A pump-and-dump scheme emerged. (d) Retail investors bore losses.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Scheme (c) → volumes flagged (b) → losses (d) → regulatory response (a).', 'med', t),
+  B('Arrange: (a) Therefore, defaults fell sharply. (b) Banks adopted early-warning systems. (c) Stressed loans were flagged sooner. (d) Recovery improved.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Adopted systems (b) → flagged sooner (c) → recovery improved (d) → defaults fell (a).', 'med', t),
+  B('Arrange: (a) The circular mandated disclosures. (b) Mutual funds complained about cost. (c) SEBI defended the investor-first intent. (d) Compliance eventually became routine.', ['a-b-c-d', 'a-c-b-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Mandate (a) → industry pushback (b) → SEBI\'s defense (c) → routine compliance (d).', 'med', t),
+  B('Arrange: (a) Initially, settlement took a week. (b) T+2 compressed it. (c) T+1 then became the standard. (d) T+0 pilots now run for select securities.', ['a-b-c-d', 'a-c-b-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Timeline: week → T+2 → T+1 → T+0 pilot — "Initially" marks the start.', 'med', t),
+  B('Arrange: (a) The index rallied to new highs. (b) Foreign inflows returned. (c) Global cues turned positive. (d) Domestic investors added positions.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Global cues (c) → FII inflows (b) → domestic buying (d) → highs (a).', 'med', t),
+  B('Arrange: (a) Candidates must verify eligibility first. (b) The application window opens in June. (c) Fees are paid online. (d) Admit cards release two weeks before the exam.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Window opens (b) → eligibility check (a) → fees (c) → admit cards (d).', 'med', t),
+  B('Arrange: (a) This exposed gaps in disclosure. (b) Several IPOs underperformed. (c) Analysts questioned pricing. (d) SEBI tightened offer-document norms.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'IPOs underperformed (b) → analysts questioned (c) → gaps exposed (a) → norms tightened (d).', 'med', t),
+  B('Arrange: (a) The passage argues for balanced regulation. (b) Innovation needs room to grow. (c) Yet investor protection cannot slip. (d) The regulator must therefore steer between both.', ['a-b-c-d', 'a-c-b-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Thesis (a) → side 1 (b) → "Yet" pivot (c) → synthesis (d).', 'med', t),
+  B('Arrange: (a) Data quality improved dramatically. (b) Firms digitised records. (c) Regulators gained visibility. (d) Audits ran faster.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Digitised (b) → quality improved (a) → regulator visibility (c) → faster audits (d).', 'med', t),
+  B('Arrange: (a) Moreover, the scheme added insurance cover. (b) The government launched the scheme. (c) Enrolment crossed targets. (d) Beneficiaries reported real payouts.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Launch (b) → "Moreover" addition (a) → enrolment (c) → payouts (d).', 'med', t),
+  B('Arrange: (a) In this way, liquidity dried up. (b) Lenders tightened standards. (c) Credit growth stalled. (d) Borrowers defaulted in waves.', ['b-d-c-a', 'a-b-c-d', 'b-c-d-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Tightened standards (b) → defaults (d) → credit stalled (c) → liquidity dried (a).', 'med', t),
+  B('Arrange: (a) The verdict upheld the provision. (b) Petitioners challenged the law. (c) The court heard arguments for weeks. (d) Appeals then followed.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Challenge (b) → hearings (c) → verdict (a) → appeals (d).', 'med', t),
+  B('Arrange: (a) As a result, hiring slowed. (b) Companies faced margin pressure. (c) Input costs kept rising. (d) Demand weakened abroad.', ['d-c-b-a', 'a-b-c-d', 'c-d-b-a', 'd-b-c-a', 'b-a-c-d'], 0, 'Weak demand (d) → rising costs (c) → margin pressure (b) → hiring slowed (a).', 'med', t),
+  B('Arrange: (a) The pilot covered five districts. (b) Results were published next quarter. (c) The scheme was first announced. (d) A national rollout followed.', ['c-a-b-d', 'a-b-c-d', 'c-b-a-d', 'd-b-a-c', 'b-a-c-d'], 0, 'Announced (c) → pilot (a) → results (b) → rollout (d).', 'med', t),
+  B('Arrange: (a) Such leaks undermined trust. (b) Data breaches surfaced at several firms. (c) Regulators demanded audits. (d) Penalties were imposed.', ['b-a-c-d', 'a-b-c-d', 'b-c-a-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Breaches (b) → trust hit (a) → audits demanded (c) → penalties (d).', 'med', t),
+  B('Arrange: (a) Therefore, the clause was dropped. (b) Stakeholders objected to the draft. (c) A consultation paper invited comments. (d) The draft proposed strict timelines.', ['c-d-b-a', 'a-b-c-d', 'd-c-b-a', 'c-b-d-a', 'b-a-c-d'], 0, 'Consultation (c) → draft with timelines (d) → objections (b) → clause dropped (a).', 'med', t),
+  B('Arrange: (a) The reforms were then codified. (b) A task force studied global models. (c) Its report recommended phased adoption. (d) Parliament debated the bill.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Study (b) → recommendation (c) → debate (d) → codified (a).', 'med', t),
+  B('Arrange: (a) Eventually, the index recovered. (b) Panic selling gripped the market. (c) Circuit breakers halted trading. (d) Value buyers stepped in.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Panic (b) → halts (c) → value buyers (d) → recovery (a).', 'med', t),
+  B('Arrange: (a) The merger created the largest lender. (b) Two banks announced a merger. (c) Shareholders approved the plan. (d) Regulators cleared the deal.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Announced (b) → shareholder approval (c) → regulator clearance (d) → largest lender (a).', 'med', t),
+  B('Arrange: (a) This sped up investigations. (b) The regulator digitised complaints. (c) A central dashboard tracked each case. (d) Resolution times fell sharply.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Digitised (b) → dashboard tracking (c) → faster probes (a) → times fell (d).', 'med', t),
+  B('Arrange: (a) The finding startled policymakers. (b) A survey covered ten thousand households. (c) It revealed low financial literacy. (d) New curriculum changes followed.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Survey (b) → low literacy found (c) → startled policymakers (a) → curriculum changes (d).', 'med', t),
+  B('Arrange: (a) Yields then spiked across tenors. (b) The central bank raised the repo rate. (c) Bond prices fell sharply. (d) Traders repriced expectations.', ['b-d-c-a', 'a-b-c-d', 'b-c-d-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Rate hike (b) → repricing (d) → prices fell (c) → yields spiked (a).', 'med', t),
+  B('Arrange: (a) Adoption then spread nationwide. (b) The pilot tested biometric payouts. (c) Early results cut leakages. (d) A ministry reviewed the metrics.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Pilot (b) → results (c) → review (d) → nationwide adoption (a).', 'med', t),
+  B('Arrange: (a) Consequently, the index surged. (b) Inflation cooled for three months. (c) Rate-cut bets resurfaced. (d) Investors rotated into equities.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Cooling inflation (b) → cut bets (c) → equity rotation (d) → surge (a).', 'med', t),
+  B('Arrange: (a) That gap drew scrutiny. (b) The startup promised outsized returns. (c) Auditors found inflated valuations. (d) Investors demanded answers.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Promise (b) → inflated valuations found (c) → gap scrutiny (a) → demands (d).', 'med', t),
+  B('Arrange: (a) Reforms gradually restored order. (b) The market fell into disarray. (c) Regulators intervened decisively. (d) Confidence rebuilt over time.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Disarray (b) → intervention (c) → reforms restore (a) → confidence (d).', 'med', t),
+  B('Arrange: (a) Hence the report called for change. (b) Experts reviewed the framework. (c) They identified structural gaps. (d) Implementation stayed weak.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Review (b) → gaps found (c) → weak implementation (d) → call for change (a).', 'med', t),
+  B('Arrange: (a) This narrowed the trade deficit. (b) Exports grew steadily. (c) Imports shrank under duties. (d) The currency stabilised.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Exports up (b) → imports down (c) → deficit narrowed (a) → currency stable (d).', 'med', t),
+  B('Arrange: (a) In response, fines were levied. (b) Companies missed the deadline. (c) A compliance deadline was set. (d) Notices had been issued months earlier.', ['d-c-b-a', 'a-b-c-d', 'c-d-b-a', 'd-b-c-a', 'b-a-c-d'], 0, 'Notices (d) → deadline set (c) → missed (b) → fines (a).', 'med', t),
+  B('Arrange: (a) The trend alarmed regulators. (b) Retail leverage kept climbing. (c) Margin books expanded fast. (d) Risk limits were then raised.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Leverage climbing (b) → margin books (c) → alarmed regulators (a) → limits raised (d).', 'med', t),
+  B('Arrange: (a) The scheme outgrew its mandate. (b) It began as a pilot. (c) Success metrics were published. (d) Cabinet approval scaled it up.', ['b-c-d-a', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Pilot (b) → metrics (c) → scale-up approval (d) → outgrew mandate (a).', 'med', t),
+  B('Arrange: (a) Markets cheered the clarity. (b) The tax regime had confused investors. (c) A new framework was notified. (d) Litigation finally subsided.', ['b-c-d-a', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Confusion (b) → framework (c) → litigation subsided (d) → markets cheered (a).', 'med', t),
+  B('Arrange: (a) These findings shaped the reform. (b) Inspectors toured the branches. (c) They documented weak controls. (d) The audit was commissioned.', ['d-b-c-a', 'a-b-c-d', 'd-c-b-a', 'b-a-c-d', 'c-a-b-d'], 0, 'Audit commissioned (d) → inspectors toured (b) → weak controls found (c) → shaped reform (a).', 'med', t),
+  B('Arrange: (a) Settlement discipline improved. (b) Penalties for fails were introduced. (c) Fails had been rising for months. (d) Exchanges monitored daily.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Rising fails (c) → penalties (b) → daily monitoring (d) → discipline improved (a).', 'med', t),
+  B('Arrange: (a) The platform went live nationally. (b) States signed on gradually. (c) A working group built the spec. (d) The pilot validated throughput.', ['c-d-b-a', 'a-b-c-d', 'c-b-d-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Spec built (c) → pilot validated (d) → states signed (b) → went live (a).', 'med', t),
+  B('Arrange: (a) Hence, the circular was withdrawn. (b) Industry flagged impossible deadlines. (c) The regulator sought feedback. (d) The original draft set tight timelines.', ['d-b-c-a', 'a-b-c-d', 'd-c-b-a', 'b-a-c-d', 'c-a-b-d'], 0, 'Draft timelines (d) → industry flagged (b) → feedback sought (c) → withdrawn (a).', 'med', t),
+  B('Arrange: (a) Trust returned to the segment. (b) The scam had eroded credibility. (c) Fresh oversight norms arrived. (d) Volumes recovered over quarters.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Credibility eroded (b) → new norms (c) → volumes recovered (d) → trust returned (a).', 'med', t),
+  B('Arrange: (a) This attracted foreign partners. (b) The corridor was announced. (c) Regulatory sandboxes ran pilots. (d) Cross-border rails were linked.', ['b-c-d-a', 'a-b-c-d', 'b-d-c-a', 'd-b-a-c', 'c-a-b-d'], 0, 'Corridor announced (b) → sandbox pilots (c) → rails linked (d) → foreign partners (a).', 'med', t),
+  B('Arrange: (a) Compliance costs then fell. (b) Filings were consolidated. (c) Multiple forms had burdened firms. (d) A single-window portal launched.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Burden of forms (c) → consolidation (b) → portal launched (d) → costs fell (a).', 'med', t),
+  B('Arrange: (a) The court struck the clause down. (b) Petitioners argued it overreached. (c) The amendment had passed quietly. (d) Years of dispute followed.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Amendment passed (c) → petitioners argued (b) → years of dispute (d) → struck down (a).', 'med', t),
+  B('Arrange: (a) Losses mounted through the quarter. (b) Demand collapsed overnight. (c) Inventories piled up. (d) Margins were squeezed hard.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Demand collapse (b) → inventories pile (c) → losses mount (a) → margins squeezed (d).', 'med', t),
+  B('Arrange: (a) That evidence anchored the case. (b) Investigators gathered records. (c) Whistle-blower tips initiated the probe. (d) Charges were finally filed.', ['c-b-a-d', 'a-b-c-d', 'c-a-b-d', 'd-b-a-c', 'b-a-c-d'], 0, 'Tips (c) → records gathered (b) → evidence anchored (a) → charges filed (d).', 'med', t),
+  B('Arrange: (a) Awareness campaigns ran next. (b) Eligibility was widened. (c) Enrolment still lagged targets. (d) The benefit had launched early.', ['d-c-b-a', 'a-b-c-d', 'd-b-c-a', 'c-a-b-d', 'b-a-c-d'], 0, 'Launched (d) → enrolment lagged (c) → eligibility widened (b) → campaigns (a).', 'med', t),
+  B('Arrange: (a) The rating was then upgraded. (b) Deleveraging reduced debt. (c) Cash flows stabilised first. (d) Agencies reviewed the profile.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Cash flows stabilised (c) → deleveraging (b) → review (d) → upgrade (a).', 'med', t),
+  B('Arrange: (a) The backlog cleared within weeks. (b) A special drive processed pending claims. (c) Complaints had piled up for months. (d) Staffing was temporarily doubled.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Pile-up (c) → special drive (b) → doubled staffing (d) → cleared (a).', 'med', t),
+  B('Arrange: (a) The fund reopened for subscriptions. (b) A side-pocket was created for stressed assets. (c) Redemption pressure had forced a freeze. (d) Valuations were marked down first.', ['c-d-b-a', 'a-b-c-d', 'c-b-d-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Freeze (c) → markdowns (d) → side-pocket (b) → reopened (a).', 'med', t),
+  B('Arrange: (a) Turnover then doubled. (b) A new category of members was admitted. (c) The exchange had stagnated for years. (d) Listing rules were relaxed slightly.', ['c-d-b-a', 'a-b-c-d', 'c-b-d-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Stagnation (c) → relaxed rules (d) → new members (b) → doubled turnover (a).', 'med', t),
+  B('Arrange: (a) The directive took effect next quarter. (b) Comments were solicited publicly. (c) A draft directive was published. (d) Final language incorporated the feedback.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Draft (c) → public comments (b) → final language (d) → took effect (a).', 'med', t),
+  B('Arrange: (a) This halved onboarding time. (b) Manual checks were removed. (c) e-KYC integration went live. (d) Verification became automated.', ['c-d-b-a', 'a-b-c-d', 'c-b-d-a', 'd-b-a-c', 'b-a-c-d'], 0, 'e-KYC live (c) → automated verification (d) → manual checks removed (b) → halved time (a).', 'med', t),
+  B('Arrange: (a) Appeals piled up in tribunal. (b) The order penalised several firms. (c) An investigation found collusion. (d) Penalties were contested immediately.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Collusion found (c) → order penalised (b) → contested (d) → appeals piled (a).', 'med', t),
+  B('Arrange: (a) The default triggered cross-covenants. (b) The issuer missed its coupon. (c) Rating agencies downgraded fast. (d) Bondholders convened urgently.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Missed coupon (b) → downgrades (c) → cross-covenants triggered (a) → holders convened (d).', 'med', t),
+  B('Arrange: (a) Surveillance alerts spiked. (b) A coordinated promotion ran on social media. (c) The stock surged on no news. (d) SEBI opened a probe.', ['b-c-a-d', 'a-b-c-d', 'b-a-c-d', 'd-b-a-c', 'c-a-b-d'], 0, 'Promotion (b) → surge on no news (c) → alerts spiked (a) → probe opened (d).', 'med', t),
+  B('Arrange: (a) The framework was phased in over two years. (b) Regulators aligned on principles. (c) Cross-border issues demanded coordination. (d) A joint working group was formed.', ['c-d-b-a', 'a-b-c-d', 'c-b-d-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Cross-border need (c) → group formed (d) → principles aligned (b) → phased in (a).', 'med', t),
+  B('Arrange: (a) Recovery was uneven across sectors. (b) The economy reopened gradually. (c) Lockdowns had halted activity. (d) Pent-up demand released in spurts.', ['c-b-d-a', 'a-b-c-d', 'c-d-b-a', 'd-b-a-c', 'b-a-c-d'], 0, 'Lockdowns (c) → reopening (b) → pent-up demand (d) → uneven recovery (a).', 'med', t),
 ]
 
 const bankCloze = (t) => [
@@ -1218,6 +1655,76 @@ const bankCloze = (t) => [
   B('"The furnitures arrived."', ['The furniture arrived', 'The furnitures was arrived', 'A furniture arrived', 'Furnitures are arriving', 'no improvement'], 0, 'Furniture is uncountable → singular.', 'med', t),
   B('"He told to me a story."', ['He told me a story', 'He told me to a story', 'He told a story to I', 'He told at me', 'no improvement'], 0, 'tell + object — no "to".', 'easy', t),
   B('"He has been living here since five years."', ['for five years', 'from five years', 'since five year', 'during five years', 'no improvement'], 0, 'Duration → "for"; point → "since".', 'easy', t),
+  B('"The manager, along with his team, ______ present."', ['were', 'was', 'are', 'have been', 'be'], 1, '"Along with" phrases don\'t pluralize — subject stays "manager" (singular).', 'hard', t),
+  B('"Neither of the answers ______ correct."', ['were', 'was', 'are', 'be', 'have'], 1, 'Neither of → singular.', 'easy', t),
+  B('"A pair of scissors ______ on the desk."', ['are', 'is', 'were', 'be', 'have'], 1, '"A pair of" → singular verb.', 'med', t),
+  B('"The police ______ arrested the suspect."', ['has', 'have', 'is', 'was', 'be'], 1, 'Police = always plural.', 'med', t),
+  B('"Economics ______ a difficult subject."', ['are', 'is', 'were', 'be', 'have'], 1, 'Subjects ending in -ics → singular.', 'easy', t),
+  B('"Two-thirds of the work ______ done."', ['are', 'is', 'were', 'be', 'have'], 1, 'Fraction + uncountable → singular.', 'med', t),
+  B('"The news ______ shocking."', ['are', 'is', 'were', 'be', 'have'], 1, 'News = uncountable singular.', 'easy', t),
+  B('"There ______ a boy and two girls in the room."', ['were', 'was', 'are', 'be', 'have'], 1, 'Proximity rule — verb agrees with nearest subject (a boy).', 'hard', t),
+  B('"Either the students or the teacher ______ wrong."', ['are', 'is', 'were', 'be', 'have'], 1, 'Either/or → nearer subject (teacher) → singular.', 'hard', t),
+  B('"The majority of voters ______ in favour."', ['was', 'were', 'is', 'be', 'has been'], 1, '"Majority of" + plural → plural verb.', 'med', t),
+  B('"Mathematics ______ his strongest subject."', ['are', 'is', 'were', 'be', 'have'], 1, '-ics subjects → singular.', 'easy', t),
+  B('"Bread and butter ______ served."', ['are', 'is', 'were', 'be', 'have'], 1, 'One combined dish → singular.', 'med', t),
+  B('"The information ______ accurate."', ['are', 'is', 'were', 'be', 'have'], 1, 'Information uncountable → singular.', 'easy', t),
+  B('"A group of students ______ protesting."', ['was', 'were', 'is', 'be', 'has'], 1, 'Group acting as one → singular.', 'med', t),
+  B('"Fifty rupees ______ a fair price."', ['are', 'is', 'were', 'be', 'have'], 1, 'Sum treated as one amount → singular.', 'med', t),
+  B('"The number of complaints ______ rising."', ['are', 'is', 'were', 'be', 'have'], 1, '"The number of" → singular.', 'easy', t),
+  B('"Neither my parents nor my sister ______ coming."', ['are', 'is', 'were', 'be', 'have'], 1, 'Nearer subject (sister) → singular.', 'hard', t),
+  B('"Scissors ______ sharp."', ['is', 'are', 'was', 'be', 'has'], 1, 'Scissors plural.', 'easy', t),
+  B('"Every man and every woman ______ a vote."', ['have', 'has', 'are', 'were', 'be'], 1, 'Every + every → singular.', 'med', t),
+  B('"Neither of the two candidates ______ selected."', ['were', 'was', 'are', 'be', 'have'], 1, 'Neither of → singular.', 'easy', t),
+  B('"The pair of trousers ______ torn."', ['are', 'is', 'were', 'be', 'have'], 1, '"A pair of" → singular.', 'med', t),
+  B('"Physics ______ a tough paper."', ['are', 'is', 'were', 'be', 'have'], 1, '-ics subject → singular.', 'easy', t),
+  B('"Half of the apples ______ rotten."', ['was', 'were', 'is', 'be', 'has'], 1, 'Half of + countable plural → plural.', 'hard', t),
+  B('"The cattle ______ grazing."', ['is', 'are', 'was', 'be', 'has'], 1, 'Cattle = always plural.', 'med', t),
+  B('"Each of the officers ______ a badge."', ['carry', 'carries', 'are carrying', 'be carrying', 'have'], 1, 'Each of → singular.', 'easy', t),
+  B('"Many a trainee ______ failed this test."', ['have', 'has', 'are', 'were', 'be'], 1, 'Many a → singular.', 'hard', t),
+  B('"Neither the chief nor the deputies ______ notified."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Neither/nor → nearer subject plural.', 'hard', t),
+  B('"The staff ______ divided on the issue."', ['is', 'are', 'was', 'be', 'has'], 1, 'Staff acting as individuals → plural.', 'hard', t),
+  B('"Either the files or the clerk ______ misplaced."', ['are', 'is', 'were', 'be', 'have'], 1, 'Either/or → nearer subject (clerk) singular.', 'hard', t),
+  B('"The series of questions ______ tough."', ['were', 'was', 'are', 'be', 'have'], 1, 'Series = singular.', 'med', t),
+  B('"One-third of the seats ______ vacant."', ['was', 'were', 'is', 'be', 'has'], 1, 'Fraction + countable plural → plural.', 'med', t),
+  B('"The jury ______ reached a verdict."', ['have', 'has', 'are', 'were', 'be'], 1, 'Jury as one body → singular.', 'med', t),
+  B('"Five hundred rupees ______ spent."', ['were', 'was', 'are', 'be', 'have'], 1, 'Amount as single sum → singular.', 'med', t),
+  B('"Improve: He did not replied on time."', ['did not reply', 'did not replies', 'does not replied', 'did not replying', 'no improvement'], 0, 'did not + base form.', 'easy', t),
+  B('"Improve: She is senior than me in service."', ['senior to me', 'senior then me', 'more senior than me', 'senior from me', 'no improvement'], 0, 'senior → "to".', 'med', t),
+  B('"Improve: He is capable to finish it."', ['capable of finishing', 'capable for finishing', 'capable in finishing', 'capable finishing', 'no improvement'], 0, 'capable + of + -ing.', 'med', t),
+  B('"Improve: I am interested for the role."', ['interested in', 'interested at', 'interested on', 'interested about', 'no improvement'], 0, 'interested + in.', 'easy', t),
+  B('"Improve: They discussed about the report."', ['discussed the report', 'discussed over the report', 'discussed upon the report', 'discussed for the report', 'no improvement'], 0, 'discuss + object directly.', 'med', t),
+  B('"Improve: Despite of the delay, it shipped."', ['Despite the delay', 'Despite for the delay', 'Despite in the delay', 'Despite on the delay', 'no improvement'], 0, 'despite never takes "of".', 'med', t),
+  B('"Improve: He prevented me to leave."', ['from leaving', 'for leaving', 'in leaving', 'at leaving', 'no improvement'], 0, 'prevent + from + -ing.', 'med', t),
+  B('"The number of visitors ______ rising."', ['are', 'is', 'were', 'be', 'have'], 1, '"The number of" → singular.', 'easy', t),
+  B('"A number of complaints ______ filed."', ['was', 'were', 'is', 'be', 'has been'], 1, '"A number of" → plural.', 'med', t),
+  B('"Neither the officers nor the clerk ______ ready."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Nearer subject (clerk) → singular.', 'hard', t),
+  B('"Neither the clerk nor the officers ______ ready."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Nearer subject (officers) → plural.', 'hard', t),
+  B('"The news ______ broadcast at nine."', ['were', 'was', 'are', 'be', 'have been'], 1, 'News uncountable → singular.', 'easy', t),
+  B('"Politics ______ a rough game."', ['are', 'is', 'were', 'be', 'have'], 1, '-ics subject → singular.', 'easy', t),
+  B('"The furniture in the hall ______ new."', ['are', 'is', 'were', 'be', 'have'], 1, 'Furniture uncountable → singular.', 'easy', t),
+  B('"The luggage ______ arrived safely."', ['have', 'has', 'are', 'were', 'be'], 1, 'Luggage uncountable → singular.', 'easy', t),
+  B('"The advice ______ useful."', ['were', 'was', 'are', 'be', 'have been'], 1, 'Advice uncountable → singular.', 'easy', t),
+  B('"Many a candidate ______ failed the test."', ['have', 'has', 'are', 'were', 'be'], 1, 'Many a → singular.', 'hard', t),
+  B('"Each of the reports ______ verified."', ['were', 'was', 'are', 'be', 'have been'], 1, 'Each of → singular.', 'easy', t),
+  B('"One of the machines ______ broken."', ['are', 'is', 'were', 'be', 'have been'], 1, 'One of → singular.', 'easy', t),
+  B('"The majority of members ______ present."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Majority of + plural → plural.', 'med', t),
+  B('"Half of the budget ______ spent."', ['were', 'was', 'are', 'be', 'have been'], 1, 'Half of uncountable → singular.', 'med', t),
+  B('"Half of the employees ______ absent."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Half of countable → plural.', 'med', t),
+  B('"The captain along with players ______ arrived."', ['have', 'has', 'are', 'were', 'be'], 1, '"Along with" → verb follows first subject.', 'hard', t),
+  B('"My uncle as well as my cousins ______ here."', ['are', 'is', 'were', 'be', 'have been'], 1, '"As well as" → first subject wins.', 'hard', t),
+  B('"There ______ several letters on the desk."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Several letters → plural.', 'easy', t),
+  B('"Either she or her brothers ______ invited."', ['was', 'were', 'is', 'be', 'has been'], 1, 'Nearer subject (brothers) → plural.', 'hard', t),
+  B('"Either the brothers or she ______ invited."', ['were', 'was', 'are', 'be', 'have been'], 1, 'Nearer subject (she) → singular.', 'hard', t),
+  B('"The data ______ analysed carefully."', ['were', 'was', 'are', 'be', 'have been'], 1, 'Data (formal singular) → singular in exam usage.', 'med', t),
+  B('"Improve: No sooner did he leave when it rained."', ['than it rained', 'then it rained', 'that it rained', 'as it rained', 'no improvement'], 0, 'no sooner + than.', 'med', t),
+  B('"Improve: Hardly had she slept than the phone rang."', ['when the phone rang', 'then the phone rang', 'that the phone rang', 'as the phone rang', 'no improvement'], 0, 'hardly/scarcely + when.', 'med', t),
+  B('"Improve: He is enough strong to lift it."', ['strong enough', 'enough strongly', 'strongly enough', 'much strong', 'no improvement'], 0, 'enough comes after the adjective.', 'med', t),
+  B('"Improve: She is more taller than him."', ['taller', 'most taller', 'much more taller', 'very taller', 'no improvement'], 0, 'Double comparative — drop "more".', 'easy', t),
+  B('"Improve: This is the most unique piece."', ['a unique piece', 'most uniquier', 'more unique', 'very unique', 'no improvement'], 0, 'Unique is absolute.', 'med', t),
+  B('"Improve: I reached to the venue early."', ['reached the venue', 'reached at the venue', 'reached for the venue', 'reached in the venue', 'no improvement'], 0, 'reach + place directly.', 'easy', t),
+  B('"Improve: He entered into the building."', ['entered the building', 'entered at the building', 'entered in the building', 'entered for the building', 'no improvement'], 0, 'enter + place directly.', 'easy', t),
+  B('"Improve: She is married with a banker."', ['married to a banker', 'married for a banker', 'married by a banker', 'married on a banker', 'no improvement'], 0, 'married + to.', 'easy', t),
+  B('"Improve: I congratulate you for your win."', ['on your win', 'at your win', 'about your win', 'of your win', 'no improvement'], 0, 'congratulate + on.', 'med', t),
 ]
 
 // ── GA curated banks ───────────────────────────────────────────────────────
@@ -1242,6 +1749,42 @@ const bankSEBI = (t) => [
   B('SEBI Grade A exam recruits:', ['officers for regulatory functions', 'traders', 'brokers', 'auditors for listed cos', 'bankers'], 0, 'Officer Grade A — the exam you\'re preparing for.', 'easy', t),
   B('Demat accounts are held with:', ['depository participants of NSDL/CDSL', 'RBI directly', 'SEBI directly', 'banks only', 'brokers only'], 0, 'DPs front-end; depositories hold the records.', 'easy', t),
   B('KYC registration agencies (KRAs) in markets are registered with:', ['SEBI', 'RBI', 'UIDAI', 'MCA', 'CBDT'], 0, 'SEBI-registered KRAs maintain investor KYC.', 'med', t),
+  B('Dematerialised securities are issued under which Act?', ['SCRA 1956', 'Depositories Act 1996', 'Companies Act 2013', 'RBI Act 1934', 'FEMA 1999'], 1, 'Depositories Act 1996 — NSDL/CDSL legal base.', 'med', t),
+  B('The Securities Contracts (Regulation) Act is of which year?', ['1942', '1956', '1963', '1978', '1992'], 1, 'SCRA 1956 — governs stock exchanges and contracts.', 'med', t),
+  B('A Forward Rate Agreement (FRA) primarily lets parties:', ['buy assets at a fixed future date', 'lock an interest rate for a future period on notional principal', 'swap currencies', 'insure credit default', 'settle trades same-day'], 1, 'FRA = interest-rate lock on notional principal — no principal exchange.', 'med', t),
+  B('Money lent in the market for more than one day but less than fifteen days is called:', ['call money', 'notice money', 'term money', 'repo', 'reverse repo'], 1, 'Call = overnight; notice = 2–14 days; term = 15 days–1 year.', 'med', t),
+  B('The day-count convention generally used for Indian bonds:', ['Actual/360', 'Actual/365', '30/360', 'Actual/Actual', '30/365'], 2, 'Indian bond market uses 30/360 for day counts.', 'hard', t),
+  B('IOSCO\'s primary objective is:', ['monitor global financial stability', 'regulate trade policy', 'fund developing economies', 'set global standards for securities regulation', 'enforce tax compliance'], 3, 'IOSCO = the securities regulators\' standard-setter.', 'med', t),
+  B('The instrument regarded as risk-free:', ['fixed deposits', 'corporate bonds', 'gilt securities', 'REITs', 'mutual funds'], 2, 'Gilt = government securities — sovereign backing, ~zero default risk.', 'easy', t),
+  B('A Commercial Paper issuer must have minimum tangible net worth of:', ['₹1 crore', '₹4 crore', '₹10 crore', '₹15 crore', '₹25 crore'], 1, 'RBI CP directions: minimum tangible net worth ₹4 crore.', 'hard', t),
+  B('Microfinance institutions lending to the sector are regulated by:', ['Ministry of Finance', 'RBI', 'NHB', 'NABARD', 'SEBI'], 1, 'RBI regulates the microfinance sector (NBFC-MFIs).', 'med', t),
+  B('NABARD directly supervises:', ['primary cooperative banks', 'PACS', 'DCCBs', 'payment banks', 'all of these'], 2, 'NABARD inspects/supervises District Central Cooperative Banks.', 'hard', t),
+  B('When RBI raises loans for State Governments it consults the Finance Ministry and:', ['SEBI', 'CAG', 'FIFMDA', 'DIPAM', 'NITI Aayog'], 1, 'CAG — per the Fiscal/statutory consultation requirement.', 'hard', t),
+  B('Current yield of a 10% debenture (FV ₹1100) trading at ₹880:', ['10%', '12.5%', '8%', '11%', '80%'], 1, 'Coupon ₹110 / price ₹880 = 12.5%.', 'med', t),
+  B('Under Companies Act 2013, loans by a company cannot exceed:', ['50% of paid-up capital + free reserves', '60% of paid-up share capital + free reserves + securities premium, or 100% of free reserves + securities premium — whichever higher', '40% of net worth', '25% of turnover', 'unlimited with board approval'], 1, 'Section 186 limit — 60% or 100%, whichever is higher.', 'hard', t),
+  B('Every company must furnish directors\' DIN to the Registrar within:', ['7 days', '15 days', '30 days', '45 days', '60 days'], 1, 'Section 156 — 15 days from intimation.', 'hard', t),
+  B('Appeals against Appellate Tribunal orders go to the Supreme Court within:', ['20 days', '30 days', '45 days', '60 days', '90 days'], 3, '60 days from receipt of the order.', 'hard', t),
+  B('The "going concern" assumption means:', ['the firm winds up soon', 'operations continue indefinitely / foreseeable future', 'liquidation in 6 months', 'merger is certain', 'assets are sold first'], 1, 'Business continues in the foreseeable future — accounting bedrock.', 'easy', t),
+  B('Quick ratio = (Current Assets − Inventory) / Current Liabilities. With CA ₹20L, Inventory ₹8L, CL ₹8L:', ['1.50', '0.75', '1.25', '1.75', '2.50'], 0, '(20−8)/8 = 1.5 — strips inventory out because it\'s the least liquid asset.', 'med', t),
+  B('SEBI\'s powers include:', ['register + regulate market intermediaries', 'print currency', 'set repo rate', 'appoint RBI Governor', 'issue bank licences'], 0, 'Registration, regulation, enforcement over securities intermediaries.', 'easy', t),
+  B('The SEBI Act was passed in:', ['1992', '1988', '1956', '1996', '2002'], 0, '1992 — statutory powers.', 'easy', t),
+  B('SEBI regulates which of the following?', ['stock exchanges, brokers, MFs, AIFs, CRAs', 'only banks', 'only insurers', 'only NBFCs', 'only PSU firms'], 0, 'All capital-market intermediaries.', 'easy', t),
+  B('An "insider" under PIT Regs includes:', ['persons with unpublished price-sensitive info', 'any employee', 'only directors', 'brokers only', 'auditors only'], 0, 'UPSI holders — broad definition.', 'med', t),
+  B('UPSI stands for:', ['Unpublished Price Sensitive Information', 'Unified Payment Settlement Info', 'Unlisted Public Stock Index', 'Universal Securities Identifier', 'None'], 0, 'The insider-trading definition core.', 'easy', t),
+  B('SEBI\'s ICDR Regulations govern:', ['capital & disclosure requirements for public issues', 'insider trading', 'takeovers', 'listing obligations', 'mutual funds'], 0, 'Issue of Capital & Disclosure Requirements — IPO rulebook.', 'med', t),
+  B('SEBI (Prohibition of Fraudulent & Unfair Trade Practices) Regulations:', ['2003', '2015', '1992', '2011', '2020'], 0, 'PFUTP 2003 — market manipulation rulebook.', 'hard', t),
+  B('A company listing shares must comply with:', ['LODR + ICDR', 'PIT only', 'SAST only', 'FEMA only', 'Companies Act only'], 0, 'ICDR for the issue, LODR for ongoing disclosure.', 'med', t),
+  B('SEBI can issue which orders?', ['disgorgement, debarment, monetary penalties', 'imprisonment', 'demonetisation', 'tax revision', 'bank licence cancellation'], 0, 'Civil/administrative enforcement tools.', 'med', t),
+  B('Green Shoe option in an IPO is:', ['over-allotment stabilisation option', 'a bonus share', 'a lock-in period', 'a listing fee', 'a dividend plan'], 0, 'Greenshoe — underwriter\'s stabilisation over-allotment.', 'med', t),
+  B('Anchor investors in IPOs bid:', ['a day before the issue opens', 'after listing', 'with retail', 'post-allotment', 'at will'], 0, 'Anchor book opens one day before public issue.', 'med', t),
+  B('QIB stands for:', ['Qualified Institutional Buyer', 'Quality Investment Body', 'Quoted Interest Bond', 'Quick Issue Book', 'None'], 0, 'Institutional IPO quota — 50%+ typically.', 'easy', t),
+  B('ASBA in IPO applications means:', ['Application Supported by Blocked Amount', 'Auto Settlement Banking Account', 'Allotted Share Balance Account', 'Approved Securities Bid Amount', 'None'], 0, 'Funds stay blocked, not debited, until allotment.', 'med', t),
+  B('Red Herring Prospectus lacks:', ['final price band/offer size details', 'risk factors', 'business description', 'promoter names', 'financials'], 0, 'RHP has everything except the final price — that\'s the point.', 'med', t),
+  B('The book-building IPO price discovery happens via:', ['investor bids within a band', 'fixed lottery', 'SEBI pricing', 'exchange auction', 'promoter choice'], 0, 'Bids build the book within the price band.', 'med', t),
+  B('Circuit filters on stocks apply to:', ['intraday price movement limits', 'trading hours', 'margin calls', 'IPO pricing', 'settlement'], 0, 'Price bands halt runaway moves — 5/10/20% typical.', 'med', t),
+  B('Call auction sessions are used for:', ['price discovery of illiquid/special securities', 'all trades', 'only F&O', 'only IPOs', 'closing only'], 0, 'Periodic batch auction — SEBI mandates for illiquid scripts.', 'hard', t),
+  B('An "unpaid dividend" lying unclaimed 7 years goes to:', ['IEPF', 'SEBI', 'RBI', 'the company', 'exchequer directly'], 0, 'Investor Education & Protection Fund — Section 124-125.', 'med', t),
+  B('Block/bulk deals disclosure thresholds are set by:', ['SEBI', 'RBI', 'exchanges only', 'MCA', 'SAT'], 0, 'SEBI defines the reporting thresholds.', 'med', t),
 ]
 
 const RC_PASSAGE2 = 'Algorithmic trading now accounts for a majority of order flow on Indian exchanges. High-frequency firms co-locate servers near exchange matching engines to shave microseconds off execution. SEBI has mandated algo-approval workflows, order-to-trade ratio limits, and kill-switch obligations for brokers. Yet the structural gap persists: retail participants without co-location access face systematically worse fills, raising fairness questions the regulator has yet to fully resolve.'
@@ -1263,6 +1806,46 @@ const bankRC = (t) => [
   B(rc3Q('The downside flagged is:'), ['higher taxes', 'compressed reconciliation windows / operational lags punished', 'slower matching engines', 'fewer trades', 'no liquidity'], 1, 'Implied — compressed timelines squeeze back-office work.', 'med', t),
   B(rc3Q('Custodians had to re-engineer batch processes into:'), ['paper records', 'near-continuous pipelines', 'monthly reports', 'manual ledgers', 'slower queues'], 1, 'Stated: batch → near-continuous pipelines.', 'easy', t),
   B(rc3Q('"Compressed" timelines most nearly means:'), ['lengthened', 'shortened/squeezed', 'cancelled', 'paused', 'doubled'], 1, 'Vocab-in-context — compressed = squeezed shorter.', 'easy', t),
+  B(rc4Q('SEBI\'s study found approximately what share of retail F&O traders lose money?'), ['half', 'nine in ten', 'one in four', 'almost none', 'two-thirds'], 1, 'Stated: ~9 of 10 individual F&O traders lose.', 'easy', t),
+  B(rc4Q('Which measure was NOT among SEBI\'s proposals?'), ['raising minimum contract size', 'one weekly expiry per exchange', 'higher upfront margins', 'a total F&O ban', 'all of these were proposed'], 3, 'A ban was NOT proposed — the three tightening steps were.', 'med', t),
+  B(rc4Q('Industry\'s counter-argument to deeper measures was:'), ['they cost nothing', 'they could shrink liquidity', 'they are illegal', 'they help retail', 'they speed settlement'], 1, 'Industry warned of liquidity shrinkage.', 'med', t),
+  B(rc4Q('Investor advocates\' criticism of the proposals was that they:'), ['go too far', 'barely dent the structural retail risk', 'ban trading', 'help only institutions', 'are unenforceable'], 1, 'Advocates argued the changes barely dent structural risk.', 'med', t),
+  B(rc4Q('The passage\'s tone toward the F&O reforms is:'), ['celebratory', 'balanced — both industry and advocate views aired', 'hostile to SEBI', 'indifferent', 'purely technical'], 1, 'Both sides presented → balanced.', 'med', t),
+  B(rc5Q('SEBI\'s regulatory philosophy is built primarily on:'), ['approving issue merits', 'mandated standardised disclosure', 'setting prices', 'guaranteeing returns', 'banning risky issues'], 1, 'Disclosure-based, not merit-based regulation.', 'easy', t),
+  B(rc5Q('Merit-regulation critics argue regulators cannot reliably:'), ['print documents', 'judge business quality', 'list companies', 'collect fees', 'detect fraud'], 1, 'Stated directly — quality judgment is unreliable.', 'easy', t),
+  B(rc5Q('"Sunlight is the better disinfectant" implies:'), ['punishment works best', 'accurate timely disclosure prevents misconduct', 'audits are useless', 'merit review wins', 'markets self-correct'], 1, 'Transparency as deterrence — the classic Brandeis framing.', 'med', t),
+  B(rc5Q('The disclosure framework centres on which instruments?'), ['LODR obligations + prospectus contents + misstatement penalties', 'margin rules', 'settlement cycles', 'algo approvals', 'custodian rules'], 0, 'LODR + prospectus + penalties — the triad.', 'med', t),
+  B(rc5Q('"Load-bearing wall" most nearly means:'), ['a minor feature', 'the foundational element', 'a temporary fix', 'a legal loophole', 'a decorative clause'], 1, 'Vocab-in-context — foundational/essential.', 'easy', t),
+  B(rcQ('The passage\'s main idea is best captured as:'), ['automation should replace regulation', 'algorithmic surveillance plus human judgment', 'surveillance is unnecessary', 'SEBI lacks technology', 'false positives are rare'], 1, 'Pairing detection with human review = the thesis.', 'med', t),
+  B(rcQ('A "false positive" in this context means:'), ['a correct flag', 'an innocent trader flagged wrongly', 'a delayed order', 'a cheap flag', 'a true scheme missed'], 1, 'Automated flags can wrongly accuse — hence human review.', 'med', t),
+  B(rc2Q('"Order-to-trade ratio limits" are aimed at curbing:'), ['settlements', 'excessive order spam/cancellation relative to executions', 'IPO pricing', 'margin calls', 'custody'], 1, 'OTR limits penalise spam-ordering behaviour in algos.', 'hard', t),
+  B(rc2Q('The passage implies fairness in algo markets requires:'), ['banning HFT', 'closing the co-location advantage gap', 'slower engines', 'more brokers', 'higher fees'], 1, 'The "structural gap" = co-location access asymmetry.', 'med', t),
+  B(rc3Q('The passage suggests counterparty risk falls because:'), ['trades are bigger', 'settlement completes faster, shrinking exposure windows', 'fees are lower', 'brokers merge', 'papers are fewer'], 1, 'Shorter cycles = less time for a counterparty to fail.', 'med', t),
+  B(rc3Q('"Near-continuous pipelines" replaced which older model?'), ['real-time feeds', 'batch processes', 'manual ledgers', 'weekly reports', 'paper filings'], 1, 'Batch → near-continuous, stated directly.', 'easy', t),
+  B(rcQ('The word "signatures" most nearly means:'), ['documents', 'detectable patterns', 'legal marks', 'approvals', 'alerts'], 1, 'Vocab-in-context — insider-trading signatures = patterns.', 'med', t),
+  B(rcQ('What risk of automated flags does the passage name?'), ['slow detection', 'destroyed reputations', 'high cost', 'missed trades', 'legal fines'], 1, 'False positives "can destroy reputations" — stated.', 'easy', t),
+  B(rcQ('The mandatory stage added was:'), ['appeal hearing', 'human review', 'board sign-off', 'public notice', 'daily audit'], 1, 'Human-review stage before orders.', 'easy', t),
+  B(rcQ('The passage implies the main benefit of algo-monitoring is:'), ['lower cost', 'speed of detection', 'fewer brokers', 'simpler rules', 'bigger trades'], 1, 'Flags "within minutes" — speed is the selling point.', 'med', t),
+  B(rc2Q('Co-located servers give HFT firms:'), ['more storage', 'microsecond execution advantage', 'cheaper fees', 'legal immunity', 'bigger quotas'], 1, 'Latency shaving = the edge.', 'easy', t),
+  B(rc2Q('The passage suggests SEBI\'s algo rules are:'), ['fully settled', 'incomplete — fairness unresolved', 'rolled back', 'voluntary', 'unneeded'], 1, '"Yet to fully resolve" — incomplete.', 'med', t),
+  B(rc2Q('Kill-switch obligations sit with:'), ['exchanges', 'brokers', 'retail traders', 'SEBI staff', 'custodians'], 1, 'Brokers carry the kill-switch obligation.', 'easy', t),
+  B(rc3Q('T+0 pilot applies to:'), ['all securities', 'select securities', 'bonds only', 'IPO days', 'F&O only'], 1, 'Pilot for select securities.', 'easy', t),
+  B(rc3Q('The structural cost of T+1 named is:'), ['higher fees', 'tighter reconciliation windows', 'fewer traders', 'slower matching', 'more paperwork'], 1, 'Back-office squeeze — the tradeoff.', 'med', t),
+  B(rc4Q('Weekly expiries were proposed to be limited to:'), ['two per exchange', 'one per exchange', 'none', 'monthly only', 'unlimited'], 1, 'One weekly expiry per exchange.', 'easy', t),
+  B(rc4Q('Raising contract sizes primarily affects:'), ['institutions', 'retail minimum position size', 'exchanges', 'settlement', 'taxation'], 1, 'Bigger contracts → higher retail entry cost.', 'med', t),
+  B(rc5Q('LODR obligations concern:'), ['listing disclosure requirements', 'margin rules', 'settlement', 'insider lists', 'algo speed'], 0, 'Listing Obligations and Disclosure Requirements.', 'easy', t),
+  B(rc5Q('Misstatement under the framework draws:'), ['praise', 'penalties', 'nothing', 'warnings only', 'delisting always'], 1, 'Penalties for misstatement — the teeth.', 'easy', t),
+  B(rc6Q('UPSI in the passage refers to:'), ['unpublished price-sensitive information', 'urgent public share issue', 'unified price system index', 'unregistered portfolio securities', 'unpaid share instalments'], 0, 'Unpublished Price Sensitive Information — the PIT core.', 'easy', t),
+  B(rc6Q('Trading-window closures prevent designated persons from:'), ['trading during sensitive periods', 'leaving jobs', 'attending meetings', 'hiring staff', 'voting'], 0, 'Windows close around results/sensitive events.', 'easy', t),
+  B(rc6Q('The enforcement difficulty identified is:'), ['too few rules', 'proving intent + tipper-tippee chains', 'low fines', 'slow courts only', 'no data'], 1, 'Intent proof + attribution chains — stated.', 'med', t),
+  B(rc6Q('"Chains of tippers and tippees" refers to:'), ['communication networks', 'info passed insider→outsider chains', 'trade sequences', 'broker chains', 'audit trails'], 1, 'The passing of UPSI down a chain.', 'med', t),
+  B(rc6Q('The passage\'s central claim is that insider trading:'), ['is harmless', 'corrupts the fairness premise of markets', 'helps liquidity', 'is easy to prosecute', 'is rare'], 1, 'Outside investors transfer wealth to the connected.', 'med', t),
+  B(rc6Q('"Structured digital databases" track:'), ['trade prices', 'who knew UPSI, when', 'broker fees', 'settlement times', 'IPO bids'], 1, 'UPS I access logs — the attribution tool.', 'med', t),
+  B(rcQ('The critics\' worry centers on:'), ['enforcement cost', 'false positives ruining reputations', 'slow audits', 'missing data', 'fewer trades'], 1, 'False positives → reputational damage.', 'easy', t),
+  B(rcQ('Real-time analytics flag what within minutes?'), ['settlements', 'insider-trading signatures and pump-and-dump schemes', 'IPO bids', 'margin calls', 'audits'], 1, 'Stated directly.', 'easy', t),
+  B(rc2Q('"Microseconds" emphasises that algo edge is about:'), ['volume', 'speed/latency', 'capital', 'leverage', 'data size'], 1, 'Latency is the currency of HFT.', 'med', t),
+  B(rc4Q('The passage frames F&O reform as a balance between:'), ['speed vs cost', 'protection vs liquidity', 'retail vs foreign', 'tax vs profit', 'volume vs price'], 1, 'Tighter rules vs liquidity preservation.', 'med', t),
+  B(rc5Q('SEBI does NOT judge:'), ['issue merits', 'disclosure completeness', 'misstatements', 'timeliness', 'document format'], 0, 'Disclosure, not merit — that\'s the model.', 'med', t),
 ]
 
 const RC_PASSAGE3 = 'India\'s push toward a single settlement standard has compressed equity settlement from T+2 to T+1 and piloted same-day T+0 for select securities. Shorter cycles free collateral faster and cut counterparty risk, but compressed timelines squeeze back-office reconciliation windows and punish operational lags. Custodians and clearing corporations have had to re-engineer batch processes into near-continuous pipelines to keep pace.'
@@ -1270,6 +1853,15 @@ const rc3Q = (q) => '"' + RC_PASSAGE3 + '" — ' + q
 
 const RC_PASSAGE = 'SEBI\'s surveillance systems increasingly rely on algorithmic monitoring to detect abnormal trading patterns. Real-time analytics flag insider-trading signatures and pump-and-dump schemes within minutes of occurrence. Critics argue that automated flags still demand human judgment before enforcement, since false positives can destroy reputations. The regulator has responded by pairing its detection stack with a mandatory human-review stage before any order is issued.'
 const rcQ = (q) => '"' + RC_PASSAGE + '" — ' + q
+
+const RC_PASSAGE4 = 'Index derivatives account for the bulk of turnover on Indian exchanges, but SEBI\'s own study found that roughly nine in ten individual F&O traders lose money. In response, the regulator proposed raising minimum contract sizes, limiting weekly expiries to one per exchange, and increasing upfront margins. Industry participants warned that deeper measures could shrink liquidity, while investor advocates argued the changes barely dented the structural risk retail traders face.'
+const rc4Q = (q) => '"' + RC_PASSAGE4 + '" — ' + q
+
+const RC_PASSAGE5 = 'Disclosure is the load-bearing wall of securities regulation. Rather than approving the merits of an issue, SEBI requires issuers to reveal risks in standardised offer documents, letting informed investors price them. Critics of merit regulation argue that regulators cannot reliably judge business quality, and that sunlight — accurate, timely, standardised disclosure — is the better disinfectant. The framework therefore centres on LODR obligations, prospectus contents, and penalties for misstatement.'
+const rc5Q = (q) => '"' + RC_PASSAGE5 + '" — ' + q
+
+const RC_PASSAGE6 = 'Insider trading erodes the premise that markets reward information asymmetries fairly. When corporate insiders trade on unpublished price-sensitive information, outside investors systematically transfer wealth to the connected. SEBI\'s PIT regulations therefore impose trading-window closures, disclosure duties on trades by designated persons, and structured digital databases tracking who knew what when. Enforcement remains difficult: intent is hard to prove, and chains of tippers and tippees complicate attribution.'
+const rc6Q = (q) => '"' + RC_PASSAGE6 + '" — ' + q
 
 const bankReg = (t) => [
   B('Who registers and regulates FPIs in India?', ['RBI', 'SEBI', 'IRDAI', 'PFRDA', 'NABARD'], 1, 'SEBI registers/regulates FPIs; RBI handles the banking/forex side.', 'easy', t),
@@ -1281,6 +1873,45 @@ const bankReg = (t) => [
   B('NBFCs are primarily regulated by:', ['SEBI', 'RBI', 'IRDAI', 'SIDBI', 'NHB'], 1, 'RBI regulates NBFCs — the non-bank lending trap question.', 'med', t),
   B('Stock exchanges (NSE/BSE) are regulated by:', ['RBI', 'SEBI', 'MCA', 'Finance Ministry', 'CCI'], 1, 'SEBI regulates exchanges, brokers, intermediaries.', 'easy', t),
   B('Mutual funds in India are regulated by:', ['RBI', 'SEBI', 'IRDAI', 'AMFI only', 'PFRDA'], 1, 'SEBI regulates MFs; AMFI is the industry association, not a regulator.', 'easy', t),
+  B('Money market instruments (T-bills, CP, CD) are regulated by:', ['RBI', 'SEBI', 'IRDAI', 'MCA', 'FIMMDA'], 0, 'RBI — money market is its turf.', 'med', t),
+  B('Government securities market regulator:', ['RBI', 'SEBI', 'Both share oversight', 'MCA', 'Ministry of Finance'], 0, 'RBI manages G-sec issuance/trading; SEBI oversees listed side.', 'med', t),
+  B('Payment systems (UPI, NEFT, RTGS) are regulated by:', ['NPCI alone', 'RBI', 'SEBI', 'MeitY', 'TRAI'], 1, 'RBI under PSS Act 2007; NPCI operates the rails.', 'med', t),
+  B('Credit rating agencies in India are regulated by:', ['RBI', 'SEBI', 'IRDAI', 'MCA', 'ICRA itself'], 1, 'SEBI — CRAs are market intermediaries.', 'med', t),
+  B('Stock brokers and merchant bankers are regulated by:', ['SEBI', 'RBI', 'MCA', 'exchanges only', 'SAT'], 0, 'SEBI registers + supervises all market intermediaries.', 'easy', t),
+  B('Forex reserves and exchange-rate policy belong to:', ['RBI', 'SEBI', 'Finance Ministry', 'EXIM Bank', 'DGFT'], 0, 'RBI manages forex — FEMA 1999 implementation.', 'easy', t),
+  B('Foreign exchange dealings (FEMA) are administered by:', ['RBI', 'SEBI', 'CBDT', 'DGFT', 'MEA'], 0, 'RBI administers FEMA 1999.', 'med', t),
+  B('The RBI Act year:', ['1934', '1949', '1956', '1969', '1992'], 0, 'RBI Act 1934.', 'easy', t),
+  B('Priority-sector lending targets are set by:', ['RBI', 'SEBI', 'NABARD', 'Finance Ministry', 'NITI'], 0, 'RBI sets PSL norms — 40% ANBC target for banks.', 'med', t),
+  B('The repo rate is decided by:', ['MPC of RBI', 'SEBI board', 'Finance Minister', 'NITI Aayog', 'Parliament'], 0, 'Monetary Policy Committee — 6 members, RBI Governor chairs.', 'easy', t),
+  B('The MPC has how many members?', ['6', '4', '8', '10', '5'], 0, 'Six — three RBI + three government nominees; Governor has casting vote.', 'med', t),
+  B('Inflation target band for MPC:', ['4% ± 2%', '6% ± 1%', '5% ± 1%', '3% ± 2%', '7% ± 2%'], 0, 'CPI 4% ± 2% — the medium-term target.', 'med', t),
+  B('FSDC (Financial Stability & Development Council) is chaired by:', ['RBI Governor', 'Union Finance Minister', 'SEBI Chairman', 'PM', 'CEA'], 1, 'FM chairs FSDC — apex coordination council of all regulators.', 'med', t),
+  B('Deposit insurance (DICGC) covers up to:', ['₹5 lakh/depositor/bank', '₹1 lakh', '₹10 lakh', '₹2 lakh', 'unlimited'], 0, '₹5 lakh since 2020 — per depositor per bank.', 'med', t),
+  B('NPCI is owned/promoted by:', ['consortium of banks under RBI guidance', 'SEBI', 'GoI alone', 'RBI alone', 'private firms'], 0, 'Bank consortium umbrella — RBI/IRDAI-era initiative.', 'med', t),
+  B('IFSCA regulates:', ['GIFT City IFSC financial services', 'all NBFCs', 'all banks', 'pension funds', 'commodities'], 0, 'International Financial Services Centres Authority — GIFT City unified regulator.', 'med', t),
+  B('Cooperative banks in urban areas are regulated by:', ['RBI + Registrar of Cooperatives (dual)', 'SEBI', 'NABARD alone', 'states only', 'MCA'], 0, 'Dual control — RBI for banking ops, state RCS for registration.', 'hard', t),
+  B('Chit funds are regulated by:', ['state governments', 'RBI', 'SEBI', 'MCA', 'PFRDA'], 0, 'Chit Funds Act 1982 — state-level regulation.', 'hard', t),
+  B('The SARFAESI Act enables banks to:', ['recover NPAs via asset seizure without court', 'print currency', 'issue bonds', 'merge banks', 'set rates'], 0, 'Securitisation & Reconstruction — enforcement of security interests, 2002.', 'med', t),
+  B('Alternative Investment Funds (AIFs) register with:', ['SEBI', 'RBI', 'MCA', 'PFRDA', 'IRDAI'], 0, 'SEBI AIF Regulations 2012 — VC/PE/hedge registration.', 'med', t),
+  B('Portfolio Managers are regulated by:', ['SEBI', 'RBI', 'PFRDA', 'MCA', 'exchanges'], 0, 'SEBI (Portfolio Managers) Regulations.', 'med', t),
+  B('Investment Advisers register under:', ['SEBI IA Regulations 2013', 'RBI Act', 'Companies Act', 'PFRDA Act', 'LODR'], 0, 'SEBI Investment Advisers Regulations 2013.', 'med', t),
+  B('REITs and InvITs are regulated by:', ['SEBI', 'RBI', 'RERA', 'MCA', 'NHAI'], 0, 'SEBI REIT/InvIT Regulations — listed real-estate/infra trusts.', 'med', t),
+  B('Debenture trustees are regulated by:', ['SEBI', 'RBI', 'MCA', 'SAT', 'CCI'], 0, 'SEBI (Debenture Trustees) Regulations.', 'hard', t),
+  B('Custodians of securities register with:', ['SEBI', 'RBI', 'depositories only', 'MCA', 'NSE'], 0, 'SEBI Custodian Regulations.', 'med', t),
+  B('Venture Capital Funds register under:', ['SEBI VCF/AIF Regulations', 'RBI Act', 'Companies Act', 'IT Act', 'NITI rules'], 0, 'Now under SEBI AIF Regulations.', 'med', t),
+  B('Market-makers and underwriters in issues are:', ['SEBI-registered intermediaries', 'RBI officers', 'MCA nominees', 'exchanges themselves', 'unregulated'], 0, 'Intermediaries under SEBI registration.', 'med', t),
+  B('The Securities Appellate Tribunal was constituted under:', ['SEBI Act 1992', 'SCRA 1956', 'Companies Act', 'Depositories Act', 'RBI Act'], 0, 'SEBI Act — appeals from SEBI orders.', 'med', t),
+  B('Banks\' KYC/master directions are issued by:', ['RBI', 'SEBI', 'UIDAI', 'MCA', 'IBA'], 0, 'RBI Master Directions on KYC.', 'med', t),
+  B('Payment aggregators/gateways are licensed by:', ['RBI under PSS Act', 'SEBI', 'NPCI', 'MeitY', 'TRAI'], 0, 'RBI Payment Aggregator framework.', 'med', t),
+  B('Credit information companies (CIBIL etc.) are regulated by:', ['RBI under CICRA 2005', 'SEBI', 'MCA', 'IBA', 'FICCI'], 0, 'Credit Information Companies (Regulation) Act 2005 — RBI.', 'hard', t),
+  B('Rural cooperative banks fall under:', ['RBI + NABARD oversight', 'SEBI', 'MCA only', 'states only', 'unregulated'], 0, 'Dual: RBI banking ops + NABARD inspection.', 'hard', t),
+  B('International Financial Services Centres Authority (IFSCA) HQ:', ['GIFT City, Gandhinagar', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'], 0, 'GIFT City — unified IFSC regulator.', 'med', t),
+  B('The Insolvency & Bankruptcy Code is administered by:', ['IBBI', 'NCLT alone', 'MCA alone', 'SEBI', 'RBI'], 0, 'IBBI regulates IPs/agencies; NCLT is the adjudicating authority.', 'med', t),
+  B('NCLT benches are constituted under:', ['Companies Act 2013', 'SEBI Act', 'IBC only', 'SCRA', 'FEMA'], 0, 'Companies Act 2013 — company-law tribunal.', 'med', t),
+  B('The Competition Act year:', ['2002', '1999', '2010', '1985', '1992'], 0, 'Competition Act 2002 — CCI\'s statute.', 'med', t),
+  B('FRBM Act fiscal-target law year:', ['2003', '1999', '2010', '2016', '1991'], 0, 'Fiscal Responsibility & Budget Management Act 2003.', 'hard', t),
+  B('FEMA replaced which law?', ['FERA 1973', 'SCRA', 'Banking Regulation Act', 'MRTP Act', 'COFEPOSA'], 0, 'FEMA 1999 replaced the draconian FERA 1973.', 'med', t),
+  B('PMLA (anti-money laundering) year:', ['2002', '1999', '2005', '2010', '1995'], 0, 'Prevention of Money Laundering Act 2002 — ED enforces.', 'med', t),
   B('Credit rating agencies are regulated by:', ['SEBI', 'RBI', 'IRDAI', 'MCA', 'NABARD'], 0, 'SEBI (Credit Rating Agencies) Regulations — CRAs like CRISIL/ICRA.', 'med', t),
   B('Payment systems/UPI come under:', ['RBI', 'SEBI', 'NPCI itself', 'MeitY', 'TRAI'], 0, 'RBI under the Payment and Settlement Systems Act 2007.', 'med', t),
   B('Government securities market is managed by:', ['SEBI', 'RBI', 'NSE', 'Finance Ministry', 'NSDL'], 1, 'RBI manages G-secs and public debt.', 'med', t),
@@ -1430,6 +2061,25 @@ const bankSchemes = (t) => [
   B('Make in India launch year:', ['2014', '2015', '2016', '2013', '2017'], 0, 'September 2014 — manufacturing push.', 'easy', t),
   B('Skill India / PMKVY targets:', ['vocational skill training', 'farm loans', 'housing', 'exports', 'tax relief'], 0, 'Pradhan Mantri Kaushal Vikas Yojana — skill certification.', 'med', t),
   B('Startup India initiative year:', ['2016', '2014', '2015', '2018', '2020'], 0, 'January 2016 — DPIIT-recognised startup ecosystem.', 'med', t),
+  B('PMJJBY provides what cover?', ['life insurance ₹2 lakh @ ~₹436/yr', 'accident insurance', 'crop cover', 'health cover', 'pension'], 0, 'Jeevan Jyoti Bima — life cover ₹2L, renewable annually (18-50 yrs).', 'med', t),
+  B('PMSBY provides:', ['accident cover ₹2 lakh @ ~₹20/yr', 'life cover ₹4 lakh', 'health ₹5 lakh', 'pension ₹3k/mo', 'crop cover'], 0, 'Suraksha Bima — accident insurance ₹2L for ~₹20/year.', 'med', t),
+  B('PMMY (MUDRA) loan categories in order:', ['Shishu ≤₹50k, Kishore ≤₹5L, Tarun ≤₹10L', 'all equal', 'Tarun ≤₹50k', 'Kishore ≥₹10L', 'no tiers'], 0, 'Shishu/Kishore/Tarun tiers — 50k / 5L / 10L caps.', 'med', t),
+  B('PM Vishwakarma scheme targets:', ['traditional artisans & craftspeople', 'IT workers', 'farmers', 'students', 'exporters'], 0, 'Artisans — toolkits, skilling, credit support (2023).', 'med', t),
+  B('PM Fasal Bima Yojana covers:', ['crop insurance', 'health', 'life', 'motor', 'property'], 0, 'Crop insurance — PMFBY 2016.', 'easy', t),
+  B('PMJDY\'s overdraft facility allows:', ['₹10,000 OD on Jan Dhan accounts', '₹50,000', '₹1 lakh', 'no OD', '₹5,000'], 0, 'OD up to ₹10,000 for eligible account holders.', 'hard', t),
+  B('PM-JAY cover per family per year:', ['₹5 lakh', '₹2 lakh', '₹10 lakh', '₹1 lakh', '₹3 lakh'], 0, '₹5L/family/year — Ayushman Bharat hospitalisation cover.', 'easy', t),
+  B('Atal Pension Yojana pension band:', ['₹1,000–5,000/month', '₹500–1,000', '₹10,000+', 'flat ₹2,000', 'lumpsum only'], 0, 'Defined pension ₹1k–5k monthly from age 60, entry 18-40.', 'med', t),
+  B('PM SVANidhi initial working-capital loan:', ['₹10,000', '₹1,00,000', '₹50,000', '₹5,000', '₹25,000'], 0, '₹10k collateral-free, progressive cycles up to ₹50k.', 'hard', t),
+  B('Digital India programme year:', ['2015', '2014', '2016', '2017', '2018'], 0, 'July 2015 — three pillars: infrastructure, services, literacy.', 'med', t),
+  B('Skill India Mission launched:', ['2015', '2014', '2016', '2018', '2020'], 0, 'July 2015 — PMKVY anchor scheme.', 'med', t),
+  B('Swachh Bharat Mission year:', ['2014', '2015', '2016', '2013', '2017'], 0, 'Oct 2014 — sanitation mission.', 'easy', t),
+  B('National Education Policy latest full revision:', ['2020', '1986', '2016', '2021', '2019'], 0, 'NEP 2020 — first full education policy in 34 years.', 'easy', t),
+  B('PM Gati Shakti is about:', ['multimodal infrastructure planning', 'speed guns', 'railways only', 'ports only', 'exports'], 0, 'National master plan for multimodal connectivity (2021).', 'med', t),
+  B('Production-Linked Incentive (PLI) targets:', ['manufacturing output incentives', 'farm income', 'tax relief', 'pensions', 'insurance'], 0, 'PLI 2020 — sector-wise manufacturing incentives.', 'med', t),
+  B('PM-JANMAN scheme covers:', ['particularly vulnerable tribal groups', 'all farmers', 'students', 'MSMEs', 'senior citizens'], 0, 'PVTG development — 75 tribal communities (2023).', 'hard', t),
+  B('One Nation One Ration Card enables:', ['portable PDS entitlements across states', 'free ration everywhere', 'cash transfers', 'loan access', 'health cover'], 0, 'Portability of ration benefits nationwide.', 'med', t),
+  B('UPI was launched by NPCI in:', ['2016', '2014', '2018', '2015', '2020'], 0, 'April 2016 — instant payment rails.', 'easy', t),
+  B('PM-KISAN instalment structure:', ['₹6,000/yr in 3 instalments', '₹12,000 once', '₹2,000 monthly', '₹10,000 twice', 'seasonal'], 0, 'Three ₹2,000 instalments per year.', 'med', t),
 ]
 
 const bankReports = (t) => [
@@ -1445,6 +2095,38 @@ const bankReports = (t) => [
   B('Corruption Perceptions Index publisher:', ['Transparency International', 'World Bank', 'UN', 'OECD', 'WEF'], 0, 'TI — Berlin-based NGO.', 'easy', t),
   B('Global Peace Index publisher:', ['Institute for Economics & Peace', 'UN', 'WEF', 'SIPRI', 'Amnesty'], 0, 'IEP — Australia-based think tank.', 'med', t),
   B('India\'s CPI inflation data is released by:', ['NSO (MoSPI)', 'RBI', 'Finance Ministry', 'NITI Aayog', 'CSO-old'], 0, 'National Statistical Office under MoSPI.', 'med', t),
+  B('Global Corruption Report / Bribe Payers Index publisher:', ['Transparency International', 'WEF', 'IMF', 'UN', 'OECD'], 0, 'TI publishes CPI + global corruption research.', 'easy', t),
+  B('Global Gender Gap Report publisher:', ['WEF', 'UN Women only', 'World Bank', 'UNDP', 'ILO'], 0, 'World Economic Forum — the Davos forum.', 'med', t),
+  B('World Happiness Report publisher:', ['UN Sustainable Development Solutions Network', 'WHO', 'UNICEF', 'World Bank', 'IMF'], 0, 'SDSN — ranks ~150 countries; Finland tops repeatedly.', 'med', t),
+  B('Human Capital Index publisher:', ['World Bank', 'UNDP', 'WEF', 'ILO', 'WHO'], 0, 'World Bank — child survival/school/health composite.', 'med', t),
+  B('Global Food Policy Report publisher:', ['IFPRI', 'FAO', 'WFP', 'WHO', 'World Bank'], 0, 'International Food Policy Research Institute.', 'hard', t),
+  B('Global Terrorism Index publisher:', ['Institute for Economics & Peace', 'UN', 'SIPRI', 'Interpol', 'WEF'], 0, 'IEP — same publisher as Global Peace Index.', 'hard', t),
+  B('World Press Freedom Index publisher:', ['Reporters Without Borders (RSF)', 'UNESCO', 'UN', 'Amnesty', 'CPJ'], 0, 'RSF — Paris-based.', 'med', t),
+  B('Global Liveability Index publisher:', ['EIU', 'Mercer', 'UN-Habitat', 'WEF', 'Numbeo'], 0, 'Economist Intelligence Unit — Vienna/Copenhagen usual toppers.', 'med', t),
+  B('Henley Passport Index tracks:', ['visa-free access by passport', 'airport quality', 'visa fees', 'border queues', 'airline rankings'], 0, 'Passport power — Singapore/Japan habitual toppers.', 'easy', t),
+  B('Global Innovation Index latest India rank is roughly:', ['~39-40', '~100', '~10', '~70', '~20'], 0, 'India ~39-40th — mid-rank, steady climb.', 'med', t),
+  B('Logistics Performance Index publisher:', ['World Bank', 'WTO', 'UNCTAD', 'IMF', 'ADB'], 0, 'World Bank — trade logistics benchmarking.', 'hard', t),
+  B('Global Multidimensional Poverty Index publisher:', ['OPHI + UNDP', 'World Bank', 'IMF', 'FAO', 'WHO'], 0, 'Oxford Poverty & Human Development Initiative with UNDP.', 'hard', t),
+  B('Global Energy Transition Index publisher:', ['WEF', 'IEA', 'IRENA', 'UN', 'World Bank'], 0, 'WEF — energy transition benchmarking.', 'hard', t),
+  B('Asian Development Bank Outlook comes from:', ['ADB', 'IMF', 'World Bank', 'AIIB', 'UN'], 0, 'ADB — regional growth outlook.', 'easy', t),
+  B('India\'s IIP (factory output) released by:', ['NSO (MoSPI)', 'RBI', 'Commerce Ministry', 'NITI', 'DGFT'], 0, 'NSO — monthly IIP release.', 'med', t),
+  B('Global Economic Prospects report publisher:', ['World Bank', 'IMF', 'OECD', 'ADB', 'UNCTAD'], 0, 'World Bank\'s growth outlook — WEO belongs to IMF.', 'med', t),
+  B('World Investment Report publisher:', ['UNCTAD', 'World Bank', 'IMF', 'WTO', 'WEF'], 0, 'UNCTAD — FDI flows report.', 'med', t),
+  B('Trade and Development Report publisher:', ['UNCTAD', 'WTO', 'World Bank', 'IMF', 'OECD'], 0, 'UNCTAD — distinct from the World Investment Report.', 'hard', t),
+  B('Global Report on Food Crises publisher:', ['Global Network Against Food Crises (FSIN/WFP)', 'FAO alone', 'WHO', 'UNICEF', 'World Bank'], 0, 'Joint UN-partner publication.', 'hard', t),
+  B('State of Food Security and Nutrition (SOFI) publisher:', ['FAO-led UN agencies', 'WFP only', 'WHO only', 'World Bank', 'IMF'], 0, 'FAO+IFAD+UNICEF+WFP+WHO joint flagship.', 'med', t),
+  B('Global Financial Development Report publisher:', ['World Bank', 'IMF', 'BIS', 'OECD', 'RBI'], 0, 'World Bank — financial-system depth/access.', 'hard', t),
+  B('BIS Annual Economic Report publisher:', ['Bank for International Settlements', 'IMF', 'World Bank', 'OECD', 'WEF'], 0, 'BIS Basel — central banks\' bank.', 'med', t),
+  B('Global Monitoring Report (ended 2016) was by:', ['World Bank + IMF', 'UN', 'OECD', 'WTO', 'ADB'], 0, 'Joint WB-IMF publication on development goals.', 'hard', t),
+  B('UNCTAD\'s headquarters:', ['Geneva', 'New York', 'Paris', 'Vienna', 'Rome'], 0, 'Geneva — trade & development arm of UN.', 'med', t),
+  B('IMF headquarters:', ['Washington DC', 'New York', 'Geneva', 'London', 'Basel'], 0, 'Washington DC — IMF & World Bank both.', 'easy', t),
+  B('BIS headquarters:', ['Basel', 'Geneva', 'Zurich', 'Frankfurt', 'London'], 0, 'Basel, Switzerland.', 'med', t),
+  B('World Bank headquarters:', ['Washington DC', 'New York', 'Geneva', 'Paris', 'London'], 0, 'Washington DC.', 'easy', t),
+  B('WTO headquarters:', ['Geneva', 'New York', 'Paris', 'London', 'Brussels'], 0, 'Geneva.', 'easy', t),
+  B('FATF headquarters:', ['Paris (OECD)', 'Basel', 'Geneva', 'Vienna', 'London'], 0, 'Paris — hosted at OECD.', 'med', t),
+  B('ADB headquarters:', ['Manila', 'Tokyo', 'Beijing', 'Singapore', 'Bangkok'], 0, 'Manila, Philippines.', 'med', t),
+  B('AIIB headquarters:', ['Beijing', 'Shanghai', 'Singapore', 'Tokyo', 'Seoul'], 0, 'Beijing — China-led infra bank.', 'med', t),
+  B('NDB (New Development Bank) headquarters:', ['Shanghai', 'Beijing', 'Moscow', 'Delhi', 'Johannesburg'], 0, 'Shanghai — BRICS bank.', 'med', t),
 ]
 
 const bankAppt = (t) => [
@@ -1457,6 +2139,39 @@ const bankAppt = (t) => [
   B('NITI Aayog full form:', ['National Institution for Transforming India', 'National Institute of Trade & Industry', 'National IT Association', 'None', 'New India Think-tank Agency'], 0, 'Replaced Planning Commission in 2015.', 'easy', t),
   B('Finance Commission is constituted every:', ['3 years', '5 years', '7 years', '10 years', 'annually'], 1, 'Article 280 — every 5 years for tax devolution.', 'med', t),
   B('The CAG of India is appointed by:', ['PM', 'President', 'Parliament', 'Finance Minister', 'CJI'], 1, 'Comptroller & Auditor General — presidential appointment, Art 148.', 'med', t),
+  B('SEBI Chairman Tuhin Kanta Pandey previously served as:', ['Finance Secretary', 'RBI Deputy Governor', 'NITI CEO', 'CBIC chief', 'DIPAM secretary'], 0, 'Finance Secretary → SEBI Chairman (Mar 2025).', 'med', t),
+  B('RBI Governor Sanjay Malhotra\'s prior role:', ['Revenue Secretary', 'DFS Secretary', 'NABARD chair', 'SEBI member', 'DEA secretary'], 0, 'Revenue Secretary → RBI Governor (Dec 2024).', 'med', t),
+  B('IRDAI is headquartered at:', ['Hyderabad', 'Mumbai', 'New Delhi', 'Chennai', 'Kolkata'], 0, 'Hyderabad — insurance regulator HQ.', 'med', t),
+  B('PFRDA headquarters:', ['New Delhi', 'Mumbai', 'Hyderabad', 'Chennai', 'Pune'], 0, 'New Delhi.', 'med', t),
+  B('NABARD headquarters:', ['Mumbai', 'New Delhi', 'Hyderabad', 'Chennai', 'Lucknow'], 0, 'Mumbai.', 'easy', t),
+  B('SIDBI headquarters:', ['Lucknow', 'Mumbai', 'New Delhi', 'Chennai', 'Kolkata'], 0, 'Lucknow — MSME financier.', 'hard', t),
+  B('NSE headquarters + MD/CEO pairing:', ['Mumbai + Ashish Chauhan', 'Mumbai + Vikram Limaye', 'Delhi + Chauhan', 'Mumbai + Pandey', 'Delhi + Limaye'], 0, 'Mumbai HQ; Ashish Kumar Chauhan heads NSE.', 'med', t),
+  B('NSDL was established in:', ['1996', '1999', '1992', '2000', '1988'], 0, '1996 — first Indian depository.', 'med', t),
+  B('CDSL was established in:', ['1999', '1996', '2002', '1992', '2005'], 0, '1999 — promoted by BSE.', 'med', t),
+  B('The 16th Finance Commission chairperson:', ['Arvind Panagariya', 'N.K. Singh', 'Y.V. Reddy', 'Raghuram Rajan', 'Vijay Kelkar'], 0, 'Arvind Panagariya chairs the 16th FC (award 2026-31).', 'med', t),
+  B('NITI Aayog Vice-Chairperson (recent):', ['Suman Bery', 'Arvind Panagariya', 'Rajiv Kumar', 'V.K. Saraswat', 'Ramesh Chand'], 0, 'Suman Bery — current VC.', 'med', t),
+  B('RBI was nationalised in:', ['1949', '1935', '1950', '1947', '1955'], 0, 'RBI est. 1935, nationalised 1949.', 'med', t),
+  B('SEBI\'s whole-time members are appointed by:', ['GoI', 'RBI', 'SEBI board', 'Finance Commission', 'SAT'], 0, 'Government appoints chairman + whole-time members.', 'med', t),
+  B('Chief Economic Adviser (recent):', ['V. Anantha Nageswaran', 'Arvind Subramanian', 'Kaushik Basu', 'Raghuram Rajan', 'Krishnamurthy Subramanian'], 0, 'Anantha Nageswaran — CEA since 2022.', 'med', t),
+  B('SAT (Securities Appellate Tribunal) is located at:', ['Mumbai', 'Delhi', 'Chennai', 'Kolkata', 'Bengaluru'], 0, 'Mumbai — appeals against SEBI orders.', 'med', t),
+  B('NSE was founded in:', ['1992', '1988', '1995', '2000', '1985'], 0, '1992 — demutualised exchange era.', 'easy', t),
+  B('BSE was founded in:', ['1875', '1900', '1956', '1992', '1947'], 0, '1875 — Asia\'s oldest stock exchange.', 'easy', t),
+  B('MCX (commodity exchange) HQ:', ['Mumbai', 'Delhi', 'Chennai', 'Kolkata', 'Ahmedabad'], 0, 'Mumbai.', 'med', t),
+  B('NCDEX HQ:', ['Mumbai', 'Delhi', 'Indore', 'Jaipur', 'Surat'], 0, 'Mumbai — agri-commodity exchange.', 'hard', t),
+  B('NSDL MD/CEO as of recent:', ['Padmaja Chunduru', 'Nehal Vora', 'Ashish Chauhan', 'Sundararaman Ramamurthy', 'Madhabi Buch'], 0, 'Padmaja Chunduru — NSDL chief.', 'hard', t),
+  B('CDSL MD is:', ['Nehal Vora', 'Padmaja Chunduru', 'Ashish Chauhan', 'S Ramamurthy', 'Ajay Tyagi'], 0, 'Nehal Vora — CDSL MD & CEO.', 'hard', t),
+  B('NPCI was incorporated in:', ['2008', '2010', '2005', '2015', '2012'], 0, '2008 — payments umbrella under RBI guidance.', 'med', t),
+  B('CCI (Competition Commission) is chaired recently by:', ['Ravneet Kaur', 'Ashok Kumar Gupta', 'Devendra Sikri', 'Dhanendra Kumar', 'none'], 0, 'Ravneet Kaur — first woman CCI chair (2023).', 'hard', t),
+  B('IBBI\'s role:', ['regulate insolvency professionals/agencies', 'settle trades', 'audit banks', 'rate bonds', 'license NBFCs'], 0, 'Insolvency & Bankruptcy Board of India.', 'med', t),
+  B('SEBI chairman before Tuhin Kanta Pandey:', ['Madhabi Puri Buch', 'Ajay Tyagi', 'U.K. Sinha', 'C.B. Bhave', 'G.N. Bajpai'], 0, 'Madhabi Puri Buch served 2022-2025.', 'easy', t),
+  B('RBI Governor before Sanjay Malhotra:', ['Shaktikanta Das', 'Urjit Patel', 'Raghuram Rajan', 'D. Subbarao', 'Y.V. Reddy'], 0, 'Das served 2018-2024.', 'easy', t),
+  B('IRDAI chairman (recent):', ['Debasish Panda', 'Subhash Khuntia', 'T.S. Vijayan', 'J. Hari Narayan', 'N. Rangachary'], 0, 'Debasish Panda (2022-2025).', 'med', t),
+  B('AMFI\'s role:', ['mutual fund industry association — not a regulator', 'regulator', 'depository', 'exchange', 'rating agency'], 0, 'Association of Mutual Funds in India — industry body.', 'easy', t),
+  B('IBA stands for:', ['Indian Banks\' Association', 'Indian Banking Authority', 'International Banks Association', 'Indian Board of Auditors', 'None'], 0, 'Industry association of banks.', 'easy', t),
+  B('SEBI full form:', ['Securities and Exchange Board of India', 'Stock Exchange Board of India', 'Securities Exchange Bureau of India', 'State Exchange Board', 'None'], 0, 'The full name — exam\'s favourite warm-up.', 'easy', t),
+  B('UIDAI administers:', ['Aadhaar', 'PAN', 'GSTIN', 'passports', 'voter IDs'], 0, 'Unique Identification Authority — Aadhaar.', 'easy', t),
+  B('CBDT administers:', ['direct taxes', 'indirect taxes', 'customs', 'excise', 'GST'], 0, 'Central Board of Direct Taxes — income tax.', 'med', t),
+  B('CBIC administers:', ['indirect taxes + customs', 'direct taxes', 'income tax', 'securities', 'banking'], 0, 'Central Board of Indirect Taxes & Customs — GST/customs.', 'med', t),
 ]
 
 const bankCurrent = (t) => [
@@ -1474,6 +2189,42 @@ const bankCurrent = (t) => [
   B('SEBI\'s same-day (T+0) settlement is:', ['optional beta for select securities', 'mandatory for all', 'cancelled', 'for bonds only', 'for F&O only'], 0, 'Voluntary beta pilot — brokers can opt in for a small security set.', 'med', t),
   B('SEBI\'s approach to AI in surveillance:', ['ignored', 'expanded algo-monitoring + analytics', 'banned', 'outsourced', 'manual only'], 1, 'SEBI expanded algorithmic surveillance of trading patterns.', 'med', t),
   B('SEBI\'s rule on related-party transactions:', ['tightened disclosure + approval norms', 'deregulated', 'banned', 'optional', 'unchanged'], 0, 'RPT norms tightened — audit committee + shareholder approvals.', 'med', t),
+  B('The WPS Index 2025-26 (Georgetown + PRIO) ranked which country first for women\'s inclusion/justice/security?', ['Finland', 'Netherlands', 'Denmark', 'Sweden', 'Norway'], 2, 'Denmark topped the 2025-26 Women, Peace and Security Index.', 'med', t),
+  B('FIFA awarded hosting of the 2027 Women\'s World Cup to:', ['Japan', 'Germany', 'South Africa', 'Brazil', 'Australia'], 3, 'Brazil — 10th edition host (2027).', 'med', t),
+  B('The 2025 Asian Archery Championships where India won 6 gold were held in:', ['Dhaka', 'Bangkok', 'Seoul', 'Tokyo', 'Jakarta'], 0, 'Dhaka hosted; India took 6 gold.', 'med', t),
+  B('India\'s first sovereign multilingual + multimodal LLM project highlighted at IIT Bombay:', ['DigiGen', 'IndiaAI', 'BharatGen', 'BhashaAI', 'SanskritAI'], 2, 'BharatGen — sovereign multilingual/multimodal LLM.', 'med', t),
+  B('India\'s first indigenous CRISPR-based therapy targets which disease?', ['Thalassemia', 'Sickle Cell Disease', 'Cystic fibrosis', 'Haemophilia', 'Leukaemia'], 1, 'BIRSA 101 — CRISPR therapy for Sickle Cell Disease.', 'med', t),
+  B('The MEMU trial ran on the world\'s highest railway bridge (~35m taller than Eiffel) over which river?', ['Brahmaputra', 'Chenab', 'Godavari', 'Yamuna', 'Ganga'], 1, 'Chenab bridge — world\'s highest railway bridge.', 'easy', t),
+  B('Wärtsilä introduced the world\'s first large-scale engine power plant that is:', ['100% solar', '100% hydrogen-ready', '100% nuclear', '100% tidal', '100% biofuel'], 1, 'Wärtsilä — 100% hydrogen-ready power plant milestone.', 'hard', t),
+  B('Kroll\'s "Brands, Business, Bollywood" report named most valuable celebrity:', ['Deepika Padukone', 'Shah Rukh Khan', 'Alia Bhatt', 'Virat Kohli', 'Akshay Kumar'], 3, 'Virat Kohli — top celebrity brand value.', 'easy', t),
+  B('First Indian to receive South Africa\'s Nelson Mandela Lifetime Achievement Award (film):', ['Rajkumar Hirani', 'Vinod Ganatra', 'Mira Nair', 'Anurag Kashyap', 'Satyajit Ray'], 1, 'Vinod Ganatra — 2024.', 'med', t),
+  B('PARI (Public Art of India) nodal implementation agency:', ['Lalit Kala Akademi', 'ICCR', 'National School of Drama', 'Sangeet Natak Akademi', 'ASI'], 1, 'Indian Council for Cultural Relations.', 'med', t),
+  B('Pandit Ronu Majumdar is a distinguished exponent of:', ['tabla', 'sarod', 'flute', 'veena', 'sitar'], 2, 'Flute — classical flautist.', 'easy', t),
+  B('The committee on conflict-of-interest norms for SEBI officials reported under the chairmanship of:', ['Ashok Lavasa', 'Pratyush Sinha', 'T.V. Somanathan', 'Sanjay Malhotra', 'Ajay Tyagi'], 1, 'Pratyush Sinha committee — SEBI conflict-of-interest norms.', 'hard', t),
+  B('The Sixteenth Finance Commission\'s recommendations apply up to FY:', ['2032-33', '2028-29', '2030-31', '2029-30', '2031-32'], 2, 'Award period 2026-27 through 2030-31.', 'hard', t),
+  B('Current Chairman of the Bombay Stock Exchange (BSE):', ['Prof. Subhasis Chaudhuri', 'Nirmala Sitharaman', 'Urjit Patel', 'Ashish Kumar Chauhan', 'Shaktikanta Das'], 0, 'Prof. Subhasis Chaudhuri — BSE Chairman.', 'med', t),
+  B('Newly appointed CBIC Chairman (ACC approval):', ['Vivek Chaturvedi', 'Sanjay Kumar Agarwal', 'Rajiv Mehta', 'Anil Kumar Jain', 'Ramesh Chandra'], 1, 'Sanjay Kumar Agarwal — CBIC Chairman.', 'med', t),
+  B('SEBI\'s March 2024 circular on MF offer documents introduced SID — S stands for:', ['Security', 'Standard', 'Scheme', 'Savings', 'Systematic'], 2, 'SID = Scheme Information Document.', 'med', t),
+  B('Under AIM, an Established Incubation Centre must operate at least ___ years for scale-up support:', ['5', '2', '3', '1', '4'], 2, 'EIC requires 3 years operational history.', 'hard', t),
+  B('Max investment limit under NSC (VIII Issue):', ['₹25 lakh', '₹10 lakh', 'no upper limit', '₹15 lakh', '₹1 lakh'], 2, 'NSC VIII has no upper investment limit.', 'hard', t),
+  B('ITR-4 (Sugam) filing annual income ceiling:', ['₹2 crore', '₹75 lakh', '₹50 lakh', '₹25 lakh', '₹1 crore'], 2, 'ITR-4 ceiling — ₹50 lakh.', 'med', t),
+  B('DigiLocker lets citizens access which document categories?', ['employment/service docs', 'educational certificates', 'transport documents', 'identity documents', 'all of these'], 4, 'All categories — official digital document store.', 'easy', t),
+  B('CDSL was originally promoted by:', ['NSE', 'SEBI', 'RBI', 'BSE Ltd', 'IRDAI'], 3, 'BSE promoted CDSL before the bank consortium.', 'hard', t),
+  B('Which about the National Savings Recurring Deposit is INCORRECT?', ['opened individually/jointly up to 4 adults', 'matures after 5 years', 'min monthly deposit ₹100', 'premature closure after 3 years', 'default fee ₹1 per ₹100'], 0, 'Joint holding is capped at 3 adults, not 4 — the planted incorrect statement.', 'hard', t),
+  B('SEBI\'s 2024 measure on index derivatives:', ['tighter expiry/lot norms', 'a full ban', 'free margin', 'longer hours', 'nothing'], 0, 'Weekly-expiry limits + higher minimum contract values.', 'med', t),
+  B('The "finfluencer" rules restrict SEBI-regulated entities from:', ['associating with unregistered advisers', 'using social media', 'advertising', 'hiring staff', 'running apps'], 0, 'No dealings with unregistered persons for advice.', 'med', t),
+  B('SEBI\'s 2024 algo-trading rules for retail:', ['brokers must register retail algos', 'algos banned for retail', 'no change', 'only HFT regulated', 'free API access'], 0, 'Retail algos via broker registration + API standards.', 'med', t),
+  B('The CSCRF framework requires regulated entities to:', ['report cyber incidents + run audits', 'buy insurance', 'hire hackers', 'close IT depts', 'outsource security'], 0, 'Cyber resilience — audits, reporting, resilience goals.', 'med', t),
+  B('SEBI\'s 2025 mutual fund reform direction included:', ['TER rationalisation + simpler docs', 'TER hikes', 'scheme mergers forced', 'exit-load bans', 'no change'], 0, 'Cost transparency + simplified offer docs push.', 'med', t),
+  B('The new SEBI chairman Tuhin Kanta Pandey took charge in:', ['March 2025', 'Jan 2024', 'Dec 2025', 'June 2023', 'Nov 2024'], 0, 'March 2025 — succeeded Madhabi Puri Buch.', 'easy', t),
+  B('SEBI\'s 2024 proposal on expanding T+0 covered:', ['top 500 stocks phased in', 'all bonds', 'all IPOs', 'commodities', 'F&O only'], 0, 'Phased optional same-day settlement expansion.', 'med', t),
+  B('SEBI\'s conflict-of-interest norms review committee chair (2025):', ['Pratyush Sinha', 'T.V. Somanathan', 'Ajay Tyagi', 'Ashok Lavasa', 'U.K. Sinha'], 0, 'Pratyush Sinha — ex-CVC.', 'hard', t),
+  B('SEBI\'s recent move on SME IPO migration:', ['stricter profitability thresholds', 'free migration', 'banned SMEs', 'no change', 'lower fees'], 0, 'Profitability + auditor norms tightened after misuse.', 'med', t),
+  B('SEBI\'s graded-surveillance stages target stocks with:', ['abnormal price/volume behaviour', 'large caps', 'only IPOs', 'MFs', 'bonds'], 0, 'GSM — manipulation-prone securities flagged.', 'med', t),
+  B('SEBI\'s "Liberalised Remittance" concerns relate to:', ['no — LRS is RBI\'s outward remittance scheme', 'IPO sizing', 'FPI registration', 'bond trading', 'audit norms'], 0, 'LRS = RBI territory — the regulator-swap trap.', 'hard', t),
+  B('SEBI\'s market-data/analytics policy push is toward:', ['disclosure + surveillance analytics', 'less data', 'paid-only data', 'no surveillance', 'manual audits'], 0, 'Data-driven surveillance expansion.', 'med', t),
+  B('The accredited-investor framework relaxes norms for:', ['HNIs/sophisticated investors', 'all retail', 'foreigners', 'PSUs', 'banks'], 0, 'Lighter-touch compliance for sophisticated money.', 'med', t),
+  B('SEBI\'s position paper on expanding the retail algo ecosystem requires brokers to:', ['register + tag retail algos', 'ban retail algos', 'approve every order', 'charge extra', 'nothing'], 0, 'API-based retail algo registration — traced orders.', 'med', t),
 ]
 
 // ── The 43 concepts ────────────────────────────────────────────────────────
@@ -1619,13 +2370,14 @@ ER→tables: weak entity borrows owner\'s key · M:N→own relation · 1:N→FK 
       {
         id: 'r-seat', name: 'Seating puzzles', target: 100,
         lesson: `8 empty boxes → place ABSOLUTE anchors first ("C at extreme") → chain relative clues onto anchors → leftover clue lands last. Never start with a floating clue.`,
-        gen: (n) => genSeating(n, 'Reasoning: seating'),
+        lesson: `SEBI format: Directions block — 5–8 interleaved clues → 4–5 sub-questions. Method: draw the row → place absolute/extreme anchors first → chain relative clues ("third to the right", "N between") onto anchors → leftover clue confirms the row → THEN answer all subs from one diagram. Never start with a floating clue.`,
+        gen: (n) => genSeatRow(n, 'Reasoning: seating'),
         bank: [],
       },
       {
         id: 'r-attr', name: 'Attribute tables / month grids', target: 100,
         lesson: `Grid: rows=people, cols=attributes → fill definite cells → mark MAYBE cells differently → eliminate when forced. *Writing maybes as facts = the classic fail.*`,
-        gen: (n) => genAttr(n, 'Reasoning: attribute tables'),
+        gen: (n) => genMonths(n, 'Reasoning: month/attribute grids'),
         bank: bankAttr('Reasoning: attribute tables'),
       },
       {
