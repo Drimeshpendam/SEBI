@@ -8,7 +8,7 @@ const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b))
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)]
 const shuffle = (arr) => arr.map((x) => [Math.random(), x]).sort((a, b) => a[0] - b[0]).map((x) => x[1])
 
-const FILL = ['None of these', 'All of these', 'Cannot be determined', 'Insufficient data', 'Either of these']
+const FILL = ['None of these', 'Cannot be determined', 'Insufficient data']
 const mkq = (q, correct, distractors, x, d, t) => {
   const ds = [...new Set(distractors.filter((v) => v !== correct))]
   let i = 0
@@ -84,12 +84,15 @@ const genClosure = (n, t) => {
       // closure of a random single attr
       const x = pick(attrs.split(''))
       const ans = close(x, fds)
-      const wrong1 = attrs.split('').sort().join('')
-      const wrong2 = ans.length > 1 ? ans.slice(0, -1) : attrs.split('').sort().join('')
-      const wrong3 = ans + pick(attrs.split('').filter((c) => !ans.includes(c)) || ['X'])
-      const wrong4 = x
+      const all = attrs.split('').sort().join('')
+      const extra = attrs.split('').filter((c) => !ans.includes(c))
+      const others = attrs.split('').filter((c) => c !== x)
+      const dset = []
+      for (const c of [all, ans.slice(0, -1), ans + (extra[0] || ''), others.length ? close(pick(others), fds) : '', x, ans.slice(0, -1) + (extra[extra.length - 1] || ''), ans.slice(1) + (extra[0] || '')]) {
+        if (c && c !== ans && !dset.includes(fmtSet(c))) dset.push(fmtSet(c))
+      }
       const q = `FDs: ${fds.map(([l, r]) => `${l}→${r}`).join(', ')} on R(${attrs.split('').join(',')}). What is ${x}⁺?`
-      out.set(q, mkq(q, fmtSet(ans), [fmtSet(wrong1), fmtSet(wrong2), fmtSet(wrong3), fmtSet(x === ans ? attrs.split('').sort().join('') : x)], `Run the engine: hold {${x}} → fire every arrow whose full left side you hold → rescan till nothing new. Reaches ${fmtSet(ans)}.`, 'med', t))
+      out.set(q, mkq(q, fmtSet(ans), dset, `Run the engine: hold {${x}} → fire every arrow whose full left side you hold → rescan till nothing new. Reaches ${fmtSet(ans)}.`, 'med', t))
     } else if (mode === 1) {
       // candidate key
       const keys = allKeys(attrs, fds)
